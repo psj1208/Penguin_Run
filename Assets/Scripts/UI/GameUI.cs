@@ -26,17 +26,28 @@ public class GameUI : MonoBehaviour
         playerHPSlider.value -= 0.01f * Time.deltaTime;
     }
 
+    /// <summary>
+    /// 게임오브젝트 활성화/비활성화
+    /// </summary>
     public void ActiveUI(UIState uiState)
     {
         gameObject.SetActive(state == uiState);
     }
 
+    /// <summary>
+    /// 현재 점수를 변경 수치만큼 더함
+    /// </summary>
+    /// <param name="figure">변경 수치</param>
     public void UpdateCurrentScore(int figure)
     {
-        ++curScore;
+        curScore += figure;
         curScoreTxt.text = curScore.ToString();
     }
 
+    /// <summary>
+    /// 체력게이지를 변경 수치만큼 더함
+    /// </summary>
+    /// <param name="figure">변경 수치</param>
     public void ChangePlayerHP(int figure)
     {
         playerHPSlider.value += figure;

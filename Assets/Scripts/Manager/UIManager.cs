@@ -30,6 +30,10 @@ public class UIManager : MonoBehaviour
         ChangeUIState(curUIState);
     }
 
+    /// <summary>
+    /// 매개변수 uiState UI로 변경
+    /// </summary>
+    /// <param name="uiState">변경하려고 하는 UI</param>
     public void ChangeUIState(UIState uiState)
     {
         curUIState = uiState;

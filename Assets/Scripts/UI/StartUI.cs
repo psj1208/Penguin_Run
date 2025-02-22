@@ -24,6 +24,9 @@ public class StartUI : MonoBehaviour
         uiManager = UIManager.Instance;
     }
 
+    /// <summary>
+    /// 게임오브젝트 활성화/비활성화
+    /// </summary>
     public void ActiveUI(UIState uiState)
     {
         gameObject.SetActive(state == uiState);
