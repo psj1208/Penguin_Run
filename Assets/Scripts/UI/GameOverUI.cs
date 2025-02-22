@@ -1,20 +1,56 @@
+using DataDeclaration;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
-    private Button RestartBtn;
-    private Button ExitBtn;
+    private UIManager uiManager;
+
+    private const UIState state = UIState.GameOver;
+
+    private int bestScore;
+    private int resultScore;
+
+    [SerializeField] private TextMeshProUGUI bestScoreTxt;
+    [SerializeField] private TextMeshProUGUI resultScoreTxt;
+    [SerializeField] private Button RestartBtn;
+    [SerializeField] private Button ExitBtn;
+
+    private void Awake()
+    {
+        RestartBtn.onClick.AddListener(OnclickRestartButton);
+        ExitBtn.onClick.AddListener(OnclickExitButton);
+    }
+
+    private void OnEnable()
+    {
+        bestScore = PlayerPrefs.GetInt("BestScore", resultScore);
+        bestScoreTxt.text = $"Best Score: {bestScore.ToString()}";
+        resultScoreTxt.text = $"Result Score: {resultScore.ToString()}";
+    }
+
+    private void Start()
+    {
+        uiManager = UIManager.Instance;
+    }
+
+    public void ActiveUI(UIState uiState)
+    {
+        gameObject.SetActive(state == uiState);
+    }
 
     private void OnclickRestartButton()
     {
-
+        Debug.Log("재시작 버튼 누름");
     }
 
     private void OnclickExitButton()
     {
-
+        Debug.Log("게임 종료");
+        Application.Quit();
     }
 }
