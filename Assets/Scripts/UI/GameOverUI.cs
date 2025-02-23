@@ -49,6 +49,7 @@ public class GameOverUI : MonoBehaviour
     private void OnclickRestartButton()
     {
         Debug.Log("재시작 버튼 누름");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnclickExitButton()

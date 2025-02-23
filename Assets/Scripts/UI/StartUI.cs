@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class StartUI : MonoBehaviour
 {
+    private GameManager gameManager;
     private UIManager uiManager;
 
     private const UIState state = UIState.Start;
@@ -21,6 +22,7 @@ public class StartUI : MonoBehaviour
 
     private void Start()
     {
+        //gameManager = GameManager.Instance;
         uiManager = UIManager.Instance;
     }
 
@@ -35,6 +37,7 @@ public class StartUI : MonoBehaviour
     private void OnClickStartButton()
     {
         uiManager.ChangeUIState(UIState.Game);
+        gameManager.StartGame();
     }
 
     private void OnClickExitButton()

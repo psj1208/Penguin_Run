@@ -7,7 +7,10 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
+    private GameManager gameManager;
+
     private int curScore;
+    private int playerHP;
 
     private const UIState state = UIState.Game;
 
@@ -19,6 +22,14 @@ public class GameUI : MonoBehaviour
         curScore = 0;
         curScoreTxt.text = curScore.ToString();
         playerHPSlider.value = 1f;
+    }
+
+    private void Start()
+    {
+        //gameManager = GameManager.Instance;
+        //playerHP = gameManager.Player.HP;
+        //playerHPSlider.maxValue = playerHP;
+        //playerHPSlider.value = playerHP;
     }
 
     private void Update()
