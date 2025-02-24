@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    private GameManager gameManager;
+    private PlayerController player;
 
     private int curScore;
+    public int CurScore => curScore;
     private int playerHP;
 
     private const UIState state = UIState.Game;
@@ -21,15 +22,16 @@ public class GameUI : MonoBehaviour
     {
         curScore = 0;
         curScoreTxt.text = curScore.ToString();
-        playerHPSlider.value = 1f;
     }
 
     private void Start()
     {
-        //gameManager = GameManager.Instance;
-        //playerHP = gameManager.Player.HP;
-        //playerHPSlider.maxValue = playerHP;
-        //playerHPSlider.value = playerHP;
+        player = GameManager.gameManager.Player;
+        playerHPSlider.maxValue = player.MaxHp;
+        playerHPSlider.value = player.Hp;
+
+        player.OnChangeHp += ChangePlayerHP;
+        player.OnAddScore += UpdateCurrentScore;   // 추후 주석 해제
     }
 
     private void Update()
@@ -37,6 +39,12 @@ public class GameUI : MonoBehaviour
         playerHPSlider.value -= 0.01f * Time.deltaTime;
     }
 
+    private void OnDisable()
+    {
+        player.OnChangeHp -= ChangePlayerHP;
+        player.OnAddScore -= UpdateCurrentScore;
+    }
+    
     /// <summary>
     /// 게임오브젝트 활성화/비활성화
     /// </summary>
@@ -49,7 +57,7 @@ public class GameUI : MonoBehaviour
     /// 현재 점수를 변경 수치만큼 더함
     /// </summary>
     /// <param name="figure">변경 수치</param>
-    public void UpdateCurrentScore(int figure)
+    private void UpdateCurrentScore(PlayerController player, int figure)
     {
         curScore += figure;
         curScoreTxt.text = curScore.ToString();
@@ -59,7 +67,7 @@ public class GameUI : MonoBehaviour
     /// 체력게이지를 변경 수치만큼 더함
     /// </summary>
     /// <param name="figure">변경 수치</param>
-    public void ChangePlayerHP(int figure)
+    private void ChangePlayerHP(PlayerController player, int figure)
     {
         playerHPSlider.value += figure;
     }
