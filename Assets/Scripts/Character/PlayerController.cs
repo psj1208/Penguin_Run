@@ -9,13 +9,16 @@ public class PlayerController : MonoBehaviour
     private bool isDead;
     [SerializeField] private bool isJumping;
     [SerializeField] private bool isSliding;
+    [SerializeField] private bool isInvincibility;
 
     [SerializeField] private int hp = 10;
     public int Hp => hp;
     private int maxHp = 40;
     public int MaxHp => maxHp;
-    [SerializeField]private float speed = 8f;
+    [SerializeField] private float speed = 8f;
     public float Speed => speed;
+    [SerializeField] private float deathY = -10f;
+    public float DeathY => deathY;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
     [SerializeField] private int score;
@@ -30,14 +33,14 @@ public class PlayerController : MonoBehaviour
     public event Action<PlayerController, float> OnChangeSpeed;
     public event Action<PlayerController, int> OnAddScore;
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
         animationHandler = GetComponent<AnimationHandler>();
     }
 
-    void Start()
+    private void Start()
     {
         if (rb == null)
         {
@@ -50,7 +53,7 @@ public class PlayerController : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
-    void Update()
+    private void Update()
     {
         if (hp <= 0)
         {
@@ -76,9 +79,14 @@ public class PlayerController : MonoBehaviour
                 isSliding = false;
             }
         }
+
+        if (transform.position.y < deathY)
+        {
+            gameManager.GameOver();
+        }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (isDead == true) return;
 
@@ -136,26 +144,55 @@ public class PlayerController : MonoBehaviour
         }
         else
             Damage(-amount);
-        OnChangeHp?.Invoke(this, hp);
+
+        if (amount >= 0)
+        {
+            OnChangeHp?.Invoke(this, amount);
+        }
+        else
+            OnChangeHp?.Invoke(this, -amount);
     }
 
+    // 지속 시간 추가
     public void ChangeSpeed(float amount)
     {
+        if (isInvincibility == true)
+        {
+            speed = 2f;
+            Debug.Log("2");
+            Invoke("InvincibilityEnd", 0.5f);
+        }
+
         OnChangeSpeed?.Invoke(this, speed);
     }
 
+    // 점수 추가
     public void AddScore(int amount)
     {
-        OnAddScore?.Invoke(this, score);
+        OnAddScore?.Invoke(this, amount);
     }
 
-    private void Damage(float amount)
+    // 부딫힐 경우
+    public void Damage(int amount)
     {
-
+        if (amount < 0)
+        {
+            Debug.Log("1");
+            isInvincibility = true;
+            ChangeSpeed(amount);
+        }
     }
 
     private void Heal(float amount)
     {
 
+    }
+
+    // 무적 해제
+    public void InvincibilityEnd()
+    {
+        isInvincibility = false;
+        Debug.Log("3");
+        speed = 8f;
     }
 }
