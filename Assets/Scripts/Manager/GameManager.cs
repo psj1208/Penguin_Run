@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     //프로퍼티
     public static GameManager gameManager { get { return gameManager; } }
+    public static PlayerController playerPro { get { return playerPro; } }
 
     private void Awake()
     {
