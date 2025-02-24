@@ -8,20 +8,13 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
 
-    private PlayerController player;
+    [SerializeField] private PlayerController player;
 
     private UIManager uiManager;
 
-    //test용 필요없을시 삭제 예정
-    float hpTime = 180f;
-    int levelSpeed = 1;
-    int bestScore;
-    int resultScore;
-    int CurrentScore;
-
     //프로퍼티
-    public static GameManager gameManager { get { return gameManager; } }
-    public PlayerController Player { get { return Player; } }
+    public static GameManager gameManager => instance;
+    public PlayerController Player => player;
 
     private void Awake()
     {
@@ -34,17 +27,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
-        //컴포넌트 정보 변수에 지정
-        player = gameObject.GetComponent<PlayerController>();
-        uiManager = gameObject.GetComponent<UIManager>();
     }
+
     /// <summary>
     /// 게임시작 시 메뉴 호출
     /// </summary>
     void Start()
     {
+        uiManager = UIManager.Instance;
+
         Time.timeScale = 0f;
 
         StartGame();

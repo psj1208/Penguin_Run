@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D col;
     private Rigidbody2D rb;
 
-    public event Action<PlayerController, int>? OnChangeHp;
-    public event Action<PlayerController, float>? OnChangeSpeed;
-    public event Action<PlayerController, int>? OnAddScore;
+    public event Action<PlayerController, int> OnChangeHp;
+    public event Action<PlayerController, float> OnChangeSpeed;
+    public event Action<PlayerController, int> OnAddScore;
 
     void Awake()
     {
