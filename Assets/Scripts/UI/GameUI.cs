@@ -26,23 +26,26 @@ public class GameUI : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager.gameManager.Player;
+        player = GameManager.Instance.Player;
         playerHPSlider.maxValue = player.MaxHp;
         playerHPSlider.value = player.Hp;
 
         player.OnChangeHp += ChangePlayerHP;
-        player.OnAddScore += UpdateCurrentScore;   // 추후 주석 해제
+        player.OnAddScore += UpdateCurrentScore;
     }
 
     private void Update()
     {
-        playerHPSlider.value -= 0.01f * Time.deltaTime;
+        playerHPSlider.value -= Time.deltaTime;
     }
 
     private void OnDisable()
     {
-        player.OnChangeHp -= ChangePlayerHP;
-        player.OnAddScore -= UpdateCurrentScore;
+        if (player != null)
+        {
+            player.OnChangeHp -= ChangePlayerHP;
+            player.OnAddScore -= UpdateCurrentScore;
+        }
     }
     
     /// <summary>

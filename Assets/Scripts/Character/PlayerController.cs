@@ -8,11 +8,14 @@ public class PlayerController : MonoBehaviour
 {
     private bool isDead;
     [SerializeField] private bool isJumping;
-    private bool isSliding;
+    [SerializeField] private bool isSliding;
 
-    public int Hp { get; } = 10;
-    public int MaxHp { get; } = 40;
-    public float Speed { get; } = 5;
+    [SerializeField] private int hp = 10;
+    public int Hp => hp;
+    private int maxHp = 40;
+    public int MaxHp => maxHp;
+    [SerializeField]private float speed = 8f;
+    public float Speed => speed;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
     [SerializeField] private int score;
@@ -43,16 +46,34 @@ public class PlayerController : MonoBehaviour
 
         isDead = false;
         isJumping = false;
+
+        gameManager = GameManager.Instance;
     }
 
     void Update()
     {
+        if (hp <= 0)
+        {
+            isDead = true;
+            gameManager.GameOver();
+            return;
+        }
+
         if (isDead == false)
         {
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 isJumping = true;
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                isSliding = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isSliding = false;
             }
         }
     }
@@ -61,18 +82,34 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead == true) return;
 
+        // 전진
         Vector3 velocity = rb.velocity;
-        velocity.x = Speed;
+        velocity.x = speed;
         rb.velocity = velocity;
 
+        // 점프
         if (isJumping == true)
         {
-            Jump();
+            if (jumpCount >= 0)
+            {
+                rb.velocity = Vector3.up * jumpForce;
+                jumpCount--;
+            }
         }
 
-        Debug.DrawRay(rb.position, Vector3.down, Color.green);
-        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector3.down, 2.5f, LayerMask.GetMask("Ground"));
+        // 슬라이딩
+        if (isSliding == true)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        else if (isSliding == false)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
 
+        // 바닥 감지
+        Debug.DrawRay(rb.position, Vector3.down * 2.5f, Color.green);
+        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector3.down, 2.5f, LayerMask.GetMask("Ground"));
         if (rayHit.collider != null)
         {
             isJumping = false;
@@ -91,15 +128,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Jump()
-    {
-        if (jumpCount >= 0)
-        {
-            rb.velocity = Vector3.up * jumpForce;
-            jumpCount--;
-        }
-    }
-
     public void ChangeHP(int amount)
     {
         if (amount >= 0)
@@ -108,26 +136,17 @@ public class PlayerController : MonoBehaviour
         }
         else
             Damage(-amount);
-        OnChangeHp?.Invoke(this, Hp);
+        OnChangeHp?.Invoke(this, hp);
     }
 
     public void ChangeSpeed(float amount)
     {
-        OnChangeSpeed?.Invoke(this, Speed);
+        OnChangeSpeed?.Invoke(this, speed);
     }
 
     public void AddScore(int amount)
     {
         OnAddScore?.Invoke(this, score);
-    }
-
-    public void Die()
-    {
-        if (Hp <= 0)
-        {
-            isDead = true;
-            gameManager.GameOver();
-        }
     }
 
     private void Damage(float amount)

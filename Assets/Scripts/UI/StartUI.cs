@@ -22,7 +22,7 @@ public class StartUI : MonoBehaviour
 
     private void Start()
     {
-        //gameManager = GameManager.Instance;
+        gameManager = GameManager.Instance;
         uiManager = UIManager.Instance;
     }
 
