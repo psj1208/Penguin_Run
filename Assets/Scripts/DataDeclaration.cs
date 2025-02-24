@@ -7,7 +7,7 @@ namespace DataDeclaration
     #region Enum
     public enum ItemType
     {
-        Heel,
+        Heal,
         Speed,
         Score
     }
