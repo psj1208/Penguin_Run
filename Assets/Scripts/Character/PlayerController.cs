@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isJumping;
     private bool isSliding;
 
-    [SerializeField] private int hp = 10;
-    [SerializeField] private int maxHp = 40;
-    [SerializeField] private float speed;
+    public int Hp { get; } = 10;
+    public int MaxHp { get; } = 40;
+    public float Speed { get; } = 5;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
     [SerializeField] private int score;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         if (isDead == true) return;
 
         Vector3 velocity = rb.velocity;
-        velocity.x = speed;
+        velocity.x = Speed;
         rb.velocity = velocity;
 
         if (isJumping == true)
@@ -108,12 +108,12 @@ public class PlayerController : MonoBehaviour
         }
         else
             Damage(-amount);
-        OnChangeHp?.Invoke(this, hp);
+        OnChangeHp?.Invoke(this, Hp);
     }
 
     public void ChangeSpeed(float amount)
     {
-        OnChangeSpeed?.Invoke(this, speed);
+        OnChangeSpeed?.Invoke(this, Speed);
     }
 
     public void AddScore(int amount)
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        if (hp <= 0)
+        if (Hp <= 0)
         {
             isDead = true;
             gameManager.GameOver();
