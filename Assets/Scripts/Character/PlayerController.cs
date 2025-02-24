@@ -8,13 +8,13 @@ public class PlayerController : MonoBehaviour
 {
     private bool isDead;
     [SerializeField] private bool isJumping;
-    private bool isSliding;
+    [SerializeField] private bool isSliding;
 
     [SerializeField] private int hp = 10;
     public int Hp => hp;
     private int maxHp = 40;
     public int MaxHp => maxHp;
-    private float speed = 5f;
+    [SerializeField]private float speed = 8f;
     public float Speed => speed;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
@@ -62,9 +62,18 @@ public class PlayerController : MonoBehaviour
         if (isDead == false)
         {
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 isJumping = true;
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                isSliding = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isSliding = false;
             }
         }
     }
@@ -73,18 +82,34 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead == true) return;
 
+        // 전진
         Vector3 velocity = rb.velocity;
         velocity.x = speed;
         rb.velocity = velocity;
 
+        // 점프
         if (isJumping == true)
         {
-            Jump();
+            if (jumpCount >= 0)
+            {
+                rb.velocity = Vector3.up * jumpForce;
+                jumpCount--;
+            }
         }
 
-        Debug.DrawRay(rb.position, Vector3.down, Color.green);
-        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector3.down, 2.5f, LayerMask.GetMask("Ground"));
+        // 슬라이딩
+        if (isSliding == true)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        else if (isSliding == false)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
 
+        // 바닥 감지
+        Debug.DrawRay(rb.position, Vector3.down * 2.5f, Color.green);
+        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector3.down, 2.5f, LayerMask.GetMask("Ground"));
         if (rayHit.collider != null)
         {
             isJumping = false;
@@ -100,15 +125,6 @@ public class PlayerController : MonoBehaviour
             if(inter == null)
                 return;
             inter.OnInteraction(this);
-        }
-    }
-
-    void Jump()
-    {
-        if (jumpCount >= 0)
-        {
-            rb.velocity = Vector3.up * jumpForce;
-            jumpCount--;
         }
     }
 
