@@ -27,11 +27,11 @@ public class GameUI : MonoBehaviour
     private void Start()
     {
         player = GameManager.gameManager.Player;
-        playerHPSlider.maxValue = player.maxHp;
-        playerHPSlider.value = player.hp;
+        playerHPSlider.maxValue = player.MaxHp;
+        playerHPSlider.value = player.Hp;
 
         player.OnChangeHp += ChangePlayerHP;
-        //player.OnChangeScore += UpdateCurrentScore;   // 추후 주석 해제
+        player.OnAddScore += UpdateCurrentScore;   // 추후 주석 해제
     }
 
     private void Update()
@@ -42,9 +42,9 @@ public class GameUI : MonoBehaviour
     private void OnDisable()
     {
         player.OnChangeHp -= ChangePlayerHP;
-        //player.OnChangeScore -= UpdateCurrentScore;   // 추후 주석 해제
+        player.OnAddScore -= UpdateCurrentScore;
     }
-
+    
     /// <summary>
     /// 게임오브젝트 활성화/비활성화
     /// </summary>
