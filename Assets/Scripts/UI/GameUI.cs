@@ -31,12 +31,12 @@ public class GameUI : MonoBehaviour
         playerHPSlider.value = player.Hp;
 
         player.OnChangeHp += ChangePlayerHP;
-        player.OnAddScore += UpdateCurrentScore;   // 추후 주석 해제
+        player.OnAddScore += UpdateCurrentScore;
     }
 
     private void Update()
     {
-        playerHPSlider.value -= 0.01f * Time.deltaTime;
+        playerHPSlider.value -= Time.deltaTime;
     }
 
     private void OnDisable()
