@@ -9,10 +9,10 @@ public class PlayerController : MonoBehaviour
     private bool isSliding;
 
     [SerializeField] private float speed;
+    [SerializeField] public int HP;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
 
-    private StatHandler statHandler;
     private AnimationHandler animationHandler;
 
     private BoxCollider2D col;
@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
         animationHandler = GetComponent<AnimationHandler>();
-        statHandler = GetComponent<StatHandler>();
     }
 
     void Start()
@@ -79,5 +78,15 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector3.up * jumpForce;
             jumpCount--;
         }
+    }
+
+    public void ChangeHP(int amount)
+    {
+
+    }
+
+    public void ChangeSpeed(float amount)
+    {
+
     }
 }
