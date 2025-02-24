@@ -8,12 +8,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isJumping;
     private bool isSliding;
 
+    [SerializeField] public int hp = 10;
+    [SerializeField] public int maxHp = 40;
     [SerializeField] private float speed;
-    [SerializeField] public int HP;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
 
     private AnimationHandler animationHandler;
+    private GameManager gameManager;
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
@@ -88,5 +90,13 @@ public class PlayerController : MonoBehaviour
     public void ChangeSpeed(float amount)
     {
 
+    }
+
+    public void Die()
+    {
+        if (hp <= 0)
+        {
+            gameManager.GameOver();
+        }
     }
 }
