@@ -12,6 +12,7 @@ public class GameUI : MonoBehaviour
     private int curScore;
     public int CurScore => curScore;
     private int playerHP;
+    [SerializeField] private float decreaseRatio;
 
     private const UIState state = UIState.Game;
 
@@ -22,6 +23,7 @@ public class GameUI : MonoBehaviour
     {
         curScore = 0;
         curScoreTxt.text = curScore.ToString();
+        decreaseRatio = 1f;
     }
 
     private void Start()
@@ -36,7 +38,7 @@ public class GameUI : MonoBehaviour
 
     private void Update()
     {
-        playerHPSlider.value -= Time.deltaTime;
+        playerHPSlider.value -= decreaseRatio * Time.deltaTime;
     }
 
     private void OnDisable()

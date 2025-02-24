@@ -117,12 +117,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.tag.Equals("Interactable"))
+        if (collision.tag.Equals("Interactable"))
         {
-            InteractObject inter = other.GetComponent<InteractObject>();
-            if(inter == null)
+            InteractObject inter = collision.GetComponent<InteractObject>();
+            if (inter == null)
                 return;
             inter.OnInteraction(this);
         }
