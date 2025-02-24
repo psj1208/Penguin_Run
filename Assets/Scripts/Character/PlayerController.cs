@@ -1,3 +1,4 @@
+using DataDeclaration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
     [SerializeField] private int score;
+
+    private Coroutine resetSpeed;
 
     private AnimationHandler animationHandler;
     private GameManager gameManager;
@@ -153,8 +156,22 @@ public class PlayerController : MonoBehaviour
             OnChangeHp?.Invoke(this, -amount);
     }
 
-    // 지속 시간 추가
-    public void ChangeSpeed(float amount)
+    private void Heal(float amount)
+    {
+
+    }
+
+    // 부딫힐 경우
+    public void Damage(int amount)
+    {
+        if (amount < 0)
+        {
+            isInvincibility = true;
+            ChangeSpeed(amount);
+        }
+    }
+
+    public void ChangeSpeed(int amount)
     {
         if (isInvincibility == true)
         {
@@ -163,36 +180,34 @@ public class PlayerController : MonoBehaviour
             Invoke("InvincibilityEnd", 0.5f);
         }
 
+        speed += amount;
         OnChangeSpeed?.Invoke(this, speed);
-    }
 
-    // 점수 추가
-    public void AddScore(int amount)
-    {
-        OnAddScore?.Invoke(this, amount);
-    }
-
-    // 부딫힐 경우
-    public void Damage(int amount)
-    {
-        if (amount < 0)
+        if (resetSpeed != null)
         {
-            Debug.Log("1");
-            isInvincibility = true;
-            ChangeSpeed(amount);
+            StopCoroutine(resetSpeed);
         }
-    }
 
-    private void Heal(float amount)
-    {
-
+        StartCoroutine(ResetSpeed(3f));
     }
 
     // 무적 해제
     public void InvincibilityEnd()
     {
         isInvincibility = false;
-        Debug.Log("3");
         speed = 8f;
+    }
+
+    private IEnumerator ResetSpeed(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        speed = 8f;
+        OnChangeSpeed.Invoke(this, speed);
+    }
+    
+    // 점수 추가
+    public void AddScore(int amount)
+    {
+        OnAddScore?.Invoke(this, amount);
     }
 }
