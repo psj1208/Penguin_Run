@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +21,9 @@ public class PlayerController : MonoBehaviour
 
     private BoxCollider2D col;
     private Rigidbody2D rb;
+
+    public event Action<PlayerController, int>? OnChangeHp;
+    public event Action<PlayerController, float>? OnChangeSpeed;
 
     void Awake()
     {
@@ -83,19 +88,20 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ChangeHP(int amount)
-    {
-
+    {        
+        OnChangeHp?.Invoke(this, hp);
     }
 
     public void ChangeSpeed(float amount)
     {
-
+        OnChangeSpeed?.Invoke(this, speed);
     }
 
     public void Die()
     {
         if (hp <= 0)
         {
+            isDead = true;
             gameManager.GameOver();
         }
     }
