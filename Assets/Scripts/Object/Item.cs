@@ -10,7 +10,6 @@ public class Item : InteractObject
     [SerializeField] private int hpValue = 0;
     [SerializeField] private int speedValue = 0;
     [SerializeField] private int Score = 0;
-    GameObject player = null;
 
     public override void OnInteraction(PlayerController pController)
     {

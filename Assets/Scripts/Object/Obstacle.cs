@@ -5,7 +5,6 @@ using UnityEngine;
 public class Obstacle : InteractObject
 {
     [SerializeField] private int damage = 5;
-    GameObject player = null;
 
     public override void OnInteraction(PlayerController pController)
     {
