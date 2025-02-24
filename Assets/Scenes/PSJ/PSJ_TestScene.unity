@@ -265,8 +265,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isJumping: 0
   isSliding: 0
+  isInvincibility: 0
   hp: 10
   speed: 8
+  deathY: -10
   jumpForce: 9
   jumpCount: 2
   score: 0
@@ -580,8 +582,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isJumping: 0
   isSliding: 0
+  isInvincibility: 0
   hp: 10
   speed: 8
+  deathY: -10
   jumpForce: 9
   jumpCount: 2
   score: 0
