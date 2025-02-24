@@ -5,29 +5,23 @@ using UnityEngine;
 public class PSJTest : MonoBehaviour
 {
     // Start is called before the first frame update
+    CoinsManager coinsManager;
+    float time;
     void Start()
     {
-        
+        coinsManager = FindObjectOfType<CoinsManager>();
+        time = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void print(int a)
-    {
-        Debug.Log(a);
-    }
-
-    public void SpeedUp(int a)
-    {
-        Debug.Log(a);
-    }
-
-    public void IncraseHp(int a)
-    {
-        Debug.Log(a);
+        time += Time.deltaTime;
+        if (time >= 2f)
+        {
+            Debug.Log("active!");
+            coinsManager.AddCoins(this.transform.position, 3);
+            time = 0;
+        }
     }
 }

@@ -12,21 +12,8 @@ public class Item : InteractObject
     [SerializeField] private int Score = 0;
     GameObject player = null;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnInteraction(PlayerController pController)
     {
-        if (collision.tag.Equals("Player"))
-        {
-            player = collision.gameObject;
-            OnInteraction();
-            Destroy(gameObject);
-        }
-    }
-
-    protected override void OnInteraction()
-    {
-        if (player == null)
-            return;
-        PlayerController pController = player.GetComponent<PlayerController>();
         if (pController == null)
             return;
         switch (itemType)
@@ -39,6 +26,7 @@ public class Item : InteractObject
                 break;
             case ItemType.Score:
                 //매니저에서 스코어 증가 함수 필요
+                Debug.Log($"{Score} 스코어 증가!");
                 break;
             default:
                 break;

@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ChangeHP(int amount)
-    {        
+    {
         OnChangeHp?.Invoke(this, hp);
     }
 
