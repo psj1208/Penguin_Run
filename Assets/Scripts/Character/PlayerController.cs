@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private int hp = 10;
     public int Hp => hp;
-    private int maxHp;
+    private int maxHp = 40;
     public int MaxHp => maxHp;
     [SerializeField]private float speed = 8f;
     public float Speed => speed;
