@@ -89,17 +89,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChangeHP()
+    public void ChangeHP(int amount)
     {        
         OnChangeHp?.Invoke(this, hp);
     }
 
-    public void ChangeSpeed()
+    public void ChangeSpeed(float amount)
     {
         OnChangeSpeed?.Invoke(this, speed);
     }
 
-    public void AddScore()
+    public void AddScore(int amount)
     {
         OnAddScore?.Invoke(this, score);
     }
