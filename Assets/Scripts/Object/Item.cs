@@ -26,16 +26,16 @@ public class Item : InteractObject
     {
         if (player == null)
             return;
-        StatHandler stat = player.GetComponent<StatHandler>();
-        if (stat == null)
+        PlayerController pController = player.GetComponent<PlayerController>();
+        if (pController == null)
             return;
         switch (itemType)
         {
             case ItemType.Heal:
-                stat.ChangeHP(hpValue);
+                pController.ChangeHP(hpValue);
                 break;
             case ItemType.Speed:
-                stat.ChangeSpeed(speedValue);
+                pController.ChangeSpeed(speedValue);
                 break;
             case ItemType.Score:
                 //매니저에서 스코어 증가 함수 필요
