@@ -10,11 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isJumping;
     private bool isSliding;
 
-    [SerializeField] public int hp = 10;
-    [SerializeField] public int maxHp = 40;
+    [SerializeField] private int hp = 10;
+    [SerializeField] private int maxHp = 40;
     [SerializeField] private float speed;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
+    [SerializeField] private int score;
 
     private AnimationHandler animationHandler;
     private GameManager gameManager;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     public event Action<PlayerController, int>? OnChangeHp;
     public event Action<PlayerController, float>? OnChangeSpeed;
+    public event Action<PlayerController, int>? OnAddScore;
 
     void Awake()
     {
@@ -87,14 +89,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChangeHP(int amount)
+    public void ChangeHP()
     {        
         OnChangeHp?.Invoke(this, hp);
     }
 
-    public void ChangeSpeed(float amount)
+    public void ChangeSpeed()
     {
         OnChangeSpeed?.Invoke(this, speed);
+    }
+
+    public void AddScore()
+    {
+        OnAddScore?.Invoke(this, score);
     }
 
     public void Die()
