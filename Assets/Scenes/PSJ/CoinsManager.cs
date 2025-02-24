@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class CoinsManager : MonoBehaviour
@@ -46,7 +47,7 @@ public class CoinsManager : MonoBehaviour
         for (int i = 0; i < maxCoins; i++)
         {
             GameObject coin = Instantiate(animatedCoinPrefab);
-            coin.transform.parent = transform;
+            coin.GetComponent<RectTransform>().parent = mainCanvas.GetComponent<RectTransform>();
             coin.SetActive(false);
             coinsQueue.Enqueue(coin);
         }
@@ -61,10 +62,10 @@ public class CoinsManager : MonoBehaviour
                 GameObject coin = coinsQueue.Dequeue();
                 coin.SetActive(true);
 
-                coin.transform.position = collectedCoinPostion;
+                coin.transform.position = WorldToCanvas(collectedCoinPostion);
 
                 float duration = Random.Range(minAnimDuration, maxAnimDuration);
-                coin.transform.DOMove(targetPosition, duration)
+                coin.GetComponent<RectTransform>().DOMove(targetPosition, duration)
                     .SetEase(Ease.InOutBack)
                     .OnComplete(() =>
                     {
@@ -80,5 +81,16 @@ public class CoinsManager : MonoBehaviour
     public void AddCoins(Vector3 collectedCoinPostion,int amount)
     {
         Animate(collectedCoinPostion, amount);
+    }
+
+    private Vector2 WorldToCanvas(Vector2 world)
+    {
+        Vector2 screen = Camera.main.WorldToScreenPoint(world);
+
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvas.GetComponent<RectTransform>(),screen, Camera.main,out Vector2 localPos))
+        {
+            return localPos;
+        }
+        return Vector2.zero;
     }
 }
