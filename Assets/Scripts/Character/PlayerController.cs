@@ -80,6 +80,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag.Equals("Interactable"))
+        {
+            InteractObject inter = other.GetComponent<InteractObject>();
+            if(inter == null)
+                return;
+            inter.OnInteraction(this);
+        }
+    }
+
     void Jump()
     {
         if (jumpCount >= 0)
@@ -90,7 +101,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ChangeHP(int amount)
-    {        
+    {
         OnChangeHp?.Invoke(this, hp);
     }
 
