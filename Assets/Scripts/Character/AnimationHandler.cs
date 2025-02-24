@@ -6,6 +6,10 @@ public class AnimationHandler : MonoBehaviour
 {
     private Animator animator;
 
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
     public void Jump()
     {
 
