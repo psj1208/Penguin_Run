@@ -12,16 +12,18 @@ public class Item : InteractObject
     [SerializeField] private int Score = 0;
     GameObject player = null;
 
-    protected override void OnInteraction(PlayerController pController)
+    public override void OnInteraction(PlayerController pController)
     {
         if (pController == null)
             return;
         switch (itemType)
         {
             case ItemType.Heal:
+                Debug.Log($"{hpValue} 체력 조절!");
                 pController.ChangeHP(hpValue);
                 break;
             case ItemType.Speed:
+                Debug.Log($"{speedValue} 속도 조절!");
                 pController.ChangeSpeed(speedValue);
                 break;
             case ItemType.Score:

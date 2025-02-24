@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 3716911579775604206}
   m_Layer: 0
   m_Name: ScoreObject
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
+  itemType: 0
   hpValue: 10
   speedValue: 3
   Score: 5

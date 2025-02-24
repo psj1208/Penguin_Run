@@ -9,5 +9,5 @@ public abstract class InteractObject : MonoBehaviour
     protected BoxCollider2D col;
     protected SpriteRenderer objectRenderer;
 
-    protected abstract void OnInteraction(PlayerController pController);
+    public abstract void OnInteraction(PlayerController pController);
 }
