@@ -10,9 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isJumping;
     private bool isSliding;
 
-    public int Hp { get; } = 10;
-    public int MaxHp { get; } = 40;
-    public float Speed { get; } = 5;
+    [SerializeField] private int hp = 10;
+    public int Hp => hp;
+    private int maxHp;
+    public int MaxHp => maxHp;
+    private float speed = 5f;
+    public float Speed => speed;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpCount = 2;
     [SerializeField] private int score;
@@ -43,10 +46,19 @@ public class PlayerController : MonoBehaviour
 
         isDead = false;
         isJumping = false;
+
+        gameManager = GameManager.Instance;
     }
 
     void Update()
     {
+        if (hp <= 0)
+        {
+            isDead = true;
+            gameManager.GameOver();
+            return;
+        }
+
         if (isDead == false)
         {
 
@@ -62,7 +74,7 @@ public class PlayerController : MonoBehaviour
         if (isDead == true) return;
 
         Vector3 velocity = rb.velocity;
-        velocity.x = Speed;
+        velocity.x = speed;
         rb.velocity = velocity;
 
         if (isJumping == true)
@@ -109,26 +121,17 @@ public class PlayerController : MonoBehaviour
         }
         else
             Damage(-amount);
-        OnChangeHp?.Invoke(this, Hp);
+        OnChangeHp?.Invoke(this, hp);
     }
 
     public void ChangeSpeed(float amount)
     {
-        OnChangeSpeed?.Invoke(this, Speed);
+        OnChangeSpeed?.Invoke(this, speed);
     }
 
     public void AddScore(int amount)
     {
         OnAddScore?.Invoke(this, score);
-    }
-
-    public void Die()
-    {
-        if (Hp <= 0)
-        {
-            isDead = true;
-            gameManager.GameOver();
-        }
     }
 
     private void Damage(float amount)

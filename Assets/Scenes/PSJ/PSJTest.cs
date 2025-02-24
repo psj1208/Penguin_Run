@@ -21,6 +21,7 @@ public class PSJTest : MonoBehaviour
         {
             Debug.Log("active!");
             coinsManager.AddCoins(this.transform.position, 3);
+            coinsManager.AddHearts(this.transform.position, 5);
             time = 0;
         }
     }
