@@ -7,13 +7,16 @@ using UnityEngine;
 public class CoinsManager : MonoBehaviour
 {
     [Header("UI references")]
-    [SerializeField] Canvas mainCanvas;
-    [SerializeField] RectTransform target;
+    [SerializeField] Canvas poolingCanvas;
+    [SerializeField] RectTransform coinTarget;
+    [SerializeField] RectTransform heartTarget;
 
     [Space]
     [Header("Available conis : (conis to pool)")]
     [SerializeField] int maxCoins;
+    [SerializeField] int maxHeart;
     Queue<GameObject> coinsQueue = new Queue<GameObject>();
+    Queue<GameObject> heartQueue = new Queue<GameObject>();
 
     [Space]
     [Header("Animation setiings")]
@@ -22,8 +25,7 @@ public class CoinsManager : MonoBehaviour
     [SerializeField]
     [Range(0.9f, 2f)] float maxAnimDuration;
     [SerializeField] GameObject animatedCoinPrefab;
-
-    Vector3 targetPosition;
+    [SerializeField] GameObject animatedHeartPrefab;
 
     private int _c = 0;
     public int Coins
@@ -35,25 +37,40 @@ public class CoinsManager : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private int _h = 0;
+    public int Hearts
     {
-        targetPosition = target.position;
-
-        PrepareCoins();
+        get { return _h; }
+        set
+        {
+            _h = value;
+        }
     }
 
-    void PrepareCoins()
+    private void Awake()
+    {
+        Prepare();
+    }
+
+    void Prepare()
     {
         for (int i = 0; i < maxCoins; i++)
         {
             GameObject coin = Instantiate(animatedCoinPrefab);
-            coin.transform.SetParent(mainCanvas.transform);
+            coin.transform.SetParent(poolingCanvas.transform);
             coin.SetActive(false);
             coinsQueue.Enqueue(coin);
         }
+        for (int i = 0; i < maxHeart; i++)
+        {
+            GameObject heart = Instantiate(animatedHeartPrefab);
+            heart.transform.SetParent(poolingCanvas.transform);
+            heart.SetActive(false);
+            heartQueue.Enqueue(heart);
+        }
     }
 
-    void Animate(Vector3 collectedCoinPostion, int amount)
+    void AnimateCoin(Vector3 collectedPostion, int amount)
     {
         for(int i=0; i<amount; i++)
         {
@@ -62,9 +79,9 @@ public class CoinsManager : MonoBehaviour
                 GameObject coin = coinsQueue.Dequeue();
                 coin.SetActive(true);
 
-                coin.GetComponent<RectTransform>().anchoredPosition = WorldToCanvasInOverlay(collectedCoinPostion);
+                coin.GetComponent<RectTransform>().anchoredPosition = WorldToCanvasInOverlay(collectedPostion);
                 float duration = Random.Range(minAnimDuration, maxAnimDuration);
-                coin.GetComponent<RectTransform>().DOMove(targetPosition, duration)
+                coin.GetComponent<RectTransform>().DOMove(coinTarget.position, duration)
                     .SetEase(Ease.InBack)
                     .OnComplete(() =>
                     {
@@ -77,16 +94,45 @@ public class CoinsManager : MonoBehaviour
         }
     }
 
-    public void AddCoins(Vector3 collectedCoinPostion,int amount)
+    void AnimateHeart(Vector3 collectedPostion, int amount)
     {
-        Animate(collectedCoinPostion, amount);
+        for (int i = 0; i < amount; i++)
+        {
+            if (heartQueue.Count > 0)
+            {
+                GameObject heart = heartQueue.Dequeue();
+                heart.SetActive(true);
+
+                heart.GetComponent<RectTransform>().anchoredPosition = WorldToCanvasInOverlay(collectedPostion);
+                float duration = Random.Range(minAnimDuration, maxAnimDuration);
+                heart.GetComponent<RectTransform>().DOMove(heartTarget.position, duration)
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() =>
+                    {
+                        heart.SetActive(false);
+                        heartQueue.Enqueue(heart);
+
+                        Hearts++;
+                    });
+            }
+        }
+    }
+
+    public void AddCoins(Vector3 collectedCoinPosition,int amount)
+    {
+        AnimateCoin(collectedCoinPosition, amount);
+    }
+
+    public void AddHearts(Vector3 collectedHeartPosition,int amount)
+    {
+        AnimateHeart(collectedHeartPosition, amount);
     }
 
     private Vector2 WorldToCanvasInOverlay(Vector2 world)
     {
         Vector2 screen = Camera.main.WorldToScreenPoint(world);
 
-        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvas.GetComponent<RectTransform>(),screen, null,out Vector2 localPos))
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(poolingCanvas.GetComponent<RectTransform>(),screen, null,out Vector2 localPos))
         {
             return localPos;
         }
