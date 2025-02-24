@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D col;
     private Rigidbody2D rb;
 
-    public event Action<PlayerController, int>? OnChangeHp;
-    public event Action<PlayerController, float>? OnChangeSpeed;
-    public event Action<PlayerController, int>? OnAddScore;
+    public event Action<PlayerController, int> OnChangeHp;
+    public event Action<PlayerController, float> OnChangeSpeed;
+    public event Action<PlayerController, int> OnAddScore;
 
     void Awake()
     {
@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.DrawRay(rb.position, Vector3.down * 2.5f, Color.green);
+
         RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector3.down, 2.5f, LayerMask.GetMask("Ground"));
 
         if (rayHit.collider != null)

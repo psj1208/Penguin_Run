@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class CoinsManager : MonoBehaviour
@@ -46,7 +47,7 @@ public class CoinsManager : MonoBehaviour
         for (int i = 0; i < maxCoins; i++)
         {
             GameObject coin = Instantiate(animatedCoinPrefab);
-            coin.transform.parent = transform;
+            coin.transform.SetParent(mainCanvas.transform);
             coin.SetActive(false);
             coinsQueue.Enqueue(coin);
         }
@@ -61,11 +62,10 @@ public class CoinsManager : MonoBehaviour
                 GameObject coin = coinsQueue.Dequeue();
                 coin.SetActive(true);
 
-                coin.transform.position = collectedCoinPostion;
-
+                coin.GetComponent<RectTransform>().anchoredPosition = WorldToCanvasInOverlay(collectedCoinPostion);
                 float duration = Random.Range(minAnimDuration, maxAnimDuration);
-                coin.transform.DOMove(targetPosition, duration)
-                    .SetEase(Ease.InOutBack)
+                coin.GetComponent<RectTransform>().DOMove(targetPosition, duration)
+                    .SetEase(Ease.InBack)
                     .OnComplete(() =>
                     {
                         coin.SetActive(false);
@@ -80,5 +80,22 @@ public class CoinsManager : MonoBehaviour
     public void AddCoins(Vector3 collectedCoinPostion,int amount)
     {
         Animate(collectedCoinPostion, amount);
+    }
+
+    private Vector2 WorldToCanvasInOverlay(Vector2 world)
+    {
+        Vector2 screen = Camera.main.WorldToScreenPoint(world);
+
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvas.GetComponent<RectTransform>(),screen, null,out Vector2 localPos))
+        {
+            return localPos;
+        }
+        return Vector2.zero;
+    }
+
+    private Vector2 WorldToCanvas(Vector2 world)
+    {
+        Vector2 screen = Camera.main.WorldToScreenPoint(world);
+        return screen;
     }
 }
