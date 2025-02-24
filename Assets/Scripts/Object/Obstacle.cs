@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Obstacle : InteractObject
 {
+    [SerializeField] private int damage = 5;
     GameObject player = null;
 
     private void OnTriggerEnter2D(Collider2D collision)
