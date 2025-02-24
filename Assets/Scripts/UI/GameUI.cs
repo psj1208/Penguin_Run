@@ -16,6 +16,9 @@ public class GameUI : MonoBehaviour
 
     private const UIState state = UIState.Game;
 
+    [SerializeField] private UIFX uiFX;
+    public UIFX UIFX => uiFX;
+
     [SerializeField] private TextMeshProUGUI curScoreTxt;
     [SerializeField] private Slider playerHPSlider;
 
