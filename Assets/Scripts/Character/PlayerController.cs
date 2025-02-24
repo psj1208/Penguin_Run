@@ -102,6 +102,12 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeHP(int amount)
     {
+        if (amount >= 0)
+        {
+            Heal(amount);
+        }
+        else
+            Damage(-amount);
         OnChangeHp?.Invoke(this, hp);
     }
 
@@ -122,5 +128,15 @@ public class PlayerController : MonoBehaviour
             isDead = true;
             gameManager.GameOver();
         }
+    }
+
+    private void Damage(float amount)
+    {
+
+    }
+
+    private void Heal(float amount)
+    {
+
     }
 }

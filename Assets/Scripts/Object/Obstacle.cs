@@ -11,5 +11,6 @@ public class Obstacle : InteractObject
     {
         //플레이어 데미지 입는 함수
         Debug.Log($"{damage} 데미지.");
+        pController.ChangeHP(-damage);
     }
 }
