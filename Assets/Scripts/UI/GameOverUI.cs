@@ -28,7 +28,13 @@ public class GameOverUI : MonoBehaviour
 
     private void OnEnable()
     {
+        resultScore = uiManager.GetResultScore();
         bestScore = PlayerPrefs.GetInt("BestScore", resultScore);
+        if (resultScore > bestScore)
+        {
+            PlayerPrefs.SetInt("BestScore", resultScore);
+            bestScore = resultScore;
+        }
         bestScoreTxt.text = $"Best Score: {bestScore.ToString()}";
         resultScoreTxt.text = $"Result Score: {resultScore.ToString()}";
     }

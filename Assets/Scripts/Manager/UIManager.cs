@@ -41,4 +41,13 @@ public class UIManager : MonoBehaviour
         gameUI.ActiveUI(uiState);
         gameOverUI.ActiveUI(uiState);
     }
+
+    /// <summary>
+    /// GameOver 시 GameOverUI에서 결과 점수를 가져오기 위해 사용하는 메서드
+    /// </summary>
+    /// <returns>GameOver 시 결과 점수</returns>
+    public int GetResultScore()
+    {
+        return gameUI.CurScore;
+    }
 }
