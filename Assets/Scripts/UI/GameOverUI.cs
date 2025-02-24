@@ -31,7 +31,7 @@ public class GameOverUI : MonoBehaviour
         if (uiManager != null)
         {
             resultScore = uiManager.GetResultScore();
-            bestScore = PlayerPrefs.GetInt("BestScore", resultScore);
+            bestScore = PlayerPrefs.GetInt("BestScore", 0);
             if (resultScore > bestScore)
             {
                 PlayerPrefs.SetInt("BestScore", resultScore);

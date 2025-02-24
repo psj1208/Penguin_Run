@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class CoinsManager : MonoBehaviour
 {
+    public static CoinsManager Instance;
     [Header("UI references")]
     [SerializeField] Canvas poolingCanvas;
     [SerializeField] RectTransform coinTarget;
@@ -49,6 +50,7 @@ public class CoinsManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         Prepare();
     }
 
@@ -70,7 +72,7 @@ public class CoinsManager : MonoBehaviour
         }
     }
 
-    void AnimateCoin(Vector3 collectedPostion, int amount)
+    void AnimateCoin(Vector3 collectedPostion, int amount, PlayerController pControl)
     {
         for(int i=0; i<amount; i++)
         {
@@ -88,13 +90,14 @@ public class CoinsManager : MonoBehaviour
                         coin.SetActive(false);
                         coinsQueue.Enqueue(coin);
 
+                        pControl.AddScore(1);
                         Coins++;
                     });
             }
         }
     }
 
-    void AnimateHeart(Vector3 collectedPostion, int amount)
+    void AnimateHeart(Vector3 collectedPostion, int amount, PlayerController pControl)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -112,20 +115,21 @@ public class CoinsManager : MonoBehaviour
                         heart.SetActive(false);
                         heartQueue.Enqueue(heart);
 
+                        pControl.ChangeHP(1);
                         Hearts++;
                     });
             }
         }
     }
 
-    public void AddCoins(Vector3 collectedCoinPosition,int amount)
+    public void AddCoins(Vector3 collectedCoinPosition,int amount, PlayerController pControl)
     {
-        AnimateCoin(collectedCoinPosition, amount);
+        AnimateCoin(collectedCoinPosition, amount, pControl);
     }
 
-    public void AddHearts(Vector3 collectedHeartPosition,int amount)
+    public void AddHearts(Vector3 collectedHeartPosition,int amount, PlayerController pControl)
     {
-        AnimateHeart(collectedHeartPosition, amount);
+        AnimateHeart(collectedHeartPosition, amount, pControl);
     }
 
     private Vector2 WorldToCanvasInOverlay(Vector2 world)

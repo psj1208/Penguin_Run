@@ -12,6 +12,7 @@ public class GameUI : MonoBehaviour
     private int curScore;
     public int CurScore => curScore;
     private int playerHP;
+    [SerializeField] private float decreaseRatio;
 
     private const UIState state = UIState.Game;
 
@@ -22,6 +23,7 @@ public class GameUI : MonoBehaviour
     {
         curScore = 0;
         curScoreTxt.text = curScore.ToString();
+        decreaseRatio = 1f;
     }
 
     private void Start()
@@ -31,12 +33,12 @@ public class GameUI : MonoBehaviour
         playerHPSlider.value = player.Hp;
 
         player.OnChangeHp += ChangePlayerHP;
-        player.OnAddScore += UpdateCurrentScore;   // 추후 주석 해제
+        player.OnAddScore += UpdateCurrentScore;
     }
 
     private void Update()
     {
-        playerHPSlider.value -= 0.01f * Time.deltaTime;
+        playerHPSlider.value -= decreaseRatio * Time.deltaTime;
     }
 
     private void OnDisable()
