@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.DrawRay(rb.position, Vector3.down, Color.green);
-        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector3.down, 1f, LayerMask.GetMask("Ground"));
+        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector3.down, 2.5f, LayerMask.GetMask("Ground"));
 
         if (rayHit.collider != null)
         {
