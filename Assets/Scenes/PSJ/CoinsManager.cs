@@ -47,7 +47,7 @@ public class CoinsManager : MonoBehaviour
         for (int i = 0; i < maxCoins; i++)
         {
             GameObject coin = Instantiate(animatedCoinPrefab);
-            coin.GetComponent<RectTransform>().parent = mainCanvas.GetComponent<RectTransform>();
+            coin.transform.SetParent(mainCanvas.transform);
             coin.SetActive(false);
             coinsQueue.Enqueue(coin);
         }
@@ -62,11 +62,10 @@ public class CoinsManager : MonoBehaviour
                 GameObject coin = coinsQueue.Dequeue();
                 coin.SetActive(true);
 
-                coin.transform.position = WorldToCanvas(collectedCoinPostion);
-
+                coin.GetComponent<RectTransform>().anchoredPosition = WorldToCanvasInOverlay(collectedCoinPostion);
                 float duration = Random.Range(minAnimDuration, maxAnimDuration);
                 coin.GetComponent<RectTransform>().DOMove(targetPosition, duration)
-                    .SetEase(Ease.InOutBack)
+                    .SetEase(Ease.InBack)
                     .OnComplete(() =>
                     {
                         coin.SetActive(false);
@@ -83,14 +82,20 @@ public class CoinsManager : MonoBehaviour
         Animate(collectedCoinPostion, amount);
     }
 
-    private Vector2 WorldToCanvas(Vector2 world)
+    private Vector2 WorldToCanvasInOverlay(Vector2 world)
     {
         Vector2 screen = Camera.main.WorldToScreenPoint(world);
 
-        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvas.GetComponent<RectTransform>(),screen, Camera.main,out Vector2 localPos))
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvas.GetComponent<RectTransform>(),screen, null,out Vector2 localPos))
         {
             return localPos;
         }
         return Vector2.zero;
+    }
+
+    private Vector2 WorldToCanvas(Vector2 world)
+    {
+        Vector2 screen = Camera.main.WorldToScreenPoint(world);
+        return screen;
     }
 }
