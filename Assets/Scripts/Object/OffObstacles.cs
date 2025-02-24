@@ -10,7 +10,7 @@ public class OffObstacles : MonoBehaviour
         
     }
     /// <summary>
-    /// 충돌시 오브젝트가 obstacle 컴포넌트가 있을때 작동
+    /// 충돌시 오브젝트가 obstacle 컴포넌트가 있을때 파괴
     /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,7 +19,7 @@ public class OffObstacles : MonoBehaviour
 
         if (obstacle)
         {
-            
+           Destroy(obstacle.gameObject);
         }
     }
 }
