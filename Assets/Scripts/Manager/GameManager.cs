@@ -19,15 +19,22 @@ public class GameManager : MonoBehaviour
     int resultScore;
     int CurrentScore;
 
-    public GameManager gameManager { get { return gameManager; } }
+    //프로퍼티
+    public static GameManager gameManager { get { return gameManager; } }
 
     private void Awake()
     {
-        //싱글톤
+        //싱글톤 (중복 생성시 파괴)
         if (instance == null)
         {
             instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+
         //컴포넌트 정보 변수에 지정
         player = gameObject.GetComponent<PlayerController>();
         uiManager = gameObject.GetComponent<UIManager>();
@@ -47,7 +54,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1f;
-        uiManager.ChangeUIState(UIState.Start);//필요한 이넘 값을 
+        uiManager.ChangeUIState(UIState.Start);//상황에 필요한 이넘 값을 매게변수에 보내서 메뉴 호출 
     }
     //아직 예정 된거 없는 메서드
     public void IncreaseLevel()
