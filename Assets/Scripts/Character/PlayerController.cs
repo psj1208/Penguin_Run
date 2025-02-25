@@ -20,18 +20,19 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     private StatHandler statHandler;
     public StatHandler Stat => statHandler;
+    public AnimationHandler animationHandler;
     private Rigidbody2D rb;
 
     // 이벤트 선언: 체력 변화, 속도 변화, 점수 추가시 호출
-    public event Action<PlayerController, float> OnChangeSpeed;
     public event Action<PlayerController, int> OnAddScore;
 
     private void Awake()
     {
         isDead = false;
-        jumpForce = 6;
+        //jumpForce = 10;
         rb = GetComponent<Rigidbody2D>();
         statHandler = GetComponent<StatHandler>();
+        animationHandler = GetComponent<AnimationHandler>();
     }
 
     private void Start()
@@ -55,21 +56,27 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        animationHandler.Move();
+
         if (!isDead)
         {
             // 점프 입력 감지
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                animationHandler.Jump();
+
                 isJumping = true;
             }
 
             // 슬라이딩 입력 감지
             if (Input.GetKey(KeyCode.LeftShift))
             {
+                animationHandler.Slide();
                 isSliding = true;
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
+                animationHandler.Move();
                 isSliding = false;
             }
         }
@@ -141,7 +148,6 @@ public class PlayerController : MonoBehaviour
             InteractObject inter = collision.GetComponent<InteractObject>();
             if (inter == null)
                 return;
-            // 주석해제 필요
             inter.OnInteraction(statHandler);
         }
     }
@@ -160,7 +166,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="amount">추가할 점수</param>
     public void AddScore(int amount = 1)
     {
-        // 주석해제 필요
         OnAddScore?.Invoke(this, amount);
     }
 }

@@ -6,33 +6,35 @@ using UnityEngine;
 public class StatHandler : MonoBehaviour
 {
     private PlayerController player;
+    public AnimationHandler animationHandler;
 
-    [SerializeField] private float hp;
+    [SerializeField, Range(0f, 100f)] private float hp;
     public float Hp => hp;
 
-    private float maxHp;
+    [SerializeField, Range(0f, 100f)] private float maxHp;
     public float MaxHp => maxHp;
 
-    private float speed;
+    [SerializeField, Range(0f, 100f)] private float speed;
     public float Speed => speed;
 
     private float decreaseHPRatio;
 
     private float invincibilityTime;
     private float invincibilityDurationTime;
-    private bool isInvincibility;
+    [SerializeField] private bool isInvincibility;
 
     private void Awake()
     {
-        hp = 10f;
-        maxHp = 40f;
-        speed = 8f;
+        //hp = 10f;
+        //maxHp = 40f;
+        //speed = 8f;
         decreaseHPRatio = 1f;
         invincibilityTime = 3f;
         invincibilityDurationTime = 0f;
         isInvincibility = false;
 
         player = GetComponent<PlayerController>();
+        animationHandler = GetComponent<AnimationHandler>();
     }
 
     private void Update()
@@ -65,13 +67,9 @@ public class StatHandler : MonoBehaviour
         }
         else
         {
+
             Damage(figure);
         }
-    }
-
-    public void ChangeSpeed(int amount, int duration)
-    {
-
     }
 
     private void Heel(float figure)
@@ -80,12 +78,36 @@ public class StatHandler : MonoBehaviour
         hp = hp >= maxHp ? maxHp : hp;
     }
 
-    public void Damage(float figure)
+    private void Damage(float figure)
     {
         if (!isInvincibility)
         {
+            animationHandler.Damage();
             isInvincibility = true;
             hp += figure;
         }
+    }
+
+    public void ChangeSpeed(int amount, int duration)
+    {
+        if (amount > 0) 
+        {
+            Booster(amount, duration);
+        }
+    }
+
+    public void Booster(int amount, int duration)
+    {
+        if(amount > 0)
+        {
+            isInvincibility = true;
+            speed += amount;
+            Invoke("ResetSpeed", duration);
+        }
+    }
+
+    public void ResetSpeed()
+    {
+        speed = 8f;
     }
 }
