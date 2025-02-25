@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         isDead = false;
-        jumpForce = 20;
+        jumpForce = 10;
         rb = GetComponent<Rigidbody2D>();
         statHandler = GetComponent<StatHandler>();
     }
@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour
             // 점프 입력 감지
             if (Input.GetKeyDown(KeyCode.Space))
             {
-
                 isJumping = true;
             }
 
@@ -110,8 +109,6 @@ public class PlayerController : MonoBehaviour
         {
             if (jumpCount > 0)
             {
-                Vector2 velocity = rb.velocity * 0;
-                rb.velocity = velocity;
                 Vector2 vel = rb.velocity + Vector2.up * jumpForce;
                 rb.velocity = vel;
                 --jumpCount;
@@ -144,7 +141,6 @@ public class PlayerController : MonoBehaviour
             InteractObject inter = collision.GetComponent<InteractObject>();
             if (inter == null)
                 return;
-            // 주석해제 필요
             inter.OnInteraction(statHandler);
         }
     }
@@ -163,7 +159,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="amount">추가할 점수</param>
     public void AddScore(int amount = 1)
     {
-        // 주석해제 필요
         OnAddScore?.Invoke(this, amount);
     }
 }

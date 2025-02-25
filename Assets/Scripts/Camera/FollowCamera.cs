@@ -9,6 +9,8 @@ public class FollowCamera : MonoBehaviour
 
     void Start()
     {
+        target = GameManager.Instance.Player.transform;
+
         /*카메라의 간격값
         카메라의 x축 포지션값 - 플레이어의 x축 포지션값 = offsetX
         */

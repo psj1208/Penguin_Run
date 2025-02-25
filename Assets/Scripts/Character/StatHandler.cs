@@ -7,13 +7,13 @@ public class StatHandler : MonoBehaviour
 {
     private PlayerController player;
 
-    [SerializeField] private float hp;
+    [SerializeField, Range(0f, 100f)] private float hp;
     public float Hp => hp;
 
-    private float maxHp;
+    [SerializeField, Range(0f, 100f)] private float maxHp;
     public float MaxHp => maxHp;
 
-    private float speed;
+    [SerializeField, Range(0f, 100f)] private float speed;
     public float Speed => speed;
 
     private float decreaseHPRatio;

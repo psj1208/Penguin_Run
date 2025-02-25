@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour
 
     private UIState curUIState;
 
-    private StartUI startUI;
     private GameUI gameUI;
     private GameOverUI gameOverUI;
     private MiniMap miniMap;
@@ -19,9 +18,8 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
 
-        curUIState = UIState.Start;
+        curUIState = UIState.Game;
 
-        startUI = GetComponentInChildren<StartUI>(true);
         gameUI = GetComponentInChildren<GameUI>(true);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         miniMap = GetComponentInChildren<MiniMap>(true);
@@ -39,7 +37,6 @@ public class UIManager : MonoBehaviour
     public void ChangeUIState(UIState uiState)
     {
         curUIState = uiState;
-        startUI.ActiveUI(uiState);
         gameUI.ActiveUI(uiState);
         gameOverUI.ActiveUI(uiState);
     }
@@ -59,9 +56,9 @@ public class UIManager : MonoBehaviour
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">획득량</param>
     /// <param name="pControl">플레이어</param>
-    public void ScoreItemFX(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void ScoreItemFX(Vector3 collectedPostion, int amount)
     {
-        gameUI.UIFX.AnimateCoin(collectedPostion, amount, pControl);
+        gameUI.UIFX.AnimateCoin(collectedPostion, amount);
     }
 
     /// <summary>
@@ -70,18 +67,20 @@ public class UIManager : MonoBehaviour
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">회복량</param>
     /// <param name="pControl">플레이어</param>
-    public void HPItemFX(Vector3 collectedPostion, int amount, StatHandler sHandler)
+    public void HPItemFX(Vector3 collectedPostion, int amount)
     {
-        gameUI.UIFX.AnimateHeart(collectedPostion, amount, sHandler);
+        gameUI.UIFX.AnimateHeart(collectedPostion, amount);
     }
 
-    public void MiniMapOn(Transform st, Transform end, Transform player)
-    { 
-        if(miniMap != null)
-            miniMap.Init(st, end, player);
-    }
     /// <summary>
     /// 미니맵 좌표를 설정하는 함수. 매개변수는 비율로.(0~1)
     /// </summary>
     /// <param name="ratio"></param>
+    public void MiniMapOn(Transform st, Transform end, Transform player)
+    { 
+        if (miniMap != null)
+        {
+            miniMap.Init(st, end, player);
+        }
+    }
 }
