@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    public Transform target;
-    float offsetX;
+    private Transform target;
+    private float offsetX;
 
     void Start()
     {

@@ -7,38 +7,26 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+    public static GameManager Instance => instance;
 
-    [SerializeField] private PlayerController player;
+    private PlayerController player;
+    public PlayerController Player => player;
 
     private UIManager uiManager;
 
     public Transform startPos;
     public Transform endPos;
 
-    //프로퍼티
-    public static GameManager Instance => instance;
-    public PlayerController Player => player;
-
     private void Awake()
     {
-        //싱글톤 (중복 생성시 파괴)
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        StartGame();
+        instance = this;
+        CreatePlayer();
     }
 
-    /// <summary>
-    /// 게임시작 시 메뉴 호출
-    /// </summary>
     private void Start()
     {
         uiManager = UIManager.Instance;
+        StartGame();
     }
 
     /// <summary>
@@ -47,7 +35,6 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         Time.timeScale = 1f;
-        CreatePlayer();
         if (startPos != null && endPos != null && player != null)
         {
             uiManager.MiniMapOn(startPos, endPos, player.transform);

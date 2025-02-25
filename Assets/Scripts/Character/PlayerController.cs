@@ -23,13 +23,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     // 이벤트 선언: 체력 변화, 속도 변화, 점수 추가시 호출
-    public event Action<PlayerController, float> OnChangeSpeed;
     public event Action<PlayerController, int> OnAddScore;
 
     private void Awake()
     {
         isDead = false;
-        jumpForce = 10;
+        //jumpForce = 10;
         rb = GetComponent<Rigidbody2D>();
         statHandler = GetComponent<StatHandler>();
     }

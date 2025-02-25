@@ -9,8 +9,6 @@ public class Obstacle : InteractObject
     public override void OnInteraction(StatHandler sHandler)
     {
         //플레이어 데미지 입는 함수
-        Debug.Log($"{damage} 데미지.");
         sHandler.ChangeHP(-damage);
-        sHandler.Damage(-damage);
     }
 }

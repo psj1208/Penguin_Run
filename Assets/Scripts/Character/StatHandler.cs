@@ -24,9 +24,9 @@ public class StatHandler : MonoBehaviour
 
     private void Awake()
     {
-        hp = 10f;
-        maxHp = 40f;
-        speed = 8f;
+        //hp = 10f;
+        //maxHp = 40f;
+        //speed = 8f;
         decreaseHPRatio = 1f;
         invincibilityTime = 3f;
         invincibilityDurationTime = 0f;
@@ -75,7 +75,7 @@ public class StatHandler : MonoBehaviour
         hp = hp >= maxHp ? maxHp : hp;
     }
 
-    public void Damage(float figure)
+    private void Damage(float figure)
     {
         if (!isInvincibility)
         {
