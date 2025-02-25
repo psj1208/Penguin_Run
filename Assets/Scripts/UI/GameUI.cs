@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameUI : MonoBehaviour
 {
     private PlayerController player;
+    private StatHandler statHandler;
 
     private int curScore;
     public int CurScore => curScore;
@@ -37,15 +38,15 @@ public class GameUI : MonoBehaviour
     private void Start()
     {
         player = GameManager.Instance.Player;
-        playerHPSlider.maxValue = player.MaxHp;
-        playerHPSlider.value = player.Hp;
+        playerHPSlider.maxValue = statHandler.MaxHp;
+        playerHPSlider.value = statHandler.Hp;
 
         player.OnAddScore += UpdateCurrentScore;
     }
 
     private void Update()
     {
-        playerHPSlider.value = player.Hp;
+        playerHPSlider.value = statHandler.Hp;
     }
     
     private void OnDisable()

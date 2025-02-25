@@ -1,13 +1,15 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
-public class UIFX : MonoBehaviour
+public class CoinsManager : MonoBehaviour
 {
     [Header("UI references")]
-    [SerializeField] RectTransform scoreUIObject;
-    [SerializeField] RectTransform playerHPObject;
+    [SerializeField] Canvas poolingCanvas;
+    [SerializeField] RectTransform coinTarget;
+    [SerializeField] RectTransform heartTarget;
 
     [Space]
     [Header("Available conis : (conis to pool)")]
@@ -25,24 +27,44 @@ public class UIFX : MonoBehaviour
     [SerializeField] GameObject animatedCoinPrefab;
     [SerializeField] GameObject animatedHeartPrefab;
 
+    private int _c = 0;
+    public int Coins
+    {
+        get { return _c; }
+        set
+        {
+            _c = value;
+        }
+    }
+
+    private int _h = 0;
+    public int Hearts
+    {
+        get { return _h; }
+        set
+        {
+            _h = value;
+        }
+    }
+
     private void Awake()
     {
         Prepare();
     }
 
-    private void Prepare()
+    void Prepare()
     {
         for (int i = 0; i < maxCoins; i++)
         {
             GameObject coin = Instantiate(animatedCoinPrefab);
-            coin.transform.SetParent(gameObject.transform);
+            coin.transform.SetParent(poolingCanvas.transform);
             coin.SetActive(false);
             coinsQueue.Enqueue(coin);
         }
         for (int i = 0; i < maxHeart; i++)
         {
             GameObject heart = Instantiate(animatedHeartPrefab);
-            heart.transform.SetParent(gameObject.transform);
+            heart.transform.SetParent(poolingCanvas.transform);
             heart.SetActive(false);
             heartQueue.Enqueue(heart);
         }
@@ -50,28 +72,30 @@ public class UIFX : MonoBehaviour
 
     public void AnimateCoin(Vector3 collectedPostion, int amount, PlayerController pControl)
     {
-        for (int i = 0; i < amount; i++)
+        for(int i=0; i<amount; i++)
         {
-            if (coinsQueue.Count > 0)
+            if(coinsQueue.Count > 0)
             {
                 GameObject coin = coinsQueue.Dequeue();
                 coin.SetActive(true);
 
                 coin.GetComponent<RectTransform>().anchoredPosition = WorldToCanvasInOverlay(collectedPostion);
                 float duration = Random.Range(minAnimDuration, maxAnimDuration);
-                coin.GetComponent<RectTransform>().DOMove(scoreUIObject.position, duration)
+                coin.GetComponent<RectTransform>().DOMove(coinTarget.position, duration)
                     .SetEase(Ease.InBack)
                     .OnComplete(() =>
                     {
                         coin.SetActive(false);
                         coinsQueue.Enqueue(coin);
-                        pControl.AddScore();
+
+                        pControl.AddScore(1);
+                        Coins++;
                     });
             }
         }
     }
 
-    public void AnimateHeart(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void AnimateHeart(Vector3 collectedPostion, int amount, StatHandler statHandler)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -82,13 +106,15 @@ public class UIFX : MonoBehaviour
 
                 heart.GetComponent<RectTransform>().anchoredPosition = WorldToCanvasInOverlay(collectedPostion);
                 float duration = Random.Range(minAnimDuration, maxAnimDuration);
-                heart.GetComponent<RectTransform>().DOMove(playerHPObject.position, duration)
+                heart.GetComponent<RectTransform>().DOMove(heartTarget.position, duration)
                     .SetEase(Ease.InBack)
                     .OnComplete(() =>
                     {
                         heart.SetActive(false);
                         heartQueue.Enqueue(heart);
-                        pControl.ChangeHP();
+
+                        statHandler.ChangeHP(1);
+                        Hearts++;
                     });
             }
         }
@@ -98,10 +124,16 @@ public class UIFX : MonoBehaviour
     {
         Vector2 screen = Camera.main.WorldToScreenPoint(world);
 
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(gameObject.GetComponent<RectTransform>(), screen, null, out Vector2 localPos))
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(poolingCanvas.GetComponent<RectTransform>(),screen, null,out Vector2 localPos))
         {
             return localPos;
         }
         return Vector2.zero;
+    }
+
+    private Vector2 WorldToCanvas(Vector2 world)
+    {
+        Vector2 screen = Camera.main.WorldToScreenPoint(world);
+        return screen;
     }
 }
