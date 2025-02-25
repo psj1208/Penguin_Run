@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
         if (amount < 0)
         {
             isInvincibility = true;
-            ChangeSpeed(amount,0.5f);
+            ChangeSpeed(amount);
         }
     }
 
@@ -209,27 +209,41 @@ public class PlayerController : MonoBehaviour
     /// 속도 변경 이벤트 발생 후, 일정 시간 후 속도를 초기화하는 코루틴 시작
     /// </summary>
     /// <param name="amount">속도 변화량</param>
-    public void ChangeSpeed(int amount, float duration)
+    public void ChangeSpeed(int amount)
     {
-        if (isInvincibility)
+        if (isInvincibility == true)
         {
             speed = 2f;
-            Invoke("InvincibilityEnd", 0.5f);
+            Invoke("InvincibilityEnd", 2f);
+        }
+
+        // 효과 지속 중 재획득 시 지속 시간만 갱신
+        if (resetSpeed != null)
+        {
+            Debug.Log("지속 시간 갱신");
+            StopCoroutine(resetSpeed);
+            resetSpeed = StartCoroutine(ResetSpeed(3f));
+            return;
         }
 
         Debug.Log("부스터");
         speed += amount;
         OnChangeSpeed?.Invoke(this, speed);
 
-        // 기존에 실행 중인 속도 재설정 코루틴이 있다면 중지
-        if (resetSpeed != null)
-        {
-            Debug.Log("지속 시간 갱신");
-            StopCoroutine(resetSpeed);
-        }
-
         // 일정 시간 후 속도를 초기화하는 코루틴 시작
-        StartCoroutine(ResetSpeed(3f));
+        resetSpeed = StartCoroutine(ResetSpeed(3f));
+    }
+    
+    /// <summary>
+    /// 일정 시간 후 속도를 기본값(8f)으로 재설정하는 코루틴
+    /// </summary>
+    /// <param name="duration">지속 시간</param>
+    public IEnumerator ResetSpeed(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Debug.Log("속도 초기화");
+        speed = 8f;
+        resetSpeed = null;
     }
 
     /// <summary>
@@ -241,18 +255,6 @@ public class PlayerController : MonoBehaviour
         speed = 8f;
     }
 
-    /// <summary>
-    /// 일정 시간 후 속도를 기본값(8f)으로 재설정하는 코루틴
-    /// </summary>
-    /// <param name="duration">지속 시간</param>
-    /// <returns></returns>
-    private IEnumerator ResetSpeed(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        Debug.Log("속도 초기화");
-        speed = 8f;
-        OnChangeSpeed.Invoke(this, speed);
-    }
 
     /// <summary>
     /// 점수 추가 이벤트 호출

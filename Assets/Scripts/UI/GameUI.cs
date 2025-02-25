@@ -11,8 +11,6 @@ public class GameUI : MonoBehaviour
 
     private int curScore;
     public int CurScore => curScore;
-    private int playerHP;
-    [SerializeField] private float decreaseRatio;
 
     private const UIState state = UIState.Game;
 
@@ -26,7 +24,14 @@ public class GameUI : MonoBehaviour
     {
         curScore = 0;
         curScoreTxt.text = curScore.ToString();
-        decreaseRatio = 1f;
+    }
+
+    private void OnEnable()
+    {
+        if (player != null)
+        {
+            player.OnAddScore += UpdateCurrentScore;
+        }
     }
 
     private void Start()
@@ -34,26 +39,19 @@ public class GameUI : MonoBehaviour
         player = GameManager.Instance.Player;
         playerHPSlider.maxValue = player.MaxHp;
         playerHPSlider.value = player.Hp;
+
+        player.OnAddScore += UpdateCurrentScore;
     }
 
     private void Update()
     {
-        playerHPSlider.value -= decreaseRatio * Time.deltaTime;
+        playerHPSlider.value = player.Hp;
     }
-
-    private void OnEnable()
-    {
-        if (player != null)
-        {
-            player.OnChangeHp += ChangePlayerHP;
-            player.OnAddScore += UpdateCurrentScore;
-        }
-    }
+    
     private void OnDisable()
     {
         if (player != null)
         {
-            player.OnChangeHp -= ChangePlayerHP;
             player.OnAddScore -= UpdateCurrentScore;
         }
     }
@@ -74,14 +72,5 @@ public class GameUI : MonoBehaviour
     {
         curScore += figure;
         curScoreTxt.text = curScore.ToString();
-    }
-
-    /// <summary>
-    /// 체력게이지를 변경 수치만큼 더함
-    /// </summary>
-    /// <param name="figure">변경 수치</param>
-    private void ChangePlayerHP(PlayerController player, int figure)
-    {
-        playerHPSlider.value += figure;
     }
 }

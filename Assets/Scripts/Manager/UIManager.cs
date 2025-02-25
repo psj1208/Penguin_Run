@@ -14,23 +14,20 @@ public class UIManager : MonoBehaviour
     private GameUI gameUI;
     private GameOverUI gameOverUI;
 
-    private CoinsManager coinsManager;
-
     private void Awake()
     {
         instance = this;
 
         curUIState = UIState.Start;
 
-        startUI = GetComponentInChildren<StartUI>();
-        gameUI = GetComponentInChildren<GameUI>();
-        gameOverUI = GetComponentInChildren<GameOverUI>();
+        startUI = GetComponentInChildren<StartUI>(true);
+        gameUI = GetComponentInChildren<GameUI>(true);
+        gameOverUI = GetComponentInChildren<GameOverUI>(true);
     }
 
     private void Start()
     {
         ChangeUIState(curUIState);
-        coinsManager = FindFirstObjectByType<CoinsManager>();
     }
 
     /// <summary>
