@@ -9,6 +9,7 @@ public class StartSceneManager : MonoBehaviour
 {
     private float elapsedTime;
     private float fadeTime;
+    private AudioClip btnSFX;
 
     [SerializeField] private Button startBtn;
     [SerializeField] private Image fadeInImage;
@@ -17,8 +18,10 @@ public class StartSceneManager : MonoBehaviour
     {
         elapsedTime = 0f;
         fadeTime = 1f;
+        btnSFX = Resources.Load<AudioClip>("Sounds/Coin/coin01");
 
         startBtn.onClick.AddListener(OnClickStartButton);
+        startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX); });
         fadeInImage.color = Color.clear;
     }
 

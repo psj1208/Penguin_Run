@@ -13,19 +13,25 @@ public class GameManager : MonoBehaviour
     public PlayerController Player => player;
 
     private UIManager uiManager;
+    private AudioManager audioManager;
 
     public Transform startPos;
     public Transform endPos;
 
+    private AudioClip bgm;
+
     private void Awake()
     {
         instance = this;
+        bgm = Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289");
         CreatePlayer();
     }
 
     private void Start()
     {
         uiManager = UIManager.Instance;
+        audioManager = AudioManager.Instance;
+        audioManager.BackGroundMusic(bgm);
         StartCoroutine(uiManager.FadeOut());
         StartCoroutine(StartGame());
     }

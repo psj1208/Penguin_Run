@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    public static SoundManager instance;
+    private static AudioManager instance;
+    public static AudioManager Instance => instance;
 
     [SerializeField][Range(0f, 1f)] private float musicVolume;
     [SerializeField][Range(0f, 1f)] private float soundEffectPitchVariance;
@@ -13,13 +14,19 @@ public class SoundManager : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip audioClip;
 
-    public SoundSource prefabSoundSource; 
+    public SoundSource prefabSoundSource;
+
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         //싱글톤
         if (audioSource == null)
         {
             instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
 
         audioSource = GetComponent<AudioSource>();

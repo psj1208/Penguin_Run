@@ -15,6 +15,11 @@ public class Item : InteractObject
     ParticleSystem particle;
     bool isActive = true;
 
+    private void Awake()
+    {
+        sfx = Resources.Load<AudioClip>("Sounds/Coin/coin01");
+    }
+
     private void Start()
     {
         particle = GetComponent<ParticleSystem>();
@@ -41,6 +46,7 @@ public class Item : InteractObject
             default:
                 break;
         }
+        AudioManager.PlayClip(sfx);
     }
     
     void ParticleAndDestroy()
