@@ -49,8 +49,12 @@ public class SoundManager : MonoBehaviour
     /// <param name="clip"></param>
     public static void PlayClip(AudioClip clip)
     {
-        //호출한곳에서 SoundManager 복제후 복제된 SoundManager의 SoundSource 컴포넌트 정보를 soundSource 변수에 지정
-        //사운드를 중복으로 재생하기 위해 SoundManager를 복제후 오브젝트의 클립을 재생하는 과정
+        /*작동방식
+        PlayClip 호출 > 오브젝트안에 틀어가있는 사운드소스 싱클톤화 후 변수지정 >
+        그변수의 지정돼있는 사운드소스 컴포넌트 정보를 변수의 지정 >
+        지정되있는 사운드소스 메서드에게 매개변수 정보를 보내면서 호출 >
+        오브젝트 안에 클립 사운드 정보 , 음량설정1, 음량설정2를 보내고  Play메서드에서 음악 재생
+        */
         SoundSource prefab = Instantiate(instance.prefabSoundSource);
         SoundSource soundSource = prefab.GetComponent<SoundSource>();
 
