@@ -9,6 +9,7 @@ public class Item : InteractObject
     [SerializeField] private ItemType itemType;
     [SerializeField] private int hpValue = 0;
     [SerializeField] private int speedValue = 0;
+    [SerializeField] private int durationValue = 0;
     [SerializeField] private int Score = 0;
     ParticleSystem particle;
     bool isActive = true;
@@ -31,7 +32,8 @@ public class Item : InteractObject
                 break;
             case ItemType.Speed:
                 Debug.Log($"{speedValue} 속도 조절!");
-                pController.ChangeSpeed(speedValue, 5);
+                pController.ChangeSpeed(speedValue);
+                pController.ResetSpeed(durationValue);
                 break;
             case ItemType.Score:
                 //매니저에서 스코어 증가 함수 필요

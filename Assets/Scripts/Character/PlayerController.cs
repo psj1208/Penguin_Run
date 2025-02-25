@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
         if (amount < 0)
         {
             isInvincibility = true;
-            ChangeSpeed(amount,0.5f);
+            ChangeSpeed(amount);
         }
     }
 
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
     /// 속도 변경 이벤트 발생 후, 일정 시간 후 속도를 초기화하는 코루틴 시작
     /// </summary>
     /// <param name="amount">속도 변화량</param>
-    public void ChangeSpeed(int amount, float duration)
+    public void ChangeSpeed(int amount)
     {
         if (isInvincibility)
         {
@@ -238,6 +238,17 @@ public class PlayerController : MonoBehaviour
         // 일정 시간 후 속도를 초기화하는 코루틴 시작
         StartCoroutine(ResetSpeed(3f));
     }
+    
+    /// <summary>
+    /// 일정 시간 후 속도를 기본값(8f)으로 재설정하는 코루틴
+    /// </summary>
+    /// <param name="duration">지속 시간</param>
+    public IEnumerator ResetSpeed(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Debug.Log("속도 초기화");
+        speed = 8f;
+    }
 
     /// <summary>
     /// 무적 상태 종료 및 속도 초기화
@@ -248,18 +259,6 @@ public class PlayerController : MonoBehaviour
         speed = 8f;
     }
 
-    /// <summary>
-    /// 일정 시간 후 속도를 기본값(8f)으로 재설정하는 코루틴
-    /// </summary>
-    /// <param name="duration">지속 시간</param>
-    /// <returns></returns>
-    private IEnumerator ResetSpeed(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        Debug.Log("속도 초기화");
-        speed = 8f;
-        OnChangeSpeed.Invoke(this, speed);
-    }
 
     /// <summary>
     /// 점수 추가 이벤트 호출
