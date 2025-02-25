@@ -15316,8 +15316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c28e32ffdfa5624294b3de37fed6097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  stat: {fileID: 0}
+  player: {fileID: 612728905}
+  stat: {fileID: 612728902}
   startPos: {fileID: 854754185}
   endPos: {fileID: 1805961103}
 --- !u!4 &1685509522
