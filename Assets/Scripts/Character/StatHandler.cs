@@ -20,7 +20,7 @@ public class StatHandler : MonoBehaviour
 
     private float invincibilityTime;
     private float invincibilityDurationTime;
-    private bool isInvincibility;
+    [SerializeField] private bool isInvincibility;
 
     private void Awake()
     {
@@ -89,6 +89,7 @@ public class StatHandler : MonoBehaviour
         if (amount > 0) 
         {
             Booster(amount, duration);
+
         }
     }
 
@@ -96,7 +97,9 @@ public class StatHandler : MonoBehaviour
     {
         if(amount > 0)
         {
+            isInvincibility = true;
             speed += amount;
+            
         }
     }
 }

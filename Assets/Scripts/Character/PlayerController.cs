@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
             // 점프 입력 감지
             if (Input.GetKeyDown(KeyCode.Space))
             {
+
                 isJumping = true;
             }
 
@@ -107,6 +108,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumping)
         {
+            Vector2 velocity = rb.velocity * 0;
+            rb.velocity = velocity;
             if (jumpCount > 0)
             {
                 Vector2 vel = rb.velocity + Vector2.up * jumpForce;
