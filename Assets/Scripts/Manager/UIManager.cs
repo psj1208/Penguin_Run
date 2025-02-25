@@ -50,4 +50,26 @@ public class UIManager : MonoBehaviour
     {
         return gameUI.CurScore;
     }
+
+    /// <summary>
+    /// 점수 아이템 획득 시 호출하는 획득 이펙트 메서드
+    /// </summary>
+    /// <param name="collectedPostion">아이템 position</param>
+    /// <param name="amount">획득량</param>
+    /// <param name="pControl">플레이어</param>
+    public void ScoreItemFX(Vector3 collectedPostion, int amount, PlayerController pControl)
+    {
+        gameUI.UIFX.AnimateCoin(collectedPostion, amount, pControl);
+    }
+
+    /// <summary>
+    /// 회복 아이템 획득 시 호출하는 획득 이펙트 메서드
+    /// </summary>
+    /// <param name="collectedPostion">아이템 position</param>
+    /// <param name="amount">회복량</param>
+    /// <param name="pControl">플레이어</param>
+    public void HPItemFX(Vector3 collectedPostion, int amount, PlayerController pControl)
+    {
+        gameUI.UIFX.AnimateHeart(collectedPostion, amount, pControl);
+    }
 }
