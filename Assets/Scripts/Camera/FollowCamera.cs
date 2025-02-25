@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    public Transform target;
-    float offsetX;
+    private Transform target;
+    private float offsetX;
 
     void Start()
     {
+        target = GameManager.Instance.Player.transform;
+
         /*카메라의 간격값
         카메라의 x축 포지션값 - 플레이어의 x축 포지션값 = offsetX
         */
