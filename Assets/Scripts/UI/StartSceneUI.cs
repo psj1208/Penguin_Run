@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartSceneUI : MonoBehaviour
 {
     public void StartSceneBtn()
     {
-        Debug.Log("Test 구동");
+        SceneManager.LoadScene(1);
     }
 }
