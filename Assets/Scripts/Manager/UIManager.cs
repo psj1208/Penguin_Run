@@ -20,9 +20,9 @@ public class UIManager : MonoBehaviour
 
         curUIState = UIState.Start;
 
-        startUI = GetComponentInChildren<StartUI>();
-        gameUI = GetComponentInChildren<GameUI>();
-        gameOverUI = GetComponentInChildren<GameOverUI>();
+        startUI = GetComponentInChildren<StartUI>(true);
+        gameUI = GetComponentInChildren<GameUI>(true);
+        gameOverUI = GetComponentInChildren<GameOverUI>(true);
     }
 
     private void Start()
