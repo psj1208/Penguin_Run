@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CoinsManager : MonoBehaviour
 {
-    public static CoinsManager Instance;
     [Header("UI references")]
     [SerializeField] Canvas poolingCanvas;
     [SerializeField] RectTransform coinTarget;
@@ -50,7 +49,6 @@ public class CoinsManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
         Prepare();
     }
 
@@ -72,7 +70,7 @@ public class CoinsManager : MonoBehaviour
         }
     }
 
-    void AnimateCoin(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void AnimateCoin(Vector3 collectedPostion, int amount, PlayerController pControl)
     {
         for(int i=0; i<amount; i++)
         {
@@ -97,7 +95,7 @@ public class CoinsManager : MonoBehaviour
         }
     }
 
-    void AnimateHeart(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void AnimateHeart(Vector3 collectedPostion, int amount, PlayerController pControl)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -120,16 +118,6 @@ public class CoinsManager : MonoBehaviour
                     });
             }
         }
-    }
-
-    public void AddCoins(Vector3 collectedCoinPosition,int amount, PlayerController pControl)
-    {
-        AnimateCoin(collectedCoinPosition, amount, pControl);
-    }
-
-    public void AddHearts(Vector3 collectedHeartPosition,int amount, PlayerController pControl)
-    {
-        AnimateHeart(collectedHeartPosition, amount, pControl);
     }
 
     private Vector2 WorldToCanvasInOverlay(Vector2 world)

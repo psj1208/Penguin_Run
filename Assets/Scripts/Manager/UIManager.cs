@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     private GameUI gameUI;
     private GameOverUI gameOverUI;
 
+    private CoinsManager coinsManager;
+
     private void Awake()
     {
         instance = this;
@@ -28,6 +30,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         ChangeUIState(curUIState);
+        coinsManager = FindFirstObjectByType<CoinsManager>();
     }
 
     /// <summary>
@@ -71,5 +74,15 @@ public class UIManager : MonoBehaviour
     public void HPItemFX(Vector3 collectedPostion, int amount, PlayerController pControl)
     {
         gameUI.UIFX.AnimateHeart(collectedPostion, amount, pControl);
+    }
+
+    public void AddCoinsInGame(Vector3 collectedCoinPosition, int amount, PlayerController pControl)
+    {
+        coinsManager.AnimateCoin(collectedCoinPosition, amount, pControl);
+    }
+
+    public void AddHeartsInGame(Vector3 collectedHeartPosition, int amount, PlayerController pControl)
+    {
+        coinsManager.AnimateHeart(collectedHeartPosition, amount, pControl);
     }
 }
