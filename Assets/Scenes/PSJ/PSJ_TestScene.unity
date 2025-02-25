@@ -5045,10 +5045,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &9051405
 Transform:
   m_ObjectHideFlags: 0
@@ -10050,10 +10050,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &20231632
 Transform:
   m_ObjectHideFlags: 0
@@ -15676,10 +15676,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &265030850
 Transform:
   m_ObjectHideFlags: 0
@@ -20618,10 +20618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &286014395
 Transform:
   m_ObjectHideFlags: 0
@@ -25560,10 +25560,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &312500923
 Transform:
   m_ObjectHideFlags: 0
@@ -31809,10 +31809,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &863200729
 Transform:
   m_ObjectHideFlags: 0
@@ -38185,10 +38185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &1359972179
 Transform:
   m_ObjectHideFlags: 0
@@ -43799,10 +43799,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &1641271685
 Transform:
   m_ObjectHideFlags: 0
@@ -49978,10 +49978,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &1915448725
 Transform:
   m_ObjectHideFlags: 0
@@ -67068,10 +67068,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fad2b3e76fca4995f5cf587b2e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  itemType: 0
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 0
 --- !u!4 &2068718643
 Transform:
   m_ObjectHideFlags: 0
