@@ -224,12 +224,14 @@ public class PlayerController : MonoBehaviour
             Invoke("InvincibilityEnd", 0.5f);
         }
 
+        Debug.Log("부스터");
         speed += amount;
         OnChangeSpeed?.Invoke(this, speed);
 
         // 기존에 실행 중인 속도 재설정 코루틴이 있다면 중지
         if (resetSpeed != null)
         {
+            Debug.Log("지속 시간 갱신");
             StopCoroutine(resetSpeed);
         }
 
@@ -254,6 +256,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ResetSpeed(float duration)
     {
         yield return new WaitForSeconds(duration);
+        Debug.Log("속도 초기화");
         speed = 8f;
         OnChangeSpeed.Invoke(this, speed);
     }
