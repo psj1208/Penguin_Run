@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     [SerializeField] private PlayerController player;
+    [SerializeField] private StatHandler stat;
 
     private UIManager uiManager;
 

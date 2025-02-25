@@ -70,9 +70,9 @@ public class UIManager : MonoBehaviour
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">회복량</param>
     /// <param name="pControl">플레이어</param>
-    public void HPItemFX(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void HPItemFX(Vector3 collectedPostion, int amount, StatHandler sHandler)
     {
-        gameUI.UIFX.AnimateHeart(collectedPostion, amount, pControl);
+        gameUI.UIFX.AnimateHeart(collectedPostion, amount, sHandler);
     }
 
     public void MiniMapOn(Transform st, Transform end, Transform player)

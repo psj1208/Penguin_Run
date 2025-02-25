@@ -22,12 +22,6 @@ public class StatHandler : MonoBehaviour
     private float invincibilityDurationTime;
     private bool isInvincibility;
 
-    private float knockbackTime;
-    private float knockbackDurationTime;
-    private bool isKnockback;
-    public float KnockbackPower;
-    public bool IsKnockback => isKnockback;
-
     private void Awake()
     {
         hp = 10f;
@@ -37,11 +31,6 @@ public class StatHandler : MonoBehaviour
         invincibilityTime = 3f;
         invincibilityDurationTime = 0f;
         isInvincibility = false;
-
-        knockbackTime = 0.5f;
-        knockbackDurationTime = 0f;
-        isKnockback = false;
-        KnockbackPower = 11f;
 
         player = GetComponent<PlayerController>();
     }
@@ -66,16 +55,6 @@ public class StatHandler : MonoBehaviour
                 invincibilityDurationTime = 0f;
             }
         }
-
-        if (isKnockback)
-        {
-            knockbackDurationTime += Time.deltaTime;
-            if (knockbackDurationTime >= knockbackTime)
-            {
-                isKnockback = false;
-                knockbackDurationTime = 0f;
-            }
-        }
     }
 
     public void ChangeHP(float figure)
@@ -90,19 +69,23 @@ public class StatHandler : MonoBehaviour
         }
     }
 
+    public void ChangeSpeed(int amount, int duration)
+    {
+
+    }
+
     private void Heel(float figure)
     {
         hp += figure;
         hp = hp >= maxHp ? maxHp : hp;
     }
 
-    private void Damage(float figure)
+    public void Damage(float figure)
     {
         if (!isInvincibility)
         {
             isInvincibility = true;
             hp += figure;
-            isKnockback = true;
         }
     }
 }

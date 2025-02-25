@@ -71,7 +71,7 @@ public class UIFX : MonoBehaviour
         }
     }
 
-    public void AnimateHeart(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void AnimateHeart(Vector3 collectedPostion, int amount, StatHandler sHandler)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -88,7 +88,7 @@ public class UIFX : MonoBehaviour
                     {
                         heart.SetActive(false);
                         heartQueue.Enqueue(heart);
-                        pControl.ChangeHP();
+                        sHandler.ChangeHP(amount);
                     });
             }
         }

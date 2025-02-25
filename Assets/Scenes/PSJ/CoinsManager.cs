@@ -95,7 +95,7 @@ public class CoinsManager : MonoBehaviour
         }
     }
 
-    public void AnimateHeart(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void AnimateHeart(Vector3 collectedPostion, int amount, StatHandler statHandler)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -113,7 +113,7 @@ public class CoinsManager : MonoBehaviour
                         heart.SetActive(false);
                         heartQueue.Enqueue(heart);
 
-                        pControl.ChangeHP(1);
+                        statHandler.ChangeHP(1);
                         Hearts++;
                     });
             }
