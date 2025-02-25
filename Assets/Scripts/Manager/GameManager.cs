@@ -50,7 +50,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         uiManager.ChangeUIState(UIState.Game);//상황에 필요한 이넘 값을 매게변수에 보내서 메뉴 호출 
-        uiManager.MiniMapOn(startPos, endPos, player.transform);
+        if(startPos != null && endPos != null && player != null)
+            uiManager.MiniMapOn(startPos, endPos, player.transform);
     }
 
     //아직 예정 된거 없는 메서드
