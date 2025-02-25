@@ -16,11 +16,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int score;
 
     // 체력 관련 변수 및 프로퍼티
-    [SerializeField] private int hp = 10;
-    public int Hp => hp;
-
     private int maxHp = 40;
     public int MaxHp => maxHp;
+
+    [SerializeField] private float hp = 10;
+    public float Hp { get { return hp; } set { hp = Mathf.Clamp(value, 0, maxHp); } }
 
     // 이동 속도 및 사망 Y 좌표 관련 변수와 프로퍼티
     [SerializeField] private float speed = 8f;
@@ -166,26 +166,19 @@ public class PlayerController : MonoBehaviour
     /// amount가 양수이면 Heal, 음수이면 Damage 처리 후 이벤트 발생
     /// </summary>
     /// <param name="amount">체력 변화량</param>
-    public void ChangeHP(int amount)
+    public void ChangeHP(int amount = 1)
     {
         if (amount >= 0)
         {
             Heal(amount);
+            OnChangeHp?.Invoke(this, amount);
         }
         else
         {
             Damage(-amount);
         }
 
-        // 체력 변화 이벤트 호출 (양수, 음수에 관계없이 절대값 전달)
-        if (amount >= 0)
-        {
-            OnChangeHp?.Invoke(this, amount);
-        }
-        else
-        {
-            OnChangeHp?.Invoke(this, -amount);
-        }
+        OnChangeHp?.Invoke(this, amount);
     }
 
     /// <summary>
@@ -194,7 +187,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="amount">회복량</param>
     private void Heal(float amount)
     {
-
+        Hp += amount;
     }
 
     /// <summary>
@@ -264,7 +257,7 @@ public class PlayerController : MonoBehaviour
     /// 점수 추가 이벤트 호출
     /// </summary>
     /// <param name="amount">추가할 점수</param>
-    public void AddScore(int amount)
+    public void AddScore(int amount = 1)
     {
         OnAddScore?.Invoke(this, amount);
     }
