@@ -27,8 +27,7 @@ public class Item : InteractObject
         {
             case ItemType.Heal:
                 Debug.Log($"{hpValue} 체력 조절!");
-                pController.ChangeHP(hpValue);
-                CoinsManager.Instance.AddHearts(this.transform.position, hpValue, pController);
+                UIManager.Instance.AddHearts(this.transform.position, hpValue, pController);
                 break;
             case ItemType.Speed:
                 Debug.Log($"{speedValue} 속도 조절!");
@@ -37,7 +36,7 @@ public class Item : InteractObject
             case ItemType.Score:
                 //매니저에서 스코어 증가 함수 필요
                 Debug.Log($"{Score} 스코어 증가!");
-                CoinsManager.Instance.AddCoins(this.transform.position, Score, pController);
+                UIManager.Instance.AddCoins(this.transform.position, Score, pController);
                 break;
             default:
                 break;
