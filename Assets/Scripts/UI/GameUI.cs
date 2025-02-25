@@ -38,6 +38,7 @@ public class GameUI : MonoBehaviour
     private void Start()
     {
         player = GameManager.Instance.Player;
+        statHandler = player.Stat;
         playerHPSlider.maxValue = statHandler.MaxHp;
         playerHPSlider.value = statHandler.Hp;
 
