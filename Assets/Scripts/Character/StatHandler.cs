@@ -89,7 +89,6 @@ public class StatHandler : MonoBehaviour
         if (amount > 0) 
         {
             Booster(amount, duration);
-
         }
     }
 
@@ -99,7 +98,12 @@ public class StatHandler : MonoBehaviour
         {
             isInvincibility = true;
             speed += amount;
-            
+            Invoke("ResetSpeed", duration);
         }
+    }
+
+    public void ResetSpeed()
+    {
+        speed = 8f;
     }
 }
