@@ -1,4 +1,5 @@
 using DataDeclaration;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,7 @@ public class GameOverUI : MonoBehaviour
     private int bestScore;
     private int resultScore;
 
+    [SerializeField] private RectTransform panel;
     [SerializeField] private TextMeshProUGUI bestScoreTxt;
     [SerializeField] private TextMeshProUGUI resultScoreTxt;
     [SerializeField] private Button RestartBtn;
@@ -30,6 +32,8 @@ public class GameOverUI : MonoBehaviour
     {
         if (uiManager != null)
         {
+            panel.localScale = Vector3.zero;
+            panel.DOScale(1, 1).SetEase(Ease.OutBounce).SetUpdate(true);
             resultScore = uiManager.GetResultScore();
             bestScore = PlayerPrefs.GetInt("BestScore", 0);
             if (resultScore > bestScore)

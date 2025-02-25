@@ -9,8 +9,12 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     [SerializeField] private PlayerController player;
+    [SerializeField] private StatHandler stat;
 
     private UIManager uiManager;
+
+    public Transform startPos;
+    public Transform endPos;
 
     //프로퍼티
     public static GameManager Instance => instance;
@@ -46,6 +50,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         uiManager.ChangeUIState(UIState.Game);//상황에 필요한 이넘 값을 매게변수에 보내서 메뉴 호출 
+        if(startPos != null && endPos != null && player != null)
+            uiManager.MiniMapOn(startPos, endPos, player.transform);
     }
 
     //아직 예정 된거 없는 메서드
