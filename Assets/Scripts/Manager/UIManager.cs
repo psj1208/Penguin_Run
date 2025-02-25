@@ -77,7 +77,8 @@ public class UIManager : MonoBehaviour
 
     public void MiniMapOn(Transform st, Transform end, Transform player)
     { 
-        miniMap.Init(st, end, player);
+        if(miniMap != null)
+            miniMap.Init(st, end, player);
     }
     /// <summary>
     /// 미니맵 좌표를 설정하는 함수. 매개변수는 비율로.(0~1)
