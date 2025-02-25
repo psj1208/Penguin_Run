@@ -14,8 +14,6 @@ public class UIManager : MonoBehaviour
     private GameUI gameUI;
     private GameOverUI gameOverUI;
 
-    private CoinsManager coinsManager;
-
     private void Awake()
     {
         instance = this;
@@ -30,7 +28,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         ChangeUIState(curUIState);
-        coinsManager = FindFirstObjectByType<CoinsManager>();
     }
 
     /// <summary>
