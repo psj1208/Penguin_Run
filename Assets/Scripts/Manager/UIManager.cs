@@ -75,14 +75,4 @@ public class UIManager : MonoBehaviour
     {
         gameUI.UIFX.AnimateHeart(collectedPostion, amount, pControl);
     }
-
-    public void AddCoinsInGame(Vector3 collectedCoinPosition, int amount, PlayerController pControl)
-    {
-        coinsManager.AnimateCoin(collectedCoinPosition, amount, pControl);
-    }
-
-    public void AddHeartsInGame(Vector3 collectedHeartPosition, int amount, PlayerController pControl)
-    {
-        coinsManager.AnimateHeart(collectedHeartPosition, amount, pControl);
-    }
 }

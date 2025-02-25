@@ -25,32 +25,6 @@ public class UIFX : MonoBehaviour
     [SerializeField] GameObject animatedCoinPrefab;
     [SerializeField] GameObject animatedHeartPrefab;
 
-    private int _c = 0;
-    public int Coins
-    {
-        get
-        {
-            return _c;
-        }
-        set
-        {
-            _c = value;
-        }
-    }
-
-    private int _h = 0;
-    public int Hearts
-    {
-        get
-        {
-            return _h;
-        }
-        set
-        {
-            _h = value;
-        }
-    }
-
     private void Awake()
     {
         Prepare();
@@ -91,7 +65,7 @@ public class UIFX : MonoBehaviour
                     {
                         coin.SetActive(false);
                         coinsQueue.Enqueue(coin);
-                        Coins++;
+                        pControl.AddScore();
                     });
             }
         }
@@ -114,7 +88,7 @@ public class UIFX : MonoBehaviour
                     {
                         heart.SetActive(false);
                         heartQueue.Enqueue(heart);
-                        Hearts++;
+                        pControl.ChangeHP();
                     });
             }
         }

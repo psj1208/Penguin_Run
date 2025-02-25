@@ -34,9 +34,6 @@ public class GameUI : MonoBehaviour
         player = GameManager.Instance.Player;
         playerHPSlider.maxValue = player.MaxHp;
         playerHPSlider.value = player.Hp;
-
-        player.OnChangeHp += ChangePlayerHP;
-        player.OnAddScore += UpdateCurrentScore;
     }
 
     private void Update()
@@ -44,6 +41,14 @@ public class GameUI : MonoBehaviour
         playerHPSlider.value -= decreaseRatio * Time.deltaTime;
     }
 
+    private void OnEnable()
+    {
+        if (player != null)
+        {
+            player.OnChangeHp += ChangePlayerHP;
+            player.OnAddScore += UpdateCurrentScore;
+        }
+    }
     private void OnDisable()
     {
         if (player != null)
