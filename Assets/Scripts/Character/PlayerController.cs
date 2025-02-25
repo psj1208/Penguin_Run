@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         isDead = false;
-        jumpForce = 6;
+        jumpForce = 20;
         rb = GetComponent<Rigidbody2D>();
         statHandler = GetComponent<StatHandler>();
     }

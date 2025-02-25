@@ -69,11 +69,6 @@ public class StatHandler : MonoBehaviour
         }
     }
 
-    public void ChangeSpeed(int amount, int duration)
-    {
-
-    }
-
     private void Heel(float figure)
     {
         hp += figure;
@@ -86,6 +81,22 @@ public class StatHandler : MonoBehaviour
         {
             isInvincibility = true;
             hp += figure;
+        }
+    }
+
+    public void ChangeSpeed(int amount, int duration)
+    {
+        if (amount > 0) 
+        {
+            Booster(amount, duration);
+        }
+    }
+
+    public void Booster(int amount, int duration)
+    {
+        if(amount > 0)
+        {
+            speed += amount;
         }
     }
 }
