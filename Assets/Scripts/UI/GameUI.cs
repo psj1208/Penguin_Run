@@ -16,7 +16,6 @@ public class GameUI : MonoBehaviour
 
     [SerializeField] private UIFX uiFX;
     public UIFX UIFX => uiFX;
-
     [SerializeField] private TextMeshProUGUI curScoreTxt;
     [SerializeField] private Slider playerHPSlider;
 

@@ -18,10 +18,8 @@ public class FollowCamera : MonoBehaviour
         offsetX = transform.position.x - target.position.x;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        if (target == null) return;
-
         Vector3 cameraPos = transform.position;//카메라위치
         
         /*위에서 구한 간격값에 카메라위치 더하기
