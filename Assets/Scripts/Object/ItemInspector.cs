@@ -12,6 +12,7 @@ public class ItemInspector : Editor
     SerializedProperty hpValue;
     SerializedProperty speedValue;
     SerializedProperty scoreValue;
+    SerializedProperty duration;
 
     private void OnEnable()
     {
@@ -19,6 +20,7 @@ public class ItemInspector : Editor
         hpValue = serializedObject.FindProperty("hpValue");
         speedValue = serializedObject.FindProperty("speedValue");
         scoreValue = serializedObject.FindProperty("scoreValue");
+        duration = serializedObject.FindProperty("durationValue");
     }
 
     public override void OnInspectorGUI()
@@ -41,7 +43,10 @@ public class ItemInspector : Editor
 
         else if(selectedType == ItemType.Speed)
         {
+            GUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(speedValue, new GUIContent("속도 증가량"));
+            EditorGUILayout.PropertyField(duration, new GUIContent("지속 시간"));
+            GUILayout.EndHorizontal();
         }
 
         else if(selectedType == ItemType.Score)

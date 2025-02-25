@@ -11,7 +11,7 @@ public class Item : InteractObject
     [SerializeField] private int hpValue = 0;
     [SerializeField] private int speedValue = 0;
     [SerializeField] private int durationValue = 0;
-    [SerializeField] private int Score = 0;
+    [SerializeField] private int scoreValue = 0;
     ParticleSystem particle;
     bool isActive = true;
 
