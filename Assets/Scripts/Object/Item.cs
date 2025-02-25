@@ -28,18 +28,15 @@ public class Item : InteractObject
         switch (itemType)
         {
             case ItemType.Heal:
-                Debug.Log($"{hpValue} 체력 조절!");
-                UIManager.Instance.HPItemFX(this.transform.position, hpValue, statHandler);
+                UIManager.Instance.HPItemFX(this.transform.position, hpValue);
                 statHandler.ChangeHP(hpValue);
                 break;
             case ItemType.Speed:
-                Debug.Log($"{speedValue} 속도 조절!");
                 statHandler.ChangeSpeed(speedValue, durationValue);
                 break;
             case ItemType.Score:
-                //매니저에서 스코어 증가 함수 필요
-                Debug.Log($"{scoreValue} 스코어 증가!");
-                UIManager.Instance.ScoreItemFX(this.transform.position, scoreValue, GameManager.Instance.Player);
+                UIManager.Instance.ScoreItemFX(this.transform.position, scoreValue);
+                GameManager.Instance.Player.AddScore(scoreValue);
                 break;
             default:
                 break;

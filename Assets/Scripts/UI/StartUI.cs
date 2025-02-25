@@ -9,7 +9,7 @@ public class StartUI : MonoBehaviour
     private GameManager gameManager;
     private UIManager uiManager;
 
-    private const UIState state = UIState.Start;
+    //private const UIState state = UIState.Start;
 
     [SerializeField] private Button StartBtn;
     [SerializeField] private Button ExitBtn;
@@ -31,13 +31,13 @@ public class StartUI : MonoBehaviour
     /// </summary>
     public void ActiveUI(UIState uiState)
     {
-        gameObject.SetActive(state == uiState);
+        //gameObject.SetActive(state == uiState);
     }
 
     private void OnClickStartButton()
     {
         uiManager.ChangeUIState(UIState.Game);
-        gameManager.StartGame();
+        //gameManager.StartGame();
     }
 
     private void OnClickExitButton()

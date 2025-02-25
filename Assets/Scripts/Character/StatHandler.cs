@@ -7,13 +7,13 @@ public class StatHandler : MonoBehaviour
 {
     private PlayerController player;
 
-    [SerializeField] private float hp;
+    [SerializeField, Range(0f, 100f)] private float hp;
     public float Hp => hp;
 
-    private float maxHp;
+    [SerializeField, Range(0f, 100f)] private float maxHp;
     public float MaxHp => maxHp;
 
-    private float speed;
+    [SerializeField, Range(0f, 100f)] private float speed;
     public float Speed => speed;
 
     private float decreaseHPRatio;
@@ -24,9 +24,9 @@ public class StatHandler : MonoBehaviour
 
     private void Awake()
     {
-        hp = 10f;
-        maxHp = 40f;
-        speed = 8f;
+        //hp = 10f;
+        //maxHp = 40f;
+        //speed = 8f;
         decreaseHPRatio = 1f;
         invincibilityTime = 3f;
         invincibilityDurationTime = 0f;
@@ -75,7 +75,7 @@ public class StatHandler : MonoBehaviour
         hp = hp >= maxHp ? maxHp : hp;
     }
 
-    public void Damage(float figure)
+    private void Damage(float figure)
     {
         if (!isInvincibility)
         {
