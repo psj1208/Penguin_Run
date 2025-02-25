@@ -6,6 +6,7 @@ using UnityEngine;
 public class StatHandler : MonoBehaviour
 {
     private PlayerController player;
+    public AnimationHandler animationHandler;
 
     [SerializeField] private float hp;
     public float Hp => hp;
@@ -33,6 +34,7 @@ public class StatHandler : MonoBehaviour
         isInvincibility = false;
 
         player = GetComponent<PlayerController>();
+        animationHandler = GetComponent<AnimationHandler>();
     }
 
     private void Update()
@@ -65,6 +67,7 @@ public class StatHandler : MonoBehaviour
         }
         else
         {
+
             Damage(figure);
         }
     }
@@ -79,6 +82,7 @@ public class StatHandler : MonoBehaviour
     {
         if (!isInvincibility)
         {
+            animationHandler.Damage();
             isInvincibility = true;
             hp += figure;
         }
