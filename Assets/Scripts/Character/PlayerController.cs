@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="amount">회복량</param>
     private void Heal(float amount)
     {
-        // 체력 회복 로직
+
     }
 
     /// <summary>
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
     /// 속도 변경 이벤트 발생 후, 일정 시간 후 속도를 초기화하는 코루틴 시작
     /// </summary>
     /// <param name="amount">속도 변화량</param>
-    public void ChangeSpeed(int amount)
+    public void ChangeSpeed(int amount, int duration)
     {
         if (isInvincibility)
         {
