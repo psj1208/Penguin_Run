@@ -39,7 +39,7 @@ public class Item : InteractObject
             case ItemType.Score:
                 //매니저에서 스코어 증가 함수 필요
                 Debug.Log($"{scoreValue} 스코어 증가!");
-                UIManager.Instance.ScoreItemFX(this.transform.position, scoreValue, statHandler);
+                UIManager.Instance.ScoreItemFX(this.transform.position, scoreValue, GameManager.Instance.Player);
                 break;
             default:
                 break;
