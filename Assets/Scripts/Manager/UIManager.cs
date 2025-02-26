@@ -31,6 +31,8 @@ public class UIManager : MonoBehaviour
         gameUI = GetComponentInChildren<GameUI>(true);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         miniMap = GetComponentInChildren<MiniMap>(true);
+
+        ChangeUIState(UIState.None);
     }
 
     /// <summary>
