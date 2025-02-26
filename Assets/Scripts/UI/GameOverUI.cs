@@ -37,7 +37,8 @@ public class GameOverUI : MonoBehaviour
         {
             panel.localScale = Vector3.zero;
             panel.DOScale(1, 1).SetEase(Ease.OutBounce).SetUpdate(true);
-            AudioManager.Instance.BackGroundMusic(gameOverSfx);
+            AudioManager.Instance.BackGroundMusic(null);
+            AudioManager.PlayClip(gameOverSfx);
             resultScore = uiManager.GetResultScore();
             bestScore = PlayerPrefs.GetInt("BestScore", 0);
             if (resultScore > bestScore)
@@ -56,7 +57,8 @@ public class GameOverUI : MonoBehaviour
 
         panel.localScale = Vector3.zero;
         panel.DOScale(1, 1).SetEase(Ease.OutBounce).SetUpdate(true);
-        AudioManager.Instance.BackGroundMusic(gameOverSfx);
+        AudioManager.Instance.BackGroundMusic(null);
+        AudioManager.PlayClip(gameOverSfx);
         resultScore = uiManager.GetResultScore();
         bestScore = PlayerPrefs.GetInt("BestScore", 0);
         if (resultScore > bestScore)
