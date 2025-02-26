@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class AnimationHandler : MonoBehaviour
 {
-    private static readonly int IsMoving = Animator.StringToHash("IsMove"); // 문자를 특정한 숫자 값으로 변환하여 비교
+    private static readonly int IsMoving = Animator.StringToHash("IsMoving"); // 문자를 특정한 숫자 값으로 변환하여 비교
     private static readonly int IsDamage = Animator.StringToHash("IsDamage");
     private static readonly int IsSliding = Animator.StringToHash("IsSliding");
     private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+    private static readonly int IsInvincivility = Animator.StringToHash("IsInvincivility");
 
     private Animator animator;
 
@@ -21,9 +22,18 @@ public class AnimationHandler : MonoBehaviour
         animator.SetBool(IsMoving, true);
     }
 
-    public void Jump()
+    public void SetJump(bool on)
     {
-        animator.SetBool(IsJumping, true);
+        if (on)
+        {
+            animator.SetBool(IsJumping, true);
+            animator.SetBool(IsMoving, false);
+        }
+        else if (!on)
+        {
+            animator.SetBool(IsJumping, false);
+            animator.SetBool(IsMoving, true);
+        }
     }
 
     public void Slide()
@@ -31,13 +41,18 @@ public class AnimationHandler : MonoBehaviour
         animator.SetBool(IsSliding, true);
     }
 
-    public void Damage()
+    public void Stand()
     {
-        animator.SetBool(IsDamage, true);
+        animator.SetBool(IsSliding, false);
     }
 
-    public void InvincibilityEnd()
+    public void Damage()
     {
-        animator.SetBool(IsDamage, false);
+        animator.SetTrigger(IsDamage);
+    }
+
+    public void Invincibility()
+    {
+        animator.SetBool(IsInvincivility, true);
     }
 }
