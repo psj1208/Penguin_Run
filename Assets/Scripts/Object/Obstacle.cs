@@ -1,3 +1,4 @@
+using DataDeclaration;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,6 @@ public class Obstacle : InteractObject
     {
         //플레이어 데미지 입는 함수
         sHandler.ChangeHP(-damage);
-        AudioManager.PlayClip(sfx);
+        AudioManager.PlayClip(sfx,AudioResType.sfx);
     }
 }

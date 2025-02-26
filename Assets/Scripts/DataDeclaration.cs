@@ -21,8 +21,15 @@ namespace DataDeclaration
 
     public enum AudioResType
     {
+        etc,
         Background,
         sfx
+    }
+
+    public enum SettingUIState
+    {
+        Sound,
+        Control
     }
     #endregion
 
