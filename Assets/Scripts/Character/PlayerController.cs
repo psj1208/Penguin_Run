@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private bool isDead; // 플레이어가 죽었는지 여부
     [SerializeField] private bool isJumping; // 점프 상태 여부
     [SerializeField] private bool isSliding; // 슬라이딩 상태 여부
+    [SerializeField] private bool isSide;
 
     // 점프 관련 변수
     [SerializeField] private int jumpForce; // 점프 힘
@@ -66,7 +67,6 @@ public class PlayerController : MonoBehaviour
             // 점프 입력 감지
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                
                 isJumping = true;
             }
 
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
             jumpCount = 2;
         }
 
-        // 플레이어가 사망 영역(높이 아래로 떨어짐)에 도달하면 게임 오버 처리
+         // 플레이어가 사망 영역(높이 아래로 떨어짐)에 도달하면 게임 오버 처리
         if (transform.position.y < deathY)
         {
             gameManager.GameOver();
@@ -131,8 +131,6 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumping)
         {
-            
-            animationHandler.SetJump(true);
             JumpMethod();
         }
     }
@@ -141,6 +139,7 @@ public class PlayerController : MonoBehaviour
     {
         if (jumpCount > 0)
         {
+            animationHandler.SetJump(true);
             AudioManager.PlayClip(JumpClip);
             Vector2 velocity = rb.velocity * 0;
             rb.velocity = velocity;
