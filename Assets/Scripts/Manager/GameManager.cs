@@ -13,32 +13,27 @@ public class GameManager : MonoBehaviour
     public PlayerController Player => player;
 
     private UIManager uiManager;
+    private AudioManager audioManager;
 
     public Transform startPos;
     public Transform endPos;
 
+    private AudioClip bgm;
+
     private void Awake()
     {
         instance = this;
+        bgm = Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289");
         CreatePlayer();
     }
 
     private void Start()
     {
         uiManager = UIManager.Instance;
-        StartGame();
-    }
-
-    /// <summary>
-    /// 게임 시작 메뉴 호출
-    /// </summary>
-    private void StartGame()
-    {
-        Time.timeScale = 1f;
-        if (startPos != null && endPos != null && player != null)
-        {
-            uiManager.MiniMapOn(startPos, endPos, player.transform);
-        }
+        audioManager = AudioManager.Instance;
+        audioManager.BackGroundMusic(bgm);
+        StartCoroutine(uiManager.FadeOut());
+        StartCoroutine(StartGame());
     }
 
     /// <summary>
@@ -57,5 +52,22 @@ public class GameManager : MonoBehaviour
     {
         GameObject newObj = Resources.Load<GameObject>("Prefabs/Player/Player");
         player = GameObject.Instantiate(newObj).GetComponent<PlayerController>();
+        player.gameObject.SetActive(false);
+    }
+
+    private IEnumerator StartGame()
+    {
+        Time.timeScale = 1f;
+        player.gameObject.transform.position = new Vector2(-8f, 4f);
+        player.gameObject.SetActive(true);
+        if (startPos != null && endPos != null && player != null)
+        {
+            uiManager.MiniMapOn(startPos, endPos, player.transform);
+        }
+        while (player.transform.position.x <= -5f)
+        {
+            yield return null;
+        }
+        Camera.main.AddComponent<FollowCamera>();
     }
 }
