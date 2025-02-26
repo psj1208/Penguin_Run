@@ -8,15 +8,14 @@ using DG.Tweening;
 
 public class StartSceneManager : MonoBehaviour
 {
-    #region Fields
+    #region Variable
     private AudioClip btnSFX;
-    public AudioClip BtnSFX => btnSFX;
+    bool isAnim = false;
 
     [SerializeField] private Button startBtn;
     [SerializeField] private Button settingBtn;
     [SerializeField] private Button exitBtn;
     [SerializeField] private CanvasGroup fader;
-    public CanvasGroup Fader => fader;
 
     [Header("세팅 관련 UI")]
     [SerializeField] private GameObject settingPanel;
@@ -26,9 +25,14 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField] private Button controlButton;
     [SerializeField] private SettingBaseUI control;
     [SerializeField] private StageSelect stageSelect;
-    bool isAnim = false;
     #endregion
 
+    #region Property
+    public AudioClip BtnSFX => btnSFX;
+    public CanvasGroup Fader => fader;
+    #endregion
+
+    #region Unity Method
     private void Awake()
     {
         stageSelect = GetComponentInChildren<StageSelect>(true);
@@ -49,7 +53,31 @@ public class StartSceneManager : MonoBehaviour
         settingPanel.SetActive(false);
         stageSelect.gameObject.SetActive(false);
     }
+    #endregion
 
+    #region Public Method
+    public void SelectState(bool state)
+    {
+        GameObject stage = stageSelect.gameObject;
+        if (state == true && isAnim == false)
+        {
+            isAnim = true;
+            stage.SetActive(true);
+            stage.GetComponent<RectTransform>().DOAnchorPosY(0, 1)
+                .SetUpdate(true)
+                .OnComplete(() => isAnim = false);
+        }
+        else if (state == false && isAnim == false)
+        {
+            isAnim = true;
+            stage.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
+                .SetUpdate(true)
+                .OnComplete(() => { stage.SetActive(false); isAnim = false; });
+        }
+    }
+    #endregion
+
+    #region Private Method
     private void OnClickStartButton()
     {
         AudioManager.PlayClip(btnSFX);
@@ -109,29 +137,10 @@ public class StartSceneManager : MonoBehaviour
         }
     }
 
-    public void SelectState(bool state)
-    {
-        GameObject stage = stageSelect.gameObject;
-        if (state == true && isAnim == false)
-        {
-            isAnim = true;
-            stage.SetActive(true);
-            stage.GetComponent<RectTransform>().DOAnchorPosY(0, 1)
-                .SetUpdate(true)
-                .OnComplete(() => isAnim = false);
-        }
-        else if (state == false && isAnim == false)
-        {
-            isAnim = true;
-            stage.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
-                .SetUpdate(true)
-                .OnComplete(() => { stage.SetActive(false); isAnim = false; });
-        }
-    }
-
     private void ChangeSettingUIState(SettingUIState uistate)
     {
         sound.SetActive(uistate);
         control.SetActive(uistate);
     }
+    #endregion
 }

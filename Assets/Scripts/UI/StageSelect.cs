@@ -7,12 +7,12 @@ using UnityEngine.UI;
 
 public class StageSelect : MonoBehaviour
 {
-    StartSceneManager sManager;
+    private StartSceneManager sManager;
 
-    [SerializeField] Button Tuto;
-    [SerializeField] Button stage1;
-    [SerializeField] Button stage2;
-    [SerializeField] Button ExitButton;
+    [SerializeField] private Button Tuto;
+    [SerializeField] private Button stage1;
+    [SerializeField] private Button stage2;
+    [SerializeField] private Button ExitButton;
 
     private void Awake()
     {

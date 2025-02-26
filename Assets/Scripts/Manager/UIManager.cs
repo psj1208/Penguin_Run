@@ -7,17 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    #region Variable
     private static UIManager instance;
-    public static UIManager Instance => instance;
-
     private UIState curUIState;
     private float fadeTime;
 
-    private CanvasGroup fader;
-    public CanvasGroup Fader => fader;
     private GameUI gameUI;
     private GameOverUI gameOverUI;
     private MiniMap miniMap;
+
+    private CanvasGroup fader;
+    #endregion
+
+    #region Property
+    public static UIManager Instance => instance;
+    public CanvasGroup Fader => fader;
+    #endregion
 
     private void Awake()
     {
