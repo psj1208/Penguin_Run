@@ -117,15 +117,20 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumping)
         {
-            if (jumpCount > 0)
-            {
-                Vector2 velocity = rb.velocity * 0;
-                rb.velocity = velocity;
-                Vector2 vel = rb.velocity + Vector2.up * jumpForce;
-                rb.velocity = vel;
-                --jumpCount;
-                isJumping = false;
-            }
+            JumpMethod();
+        }
+    }
+
+    public void JumpMethod()
+    {
+        if (jumpCount > 0)
+        {
+            Vector2 velocity = rb.velocity * 0;
+            rb.velocity = velocity;
+            Vector2 vel = rb.velocity + Vector2.up * jumpForce;
+            rb.velocity = vel;
+            --jumpCount;
+            isJumping = false;
         }
     }
 
