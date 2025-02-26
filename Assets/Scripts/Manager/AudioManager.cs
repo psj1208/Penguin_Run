@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DataDeclaration;
 
 public class AudioManager : MonoBehaviour
 {
@@ -59,6 +60,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="clip"></param>
     public static void PlayClip(AudioClip clip)
     {
+        //매개 변수 받을 때 enum하나 만들어서. 클립이 무슨 타입의 사운드인지 구분하고 AudioSource output을 이제 지정해주고 프리팹 생성.
         /*작동방식
         PlayClip 호출 > 오브젝트안에 틀어가있는 사운드소스 싱클톤화 후 변수지정 >
         그변수의 지정돼있는 사운드소스 컴포넌트 정보를 변수의 지정 >
@@ -67,7 +69,16 @@ public class AudioManager : MonoBehaviour
         */
         SoundSource prefab = Instantiate(instance.prefabSoundSource);
         SoundSource soundSource = prefab.GetComponent<SoundSource>();
-
+        /*
+        if(type == AudioResType.Background)
+        {
+            //output으로 할당
+        }
+        else if(type == AudioResType.sfx)
+        {
+            //output으로 할당
+        }
+        */
         /*프리팹의 사운드 재생
         프리팹에 등록되있는 clip를 사운드 메니져 스트립트의 soundEffectVolume값 soundEffectPitchVariance값으로 설정뒤 재생 
         */

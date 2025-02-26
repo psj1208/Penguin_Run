@@ -18,6 +18,12 @@ namespace DataDeclaration
         Game,
         GameOver
     }
+
+    public enum AudioResType
+    {
+        Background,
+        sfx
+    }
     #endregion
 
     #region Struct
