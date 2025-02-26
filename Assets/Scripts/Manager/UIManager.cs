@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance => instance;
 
     private UIState curUIState;
-    private float elapsedTime;
     private float fadeTime;
 
     private CanvasGroup fader;
@@ -24,7 +23,6 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
 
-        elapsedTime = 0f;
         fadeTime = 1f;
 
         fader = GetComponentInChildren<CanvasGroup>();
@@ -89,18 +87,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeOut()
+    public void FadeOut()
     {
-        while (elapsedTime < fadeTime)
-        {
-            elapsedTime += Time.deltaTime;
-            float alpha = elapsedTime / fadeTime;
-
-            fader.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeTime);
-
-            yield return null;
-        }
-        fader.alpha = 0;
-        ChangeUIState(UIState.Game);
+        StartCoroutine(FadeHelper.Fade(fader, 1f, 0f, fadeTime, () => ChangeUIState(UIState.Game)));
     }
 }

@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         uiManager = UIManager.Instance;
         audioManager = AudioManager.Instance;
         audioManager.BackGroundMusic(bgm);
-        StartCoroutine(uiManager.FadeOut());
+        uiManager.FadeOut();
         StartCoroutine(StartGame());
     }
 
