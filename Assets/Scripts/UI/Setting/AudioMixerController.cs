@@ -14,23 +14,21 @@ public class AudioMixerController : MonoBehaviour
 
     private void Awake()
     {
-        masterSlider.onValueChanged.AddListener(MasterVolume);
-        backGroundSlider.onValueChanged.AddListener(BackGroundVolume);
-        sfxSlider.onValueChanged.AddListener(SfxVolume);
+
     }
 
     public void MasterVolume()
     {
-        audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("Master", Mathf.Log10(masterSlider.value) * 20);
     }
 
     public void BackGroundVolume()
     {
-        audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("BackGround", Mathf.Log10(backGroundSlider.value) * 20);
     }
 
     public void SfxVolume()
     {
-        audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("SFX", Mathf.Log10(sfxSlider.value) * 20);
     }
 }

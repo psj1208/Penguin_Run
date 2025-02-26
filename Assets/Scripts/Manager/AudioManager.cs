@@ -19,17 +19,18 @@ public class AudioManager : MonoBehaviour
     public AudioMixer audioMixer;
     public AudioMixerGroup master;
     public AudioMixerGroup backGround;
-    public AudioMixerGroup sfx;
+    public AudioMixerGroup sfx_;
 
     private SoundSource prefabSoundSource;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        
         //싱글톤
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -56,8 +57,9 @@ public class AudioManager : MonoBehaviour
     /// <param name="clip"></param>
     public void BackGroundMusic(AudioClip clip)
     {
-        audioSource.Stop();
         audioSource.clip = clip;
+        audioSource.outputAudioMixerGroup = backGround;
+        audioSource.Stop();
         audioSource.Play();
     }
     /// <summary>
@@ -77,15 +79,11 @@ public class AudioManager : MonoBehaviour
         SoundSource soundSource = prefab.GetComponent<SoundSource>();
         AudioSource audioSource = soundSource.GetComponent<AudioSource>();
         
-        if(type == AudioResType.Background)
-        {
-            audioSource.outputAudioMixerGroup = instance.backGround;
-            soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
-        }
+       
 
-        else if(type == AudioResType.sfx)
+        if(type == AudioResType.sfx)
         {
-            audioSource.outputAudioMixerGroup = instance.sfx;
+            audioSource.outputAudioMixerGroup = instance.sfx_;
             soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
         }
 
