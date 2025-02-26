@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int jumpForce; // 점프 힘
     [SerializeField] private int jumpCount = 2; // 남은 점프 가능 횟수
 
-    [SerializeField] private float deathY = -10f; // 사망 Y축 좌표
+    [SerializeField] private float deathY = -8f; // 사망 Y축 좌표
     public float DeathY => deathY;
 
     public AudioClip JumpClip;
@@ -79,9 +79,17 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 isSliding = false;
-                animationHandler.Stand();
+                animationHandler.Slide(false);
                 highCollider.SetActive(true);
             }
+        }
+
+        // 지면과의 충돌 감지하여 점프 횟수 초기화
+        Debug.DrawRay(rb.position, Vector3.down * 2.0f, Color.green);
+        if (Physics2D.Raycast(rb.position, Vector3.down, 2.0f, LayerMask.GetMask("Ground")))
+        {
+            animationHandler.SetJump(false);
+            jumpCount = 2;
         }
 
         // 플레이어가 사망 영역(높이 아래로 떨어짐)에 도달하면 게임 오버 처리
@@ -152,7 +160,7 @@ public class PlayerController : MonoBehaviour
         if (isSliding)
         {
             highCollider.SetActive(false);
-            animationHandler.Slide();
+            animationHandler.Slide(true);
         }
     }
 
@@ -168,19 +176,6 @@ public class PlayerController : MonoBehaviour
             if (inter == null)
                 return;
             inter.OnInteraction(statHandler);
-        }
-    }
-
-    /// <summary>
-    /// 지면과의 충돌 감지하여 점프 횟수 초기화
-    /// </summary>
-    /// <param name="collision">충돌한 오브젝트 정보</param>
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            animationHandler.SetJump(false);
-            jumpCount = 2;
         }
     }
 
