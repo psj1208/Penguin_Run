@@ -59,7 +59,7 @@ public class TutoEventManager : MonoBehaviour
         actionList.Add(7, () =>
         {
             uiManager.TextHappen("이건 뭐죠?.", txtPos.Down);
-            uiManager.TextHappen("이건 점수 흭득 아이템입니다.", txtPos.Up);
+            uiManager.TextHappen("이건 점수 아이템입니다.", txtPos.Up);
             uiManager.TextHappen("얻으면 좌측 상단의 점수가 증가합니다.", txtPos.Up);
         });
 
