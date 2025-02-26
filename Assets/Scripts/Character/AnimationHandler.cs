@@ -8,7 +8,7 @@ public class AnimationHandler : MonoBehaviour
     private static readonly int IsDamage = Animator.StringToHash("IsDamage");
     private static readonly int IsSliding = Animator.StringToHash("IsSliding");
     private static readonly int IsJumping = Animator.StringToHash("IsJumping");
-    private static readonly int IsInvincivility = Animator.StringToHash("IsInvincivility");
+    private static readonly int IsInvincibility = Animator.StringToHash("IsInvincibility");
 
     private Animator animator;
 
@@ -22,28 +22,30 @@ public class AnimationHandler : MonoBehaviour
         animator.SetBool(IsMoving, true);
     }
 
-    public void SetJump(bool on)
+    public void SetJump(bool ju)
     {
-        if (on)
+        if (ju)
         {
             animator.SetBool(IsJumping, true);
             animator.SetBool(IsMoving, false);
         }
-        else if (!on)
+        else if (!ju)
         {
             animator.SetBool(IsJumping, false);
             animator.SetBool(IsMoving, true);
         }
     }
 
-    public void Slide()
+    public void Slide(bool sl)
     {
-        animator.SetBool(IsSliding, true);
-    }
-
-    public void Stand()
-    {
-        animator.SetBool(IsSliding, false);
+        if (sl)
+        {
+            animator.SetBool(IsSliding, true);
+        }
+        else if (!sl)
+        {
+            animator.SetBool(IsSliding, false);
+        }
     }
 
     public void Damage()
@@ -51,8 +53,16 @@ public class AnimationHandler : MonoBehaviour
         animator.SetTrigger(IsDamage);
     }
 
-    public void Invincibility()
+    public void Invincibility(bool inv)
     {
-        animator.SetBool(IsInvincivility, true);
+        if(inv)
+        {
+            animator.SetBool(IsInvincibility, true);
+        }
+        else if(!inv)
+        {
+            animator.SetBool(IsInvincibility, false);
+        }
+        
     }
 }
