@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deathY = -10f; // 사망 Y축 좌표
     public float DeathY => deathY;
 
+    public AudioClip JumpClip;
+
     // 참조 변수
     private GameManager gameManager; // 게임 매니저 참조
     private StatHandler statHandler; // 상태 관리 핸들러
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
             // 점프 입력 감지
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                animationHandler.SetJump(true);
+                
                 isJumping = true;
             }
 
@@ -72,8 +74,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 isSliding = true;
-                animationHandler.Slide();
-                highCollider.SetActive(false);
+                
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
@@ -122,6 +123,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumping)
         {
+            
+            animationHandler.SetJump(true);
             JumpMethod();
         }
     }
@@ -130,6 +133,7 @@ public class PlayerController : MonoBehaviour
     {
         if (jumpCount > 0)
         {
+            AudioManager.PlayClip(JumpClip);
             Vector2 velocity = rb.velocity * 0;
             rb.velocity = velocity;
             Vector2 vel = rb.velocity + Vector2.up * jumpForce;
@@ -147,11 +151,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isSliding)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            highCollider.SetActive(false);
+            animationHandler.Slide();
         }
     }
 

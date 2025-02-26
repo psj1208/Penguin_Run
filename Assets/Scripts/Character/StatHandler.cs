@@ -128,8 +128,9 @@ public class StatHandler : MonoBehaviour
     {
         if (amount > 0)
         {
-            isInvincibility = true; // 부스터 중에는 무적 상태
             animationHandler.Invincibility(); // 무적 애니메이션 재생
+            Debug.Log("부스터");
+            isInvincibility = true; // 부스터 중에는 무적 상태
             speed += amount; // 속도 증가
             Invoke("ResetSpeed", duration); // 지정된 시간이 지나면 속도 초기화
         }

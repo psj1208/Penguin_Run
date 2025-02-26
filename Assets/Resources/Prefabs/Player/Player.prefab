@@ -265,6 +265,7 @@ MonoBehaviour:
   jumpForce: 20
   jumpCount: 2
   deathY: -10
+  JumpClip: {fileID: 8300000, guid: a47b2ddd8f9402b4eaa3120368e77b01, type: 3}
 --- !u!114 &7737617096940000561
 MonoBehaviour:
   m_ObjectHideFlags: 0
