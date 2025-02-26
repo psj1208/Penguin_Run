@@ -1,3 +1,4 @@
+using DataDeclaration;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,7 @@ public class StartSceneManager : MonoBehaviour
         btnSFX = Resources.Load<AudioClip>("Sounds/Coin/coin01");
 
         startBtn.onClick.AddListener(OnClickStartButton);
-        startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX); });
+        startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX,AudioResType.sfx); });
         fadeInImage.color = Color.clear;
     }
 
