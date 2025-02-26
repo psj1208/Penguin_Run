@@ -612,6 +612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startBtn: {fileID: 15816478}
+  settingBtn: {fileID: 1491637072}
+  exitBtn: {fileID: 1773344512}
   fadeInImage: {fileID: 1461955966}
 --- !u!1 &595535525
 GameObject:

@@ -46,7 +46,7 @@ public class TutoUiManager : MonoBehaviour
     {
         IntroductPanel.SetActive(true);
         RectTransform rect = IntroductPanel.GetComponent<RectTransform>();
-        rect.DOMoveX(20, 2).SetUpdate(true);
+        rect.DOAnchorPosX(20, 2).SetUpdate(true);
     }
     public void ControlText(bool input)
     {

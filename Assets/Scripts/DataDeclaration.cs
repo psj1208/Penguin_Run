@@ -24,6 +24,12 @@ namespace DataDeclaration
         Background,
         sfx
     }
+
+    public enum SettingUIState
+    {
+        Sound,
+        Control
+    }
     #endregion
 
     #region Struct
