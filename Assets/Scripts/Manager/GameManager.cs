@@ -7,51 +7,33 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+    public static GameManager Instance => instance;
 
-    [SerializeField] private PlayerController player;
+    private PlayerController player;
+    public PlayerController Player => player;
 
     private UIManager uiManager;
+    private AudioManager audioManager;
 
-    //프로퍼티
-    public static GameManager Instance => instance;
-    public PlayerController Player => player;
+    public Transform startPos;
+    public Transform endPos;
+
+    private AudioClip bgm;
 
     private void Awake()
     {
-        //싱글톤 (중복 생성시 파괴)
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
+        bgm = Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289");
+        CreatePlayer();
     }
 
-    /// <summary>
-    /// 게임시작 시 메뉴 호출
-    /// </summary>
     private void Start()
     {
         uiManager = UIManager.Instance;
-
-        Time.timeScale = 0f;
-    }
-
-    /// <summary>
-    /// 게임 시작 메뉴 호출
-    /// </summary>
-    public void StartGame()
-    {
-        Time.timeScale = 1f;
-        uiManager.ChangeUIState(UIState.Game);//상황에 필요한 이넘 값을 매게변수에 보내서 메뉴 호출 
-    }
-
-    //아직 예정 된거 없는 메서드
-    public void IncreaseLevel()
-    {
-
+        audioManager = AudioManager.Instance;
+        audioManager.BackGroundMusic(bgm);
+        StartCoroutine(uiManager.FadeOut());
+        StartCoroutine(StartGame());
     }
 
     /// <summary>
@@ -61,5 +43,31 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         uiManager.ChangeUIState(UIState.GameOver);
+    }
+
+    /// <summary>
+    /// 게임 시작 시 플레이어 캐릭터 생성
+    /// </summary>
+    private void CreatePlayer()
+    {
+        GameObject newObj = Resources.Load<GameObject>("Prefabs/Player/Player");
+        player = GameObject.Instantiate(newObj).GetComponent<PlayerController>();
+        player.gameObject.SetActive(false);
+    }
+
+    private IEnumerator StartGame()
+    {
+        Time.timeScale = 1f;
+        player.gameObject.transform.position = new Vector2(-8f, 4f);
+        player.gameObject.SetActive(true);
+        if (startPos != null && endPos != null && player != null)
+        {
+            uiManager.MiniMapOn(startPos, endPos, player.transform);
+        }
+        while (player.transform.position.x <= -5f)
+        {
+            yield return null;
+        }
+        Camera.main.AddComponent<FollowCamera>();
     }
 }

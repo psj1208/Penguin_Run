@@ -1,7 +1,9 @@
 using DataDeclaration;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,25 +11,28 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance => instance;
 
     private UIState curUIState;
+    private float elapsedTime;
+    private float fadeTime;
 
-    private StartUI startUI;
+    private CanvasGroup fadeOut;
     private GameUI gameUI;
     private GameOverUI gameOverUI;
+    private MiniMap miniMap;
 
     private void Awake()
     {
         instance = this;
 
-        curUIState = UIState.Start;
+        curUIState = UIState.Game;
+        elapsedTime = 0f;
+        fadeTime = 1f;
 
-        startUI = GetComponentInChildren<StartUI>(true);
+        fadeOut = GetComponentInChildren<CanvasGroup>();
         gameUI = GetComponentInChildren<GameUI>(true);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
-    }
+        miniMap = GetComponentInChildren<MiniMap>(true);
 
-    private void Start()
-    {
-        ChangeUIState(curUIState);
+        ChangeUIState(UIState.None);
     }
 
     /// <summary>
@@ -37,7 +42,6 @@ public class UIManager : MonoBehaviour
     public void ChangeUIState(UIState uiState)
     {
         curUIState = uiState;
-        startUI.ActiveUI(uiState);
         gameUI.ActiveUI(uiState);
         gameOverUI.ActiveUI(uiState);
     }
@@ -57,9 +61,9 @@ public class UIManager : MonoBehaviour
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">획득량</param>
     /// <param name="pControl">플레이어</param>
-    public void ScoreItemFX(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void ScoreItemFX(Vector3 collectedPostion, int amount)
     {
-        gameUI.UIFX.AnimateCoin(collectedPostion, amount, pControl);
+        gameUI.UIFX.AnimateCoin(collectedPostion, amount);
     }
 
     /// <summary>
@@ -68,8 +72,35 @@ public class UIManager : MonoBehaviour
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">회복량</param>
     /// <param name="pControl">플레이어</param>
-    public void HPItemFX(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void HPItemFX(Vector3 collectedPostion, int amount)
     {
-        gameUI.UIFX.AnimateHeart(collectedPostion, amount, pControl);
+        gameUI.UIFX.AnimateHeart(collectedPostion, amount);
+    }
+
+    /// <summary>
+    /// 미니맵 좌표를 설정하는 함수. 매개변수는 비율로.(0~1)
+    /// </summary>
+    /// <param name="ratio"></param>
+    public void MiniMapOn(Transform st, Transform end, Transform player)
+    { 
+        if (miniMap != null)
+        {
+            miniMap.Init(st, end, player);
+        }
+    }
+
+    public IEnumerator FadeOut()
+    {
+        while (elapsedTime < fadeTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = elapsedTime / fadeTime;
+
+            fadeOut.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeTime);
+
+            yield return null;
+        }
+        fadeOut.alpha = 0;
+        ChangeUIState(curUIState);
     }
 }

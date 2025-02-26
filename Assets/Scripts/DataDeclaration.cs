@@ -14,7 +14,7 @@ namespace DataDeclaration
 
     public enum UIState
     {
-        Start,
+        None,
         Game,
         GameOver
     }

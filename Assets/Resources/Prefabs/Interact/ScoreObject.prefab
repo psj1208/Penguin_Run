@@ -155,9 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 2
-  hpValue: 10
-  speedValue: 3
-  Score: 5
+  hpValue: 0
+  speedValue: 0
+  scoreValue: 10
 --- !u!58 &3716911579775604206
 CircleCollider2D:
   m_ObjectHideFlags: 0

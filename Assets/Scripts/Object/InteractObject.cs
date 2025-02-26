@@ -5,9 +5,10 @@ using UnityEngine;
 public abstract class InteractObject : MonoBehaviour
 {
     protected int influenceFigure;
+    protected AudioClip sfx;
 
     protected BoxCollider2D col;
     protected SpriteRenderer objectRenderer;
 
-    public abstract void OnInteraction(PlayerController pController);
+    public abstract void OnInteraction(StatHandler sHandler);
 }

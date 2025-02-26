@@ -48,7 +48,7 @@ public class UIFX : MonoBehaviour
         }
     }
 
-    public void AnimateCoin(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void AnimateCoin(Vector3 collectedPostion, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -65,13 +65,12 @@ public class UIFX : MonoBehaviour
                     {
                         coin.SetActive(false);
                         coinsQueue.Enqueue(coin);
-                        pControl.AddScore();
                     });
             }
         }
     }
 
-    public void AnimateHeart(Vector3 collectedPostion, int amount, PlayerController pControl)
+    public void AnimateHeart(Vector3 collectedPostion, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -88,7 +87,6 @@ public class UIFX : MonoBehaviour
                     {
                         heart.SetActive(false);
                         heartQueue.Enqueue(heart);
-                        pControl.ChangeHP();
                     });
             }
         }
