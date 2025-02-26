@@ -5,33 +5,33 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // 플레이어 상태 변수들
-    private bool isDead;
-    [SerializeField] private bool isJumping;
-    [SerializeField] private bool isSliding;
+    private bool isDead; // 플레이어가 죽었는지 여부
+    [SerializeField] private bool isJumping; // 점프 상태 여부
+    [SerializeField] private bool isSliding; // 슬라이딩 상태 여부
 
     // 점프 관련 변수
-    [SerializeField] private int jumpForce;
-    [SerializeField] private int jumpCount = 2;
+    [SerializeField] private int jumpForce; // 점프 힘
+    [SerializeField] private int jumpCount = 2; // 남은 점프 가능 횟수
 
-    [SerializeField] private float deathY = -10f;
+    [SerializeField] private float deathY = -10f; // 사망 Y축 좌표
     public float DeathY => deathY;
 
     // 컴포넌트 및 매니저 참조 변수
-    private GameManager gameManager;
-    private StatHandler statHandler;
+    private GameManager gameManager; // 게임 매니저 참조
+    private StatHandler statHandler; // 상태 관리 핸들러
     public StatHandler Stat => statHandler;
-    private Rigidbody2D rb;
+    public AnimationHandler animationHandler; // 애니메이션 핸들러
+    private Rigidbody2D rb; // Rigidbody2D 컴포넌트 참조
 
-    // 이벤트 선언: 체력 변화, 속도 변화, 점수 추가시 호출
-    public event Action<PlayerController, float> OnChangeSpeed;
+    // 이벤트 선언: 체력 변화, 속도 변화, 점수 추가 시 호출
     public event Action<PlayerController, int> OnAddScore;
 
     private void Awake()
     {
         isDead = false;
-        jumpForce = 6;
         rb = GetComponent<Rigidbody2D>();
         statHandler = GetComponent<StatHandler>();
+        animationHandler = GetComponent<AnimationHandler>();
     }
 
     private void Start()
@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
 
         isDead = false;
         isJumping = false;
-
         gameManager = GameManager.Instance;
     }
 
@@ -55,21 +54,26 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        animationHandler.Move();
+
         if (!isDead)
         {
             // 점프 입력 감지
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                animationHandler.Jump();
                 isJumping = true;
             }
 
             // 슬라이딩 입력 감지
             if (Input.GetKey(KeyCode.LeftShift))
             {
+                animationHandler.Slide();
                 isSliding = true;
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
+                animationHandler.Move();
                 isSliding = false;
             }
         }
@@ -94,7 +98,10 @@ public class PlayerController : MonoBehaviour
         Sliding();
     }
 
-    // x축 속도를 현재 speed 값으로 설정
+    /// <summary>
+    /// 플레이어 이동 처리
+    /// 현재 속도를 statHandler.Speed 값으로 설정
+    /// </summary>
     public void Move()
     {
         Vector2 velocity = rb.velocity;
@@ -102,13 +109,18 @@ public class PlayerController : MonoBehaviour
         rb.velocity = velocity;
     }
 
-    //  점프 중이면 jumpForce 만큼 위로 속도 적용, 남은 점프 횟수 감소
+    /// <summary>
+    /// 플레이어 점프 처리
+    /// 남은 점프 횟수가 있을 경우 점프를 수행하고 점프 횟수를 감소
+    /// </summary>
     public void Jump()
     {
         if (isJumping)
         {
             if (jumpCount > 0)
             {
+                Vector2 velocity = rb.velocity * 0;
+                rb.velocity = velocity;
                 Vector2 vel = rb.velocity + Vector2.up * jumpForce;
                 rb.velocity = vel;
                 --jumpCount;
@@ -117,9 +129,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 슬라이딩 중이면 회전 (90도), 그렇지 않으면 초기 회전값 (0도)
+    /// <summary>
+    /// 플레이어 슬라이딩 처리
+    /// 슬라이딩 중이면 90도로 회전, 그렇지 않으면 원래 상태 유지
+    /// </summary>
     public void Sliding()
-    {        
+    {
         if (isSliding)
         {
             transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -141,11 +156,14 @@ public class PlayerController : MonoBehaviour
             InteractObject inter = collision.GetComponent<InteractObject>();
             if (inter == null)
                 return;
-            // 주석해제 필요
             inter.OnInteraction(statHandler);
         }
     }
 
+    /// <summary>
+    /// 지면과의 충돌 감지하여 점프 횟수 초기화
+    /// </summary>
+    /// <param name="collision">충돌한 오브젝트 정보</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -160,7 +178,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="amount">추가할 점수</param>
     public void AddScore(int amount = 1)
     {
-        // 주석해제 필요
         OnAddScore?.Invoke(this, amount);
     }
 }
