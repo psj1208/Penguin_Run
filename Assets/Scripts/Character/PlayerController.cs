@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deathY = -10f; // 사망 Y축 좌표
     public float DeathY => deathY;
 
-    // 컴포넌트 및 매니저 참조 변수
+    // 참조 변수
     private GameManager gameManager; // 게임 매니저 참조
     private StatHandler statHandler; // 상태 관리 핸들러
     private AnimationHandler animationHandler; // 애니메이션 핸들러
     public StatHandler Stat => statHandler;
     private Rigidbody2D rb; // Rigidbody2D 컴포넌트 참조
+    [SerializeField] private GameObject highCollider;
+
 
     // 이벤트 선언: 체력 변화, 속도 변화, 점수 추가 시 호출
     public event Action<PlayerController, int> OnAddScore;
@@ -70,11 +72,13 @@ public class PlayerController : MonoBehaviour
             {
                 isSliding = true;
                 animationHandler.Slide();
+                highCollider.SetActive(false);
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 isSliding = false;
                 animationHandler.Stand();
+                highCollider.SetActive(true);
             }
         }
 
