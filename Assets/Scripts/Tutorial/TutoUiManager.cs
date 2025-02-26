@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System;
+using DG.Tweening;
 
 public enum txtPos
 {
@@ -16,6 +17,7 @@ public class TutoUiManager : MonoBehaviour
     [SerializeField] GameObject darkBackGround;
     [SerializeField] GameObject txtUpPanel;
     [SerializeField] GameObject txtDownPanel;
+    [SerializeField] GameObject IntroductPanel;
 
     TextMeshProUGUI Uptext;
 
@@ -30,6 +32,8 @@ public class TutoUiManager : MonoBehaviour
         darkBackGround.SetActive(false);
         txtUpPanel.SetActive(false);
         txtDownPanel.SetActive(false);
+        IntroductPanel.SetActive(false);
+        Invoke("IntroductionAni", 1f);
     }
 
     // Update is called once per frame
@@ -38,6 +42,12 @@ public class TutoUiManager : MonoBehaviour
         
     }
 
+    public void IntroductionAni()
+    {
+        IntroductPanel.SetActive(true);
+        RectTransform rect = IntroductPanel.GetComponent<RectTransform>();
+        rect.DOMoveX(20, 2).SetUpdate(true);
+    }
     public void ControlText(bool input)
     {
         txtUpPanel.SetActive(input);

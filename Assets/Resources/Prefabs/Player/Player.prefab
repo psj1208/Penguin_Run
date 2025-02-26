@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4522233101577266974}
   m_Layer: 0
   m_Name: LowCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 824593574777539320}
   m_Layer: 0
   m_Name: MainSprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,6 +265,7 @@ MonoBehaviour:
   jumpForce: 20
   jumpCount: 2
   deathY: -10
+  JumpClip: {fileID: 8300000, guid: a47b2ddd8f9402b4eaa3120368e77b01, type: 3}
 --- !u!114 &7737617096940000561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +306,7 @@ GameObject:
   - component: {fileID: 260403582857261867}
   m_Layer: 0
   m_Name: HighCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
