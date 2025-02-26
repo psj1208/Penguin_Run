@@ -7,9 +7,9 @@ public class AudioManager : MonoBehaviour
     private static AudioManager instance;
     public static AudioManager Instance => instance;
 
-    [SerializeField][Range(0f, 1f)] private float musicVolume;
-    [SerializeField][Range(0f, 1f)] private float soundEffectPitchVariance;
-    [SerializeField][Range(0f, 1f)] private float soundEffectVolume;
+    [SerializeField][Range(0f, 1f)] private float musicVolume = 0.145f;
+    [SerializeField][Range(0f, 1f)] private float soundEffectPitchVariance = 0.156f;
+    [SerializeField][Range(0f, 1f)] private float soundEffectVolume = 0.156f;
 
     private AudioSource audioSource;
     public AudioClip audioClip;
