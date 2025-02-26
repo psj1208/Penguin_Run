@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 176487108}
   - component: {fileID: 176487109}
   m_Layer: 5
-  m_Name: FadeOutUI
+  m_Name: Fader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1018,6 +1018,10 @@ MonoBehaviour:
   musicVolume: 0.145
   soundEffectPitchVariance: 0.156
   soundEffectVolume: 0.156
+  audioMixer: {fileID: 0}
+  master: {fileID: 0}
+  backGround: {fileID: 0}
+  sfx: {fileID: 0}
 --- !u!4 &299651841
 Transform:
   m_ObjectHideFlags: 0

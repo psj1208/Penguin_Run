@@ -8,13 +8,15 @@ using DG.Tweening;
 
 public class StartSceneManager : MonoBehaviour
 {
-    private float fadeTime;
+    #region Fields
     private AudioClip btnSFX;
+    public AudioClip BtnSFX => btnSFX;
 
     [SerializeField] private Button startBtn;
     [SerializeField] private Button settingBtn;
     [SerializeField] private Button exitBtn;
     [SerializeField] private CanvasGroup fader;
+    public CanvasGroup Fader => fader;
 
     [Header("세팅 관련 UI")]
     [SerializeField] private GameObject settingPanel;
@@ -25,29 +27,21 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField] private SettingBaseUI control;
     [SerializeField] private StageSelect stageSelect;
     bool isAnim = false;
+    #endregion
 
     private void Awake()
     {
         stageSelect = GetComponentInChildren<StageSelect>(true);
-        elapsedTime = 0f;
         Time.timeScale = 1.0f;
-        fadeTime = 1f;
         btnSFX = Resources.Load<AudioClip>("Sounds/Coin/coin01");
 
-        startBtn.onClick.AddListener(() => SelectState(true));
-        startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX,AudioResType.sfx); });
         startBtn.onClick.AddListener(OnClickStartButton);
-        settingBtn.onClick.AddListener(() => { SettingState(true); });
-        exitBtn.onClick.AddListener(() => {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-        });
-        settingExitButton.onClick.AddListener(() => { SettingState(false); });
-        soundButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Sound); });
-        controlButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Control); });
+        settingBtn.onClick.AddListener(OnClickSettingButton);
+        exitBtn.onClick.AddListener(OnClickExitButton);
+
+        settingExitButton.onClick.AddListener(OnClickSettingExitButton);
+        soundButton.onClick.AddListener(OnClickSoundSettingButton);
+        controlButton.onClick.AddListener(OnClickControlSettingButton);
     }
 
     private void Start()
@@ -55,14 +49,48 @@ public class StartSceneManager : MonoBehaviour
         settingPanel.SetActive(false);
         stageSelect.gameObject.SetActive(false);
     }
+
     private void OnClickStartButton()
     {
-        Debug.Log("버튼 누름");
         AudioManager.PlayClip(btnSFX);
-        StartCoroutine(FadeHelper.Fade(fader, 0f, 1f, fadeTime, () => SceneManager.LoadScene(1)));
+        SelectState(true);
     }
 
-    public void SettingState(bool state)
+    private void OnClickSettingButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+        SettingState(true);
+    }
+
+    private void OnClickExitButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+    }
+
+    private void OnClickSettingExitButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+        SettingState(false);
+    }
+
+    private void OnClickSoundSettingButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+        ChangeSettingUIState(SettingUIState.Sound);
+    }
+
+    private void OnClickControlSettingButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+        ChangeSettingUIState(SettingUIState.Control);
+    }
+
+    private void SettingState(bool state)
     {
         if (state == true && isAnim == false)
         {
@@ -72,7 +100,7 @@ public class StartSceneManager : MonoBehaviour
                 .SetUpdate(true)
                 .OnComplete(() => isAnim = false);
         }
-        else if(state == false && isAnim == false)
+        else if (state == false && isAnim == false)
         {
             isAnim = true;
             settingPanel.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
@@ -100,7 +128,8 @@ public class StartSceneManager : MonoBehaviour
                 .OnComplete(() => { stage.SetActive(false); isAnim = false; });
         }
     }
-    public void ChangeSettingUIState(SettingUIState uistate)
+
+    private void ChangeSettingUIState(SettingUIState uistate)
     {
         sound.SetActive(uistate);
         control.SetActive(uistate);
