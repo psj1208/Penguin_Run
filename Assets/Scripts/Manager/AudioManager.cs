@@ -12,9 +12,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField][Range(0f, 1f)] private float soundEffectVolume = 0.156f;
 
     private AudioSource audioSource;
-    public AudioClip audioClip;
+    private AudioClip audioClip;
 
-    public SoundSource prefabSoundSource;
+    private SoundSource prefabSoundSource;
 
     private void Awake()
     {
@@ -32,6 +32,9 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = musicVolume;
         audioSource.loop = true;
+
+        audioClip = Resources.Load<AudioClip>("Sounds/LobbyBGM/game-8-bit-on-278083");
+        prefabSoundSource = Resources.Load<SoundSource>("Prefabs/SoundSource");
     }
     /// <summary>
     /// 시작시 배경음악 재생

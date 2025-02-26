@@ -31,6 +31,8 @@ public class UIManager : MonoBehaviour
         gameUI = GetComponentInChildren<GameUI>(true);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         miniMap = GetComponentInChildren<MiniMap>(true);
+
+        ChangeUIState(UIState.None);
     }
 
     /// <summary>
@@ -99,6 +101,6 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
         fadeOut.alpha = 0;
-        ChangeUIState(curUIState);
+        ChangeUIState(UIState.Game);
     }
 }
