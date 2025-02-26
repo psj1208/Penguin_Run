@@ -101,6 +101,6 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
         fadeOut.alpha = 0;
-        ChangeUIState(curUIState);
+        ChangeUIState(UIState.Game);
     }
 }
