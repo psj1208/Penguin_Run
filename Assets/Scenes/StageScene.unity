@@ -24216,6 +24216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4204e18c9baed4fb65dbf4839abfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicVolume: 0.145
+  soundEffectPitchVariance: 0.156
+  soundEffectVolume: 0.156
 --- !u!4 &1397342121
 Transform:
   m_ObjectHideFlags: 0
