@@ -30,7 +30,7 @@ public class StatHandler : MonoBehaviour
     {
         // 초기값 설정
         decreaseHPRatio = 1f;      // 초당 체력 감소량
-        invincibilityTime = 3f;    // 무적 지속 시간
+        invincibilityTime = 2f;    // 무적 지속 시간
         invincibilityDurationTime = 0f;
         isInvincibility = false;
 
