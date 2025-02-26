@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DataDeclaration;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource audioSource;
     private AudioClip audioClip;
+
+    public AudioMixer audioMixer;
+    public AudioMixerGroup backGround;
+    public AudioMixerGroup sfx;
 
     private SoundSource prefabSoundSource;
 
@@ -58,7 +63,7 @@ public class AudioManager : MonoBehaviour
     /// 오브젝트 사운드 클립 재생 메서드
     /// </summary>
     /// <param name="clip"></param>
-    public static void PlayClip(AudioClip clip)
+    public static void PlayClip(AudioClip clip,AudioResType type = AudioResType.etc)
     {
         //매개 변수 받을 때 enum하나 만들어서. 클립이 무슨 타입의 사운드인지 구분하고 AudioSource output을 이제 지정해주고 프리팹 생성.
         /*작동방식
@@ -69,19 +74,23 @@ public class AudioManager : MonoBehaviour
         */
         SoundSource prefab = Instantiate(instance.prefabSoundSource);
         SoundSource soundSource = prefab.GetComponent<SoundSource>();
-        /*
+        AudioSource audioSource = soundSource.GetComponent<AudioSource>();
+        
         if(type == AudioResType.Background)
         {
-            //output으로 할당
+            audioSource.outputAudioMixerGroup = instance.backGround;
+            soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
         }
+
         else if(type == AudioResType.sfx)
         {
-            //output으로 할당
+            audioSource.outputAudioMixerGroup = instance.sfx;
+            soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
         }
-        */
+
         /*프리팹의 사운드 재생
         프리팹에 등록되있는 clip를 사운드 메니져 스트립트의 soundEffectVolume값 soundEffectPitchVariance값으로 설정뒤 재생 
         */
-        soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
+        //soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
     }
 }
