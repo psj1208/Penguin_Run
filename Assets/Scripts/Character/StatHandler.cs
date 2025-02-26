@@ -7,7 +7,7 @@ public class StatHandler : MonoBehaviour
 {
     // 플레이어 컨트롤러 및 애니메이션 핸들러 참조
     private PlayerController player;
-    private AnimationHandler animationHandler;
+    public AnimationHandler animationHandler;
 
     // 체력 및 속도 관련 변수
     [SerializeField, Range(0f, 100f)] private float hp;      // 현재 체력
@@ -99,9 +99,9 @@ public class StatHandler : MonoBehaviour
     {
         if (!isInvincibility)
         {
+            animationHandler.Damage(); // 피격 애니메이션 재생
             isInvincibility = true;
             hp += figure; // figure가 음수이므로 실제로는 체력이 감소함
-            animationHandler.Damage(); // 피격 애니메이션 재생
         }
     }
 
@@ -129,7 +129,6 @@ public class StatHandler : MonoBehaviour
         if (amount > 0)
         {
             isInvincibility = true; // 부스터 중에는 무적 상태
-            animationHandler.Invincibility(); // 무적 애니메이션 재생
             speed += amount; // 속도 증가
             Invoke("ResetSpeed", duration); // 지정된 시간이 지나면 속도 초기화
         }
