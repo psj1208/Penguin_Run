@@ -57,8 +57,8 @@ public class AudioManager : MonoBehaviour
     /// <param name="clip"></param>
     public void BackGroundMusic(AudioClip clip)
     {
-        audioSource.clip = clip;
-        audioSource.outputAudioMixerGroup = backGround;
+        audioSource.clip = clip;//클립 등록
+        audioSource.outputAudioMixerGroup = backGround;//오디오 소스 output 등록
         audioSource.Stop();
         audioSource.Play();
     }
@@ -83,7 +83,7 @@ public class AudioManager : MonoBehaviour
 
         if(type == AudioResType.sfx)
         {
-            audioSource.outputAudioMixerGroup = instance.sfx_;
+            audioSource.outputAudioMixerGroup = instance.sfx_;//오디오 소스 output 등록
             soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
         }
 
