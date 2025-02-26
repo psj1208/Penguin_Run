@@ -21,6 +21,7 @@ namespace DataDeclaration
 
     public enum AudioResType
     {
+        etc,
         Background,
         sfx
     }

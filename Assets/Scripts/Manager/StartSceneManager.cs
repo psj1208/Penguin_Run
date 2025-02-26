@@ -33,7 +33,7 @@ public class StartSceneManager : MonoBehaviour
         btnSFX = Resources.Load<AudioClip>("Sounds/Coin/coin01");
 
         startBtn.onClick.AddListener(OnClickStartButton);
-        startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX); });
+        startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX,AudioResType.sfx); });
         settingBtn.onClick.AddListener(() => { SettingState(true); });
         settingExitButton.onClick.AddListener(() => { SettingState(false); });
         soundButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Sound); });

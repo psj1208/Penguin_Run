@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutoEventManager : MonoBehaviour
 {
@@ -75,6 +76,8 @@ public class TutoEventManager : MonoBehaviour
             uiManager.TextHappen("다 통과했어요!", txtPos.Down);
             uiManager.TextHappen("잘 하셨습니다.", txtPos.Up);
             uiManager.TextHappen("이제 본 게임에서 플레이해보도록 합시다!", txtPos.Up);
+            Camera.main.GetComponent<FollowCamera>().enabled = false;
+            StartCoroutine(FadeHelper.Fade(UIManager.Instance.Fader, 0f, 1f, 2f, () => SceneManager.LoadScene(2)));
         });
     }
 }

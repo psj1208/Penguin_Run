@@ -46,7 +46,7 @@ public class Item : InteractObject
             default:
                 break;
         }
-        AudioManager.PlayClip(sfx);
+        AudioManager.PlayClip(sfx,AudioResType.sfx);
     }
     
     void ParticleAndDestroy()

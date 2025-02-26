@@ -1756,7 +1756,6 @@ GameObject:
   m_Component:
   - component: {fileID: 625114225}
   - component: {fileID: 625114227}
-  - component: {fileID: 625114226}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -1787,18 +1786,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &625114226
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 625114224}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &625114227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17381,13 +17368,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 176487108}
   - {fileID: 625114225}
   - {fileID: 1139628340}
   - {fileID: 6857897513643218463}
   - {fileID: 262535042087900638}
   - {fileID: 7967576236520751314}
   - {fileID: 371539158}
+  - {fileID: 176487108}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

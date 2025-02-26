@@ -14,7 +14,8 @@ public class UIManager : MonoBehaviour
     private float elapsedTime;
     private float fadeTime;
 
-    private CanvasGroup fadeOut;
+    private CanvasGroup fader;
+    public CanvasGroup Fader => fader;
     private GameUI gameUI;
     private GameOverUI gameOverUI;
     private MiniMap miniMap;
@@ -23,11 +24,10 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
 
-        curUIState = UIState.Game;
         elapsedTime = 0f;
         fadeTime = 1f;
 
-        fadeOut = GetComponentInChildren<CanvasGroup>();
+        fader = GetComponentInChildren<CanvasGroup>();
         gameUI = GetComponentInChildren<GameUI>(true);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         miniMap = GetComponentInChildren<MiniMap>(true);
@@ -96,11 +96,11 @@ public class UIManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float alpha = elapsedTime / fadeTime;
 
-            fadeOut.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeTime);
+            fader.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeTime);
 
             yield return null;
         }
-        fadeOut.alpha = 0;
+        fader.alpha = 0;
         ChangeUIState(UIState.Game);
     }
 }
