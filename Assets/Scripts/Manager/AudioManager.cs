@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         //싱글톤
-        if (audioSource == null)
+        if (instance == null)
         {
             instance = this;
         }
