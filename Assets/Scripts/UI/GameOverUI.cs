@@ -87,6 +87,7 @@ public class GameOverUI : MonoBehaviour
     private void OnclickExitButton()
     {
         Debug.Log("게임 종료");
-        Application.Quit();
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(0);
     }
 }

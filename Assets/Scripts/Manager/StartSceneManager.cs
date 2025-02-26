@@ -24,17 +24,26 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField] private SettingBaseUI sound;
     [SerializeField] private Button controlButton;
     [SerializeField] private SettingBaseUI control;
+    [SerializeField] private StageSelect stageSelect;
     bool isAnim = false;
 
     private void Awake()
     {
+        stageSelect = GetComponentInChildren<StageSelect>(true);
         elapsedTime = 0f;
         fadeTime = 1f;
         btnSFX = Resources.Load<AudioClip>("Sounds/Coin/coin01");
 
-        startBtn.onClick.AddListener(OnClickStartButton);
+        startBtn.onClick.AddListener(() => SelectState(true));
         startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX,AudioResType.sfx); });
         settingBtn.onClick.AddListener(() => { SettingState(true); });
+        exitBtn.onClick.AddListener(() => {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        });
         settingExitButton.onClick.AddListener(() => { SettingState(false); });
         soundButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Sound); });
         controlButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Control); });
@@ -44,6 +53,7 @@ public class StartSceneManager : MonoBehaviour
     private void Start()
     {
         settingPanel.SetActive(false);
+        stageSelect.gameObject.SetActive(false);
     }
     private void OnClickStartButton()
     {
@@ -81,6 +91,26 @@ public class StartSceneManager : MonoBehaviour
             settingPanel.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
                 .SetUpdate(true)
                 .OnComplete(() => { settingPanel.SetActive(false); isAnim = false; });
+        }
+    }
+
+    public void SelectState(bool state)
+    {
+        GameObject stage = stageSelect.gameObject;
+        if (state == true && isAnim == false)
+        {
+            isAnim = true;
+            stage.SetActive(true);
+            stage.GetComponent<RectTransform>().DOAnchorPosY(0, 1)
+                .SetUpdate(true)
+                .OnComplete(() => isAnim = false);
+        }
+        else if (state == false && isAnim == false)
+        {
+            isAnim = true;
+            stage.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
+                .SetUpdate(true)
+                .OnComplete(() => { stage.SetActive(false); isAnim = false; });
         }
     }
     public void ChangeSettingUIState(SettingUIState uistate)
