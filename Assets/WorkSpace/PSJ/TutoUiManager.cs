@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System;
+using DG.Tweening;
 
 public enum txtPos
 {
@@ -15,13 +17,14 @@ public class TutoUiManager : MonoBehaviour
     [SerializeField] GameObject darkBackGround;
     [SerializeField] GameObject txtUpPanel;
     [SerializeField] GameObject txtDownPanel;
+    [SerializeField] GameObject IntroductPanel;
 
     TextMeshProUGUI Uptext;
 
     TextMeshProUGUI Downtext;
 
     Coroutine corutine = null;
-    Queue<(string,txtPos)> coroutinesWaiting = new Queue<(string, txtPos)>();
+    Queue<(string, txtPos, KeyCode, Action)> coroutinesWaiting = new Queue<(string, txtPos, KeyCode, Action)>();
     void Start()
     {
         Uptext = txtUpPanel.GetComponentInChildren<TextMeshProUGUI>();
@@ -29,6 +32,8 @@ public class TutoUiManager : MonoBehaviour
         darkBackGround.SetActive(false);
         txtUpPanel.SetActive(false);
         txtDownPanel.SetActive(false);
+        IntroductPanel.SetActive(false);
+        Invoke("IntroductionAni", 1f);
     }
 
     // Update is called once per frame
@@ -37,6 +42,12 @@ public class TutoUiManager : MonoBehaviour
         
     }
 
+    public void IntroductionAni()
+    {
+        IntroductPanel.SetActive(true);
+        RectTransform rect = IntroductPanel.GetComponent<RectTransform>();
+        rect.DOAnchorPosX(20, 2).SetUpdate(true);
+    }
     public void ControlText(bool input)
     {
         txtUpPanel.SetActive(input);
@@ -48,20 +59,20 @@ public class TutoUiManager : MonoBehaviour
         darkBackGround.SetActive(input);
     }
 
-    public void TextHappen(string txt,txtPos tp)
+    public void TextHappen(string txt,txtPos tp, KeyCode key = KeyCode.Return, Action ac = null)
     {
         if (corutine != null)
         {
-            coroutinesWaiting.Enqueue((txt,tp));
+            coroutinesWaiting.Enqueue((txt, tp, key, ac));
         }
         else
         {
-            corutine = StartCoroutine(MakeText(txt, tp));
+            corutine = StartCoroutine(MakeText(txt, tp, key, ac));
         }
         Debug.Log(coroutinesWaiting.Count);
     }
 
-    private IEnumerator MakeText(string txt,txtPos tp)
+    private IEnumerator MakeText(string txt,txtPos tp, KeyCode key,Action ac)
     {
         if (Time.timeScale > 0)
             TutorialManager.Instance.EventHappen();
@@ -82,20 +93,22 @@ public class TutoUiManager : MonoBehaviour
             selectPanel.SetActive(true);
         selectTxt.text = txt;
 
-        while (Input.GetKey(KeyCode.Return)) //트러블 슈팅 요소(엔터 키 입력이 남아있었음) 엔터키 입력 초기화.
+        while (Input.GetKey(key)) //트러블 슈팅 요소(엔터 키 입력이 남아있었음) 엔터키 입력 초기화.
             yield return null;
 
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return)); //엔터 키 입력 대기
+        yield return new WaitUntil(() => Input.GetKeyDown(key)); //엔터 키 입력 대기
         if (coroutinesWaiting.Count > 0) //큐 카운팅 후 재귀 호출 혹은 종료.
         {
-            (string nextTxt, txtPos nextTp) = coroutinesWaiting.Dequeue();
-            corutine = StartCoroutine(MakeText(nextTxt, nextTp));
+            (string nextTxt, txtPos nextTp, KeyCode nextkey, Action nextac) = coroutinesWaiting.Dequeue();
+            corutine = StartCoroutine(MakeText(nextTxt, nextTp, nextkey, nextac));
         }
         else
         {
             TutorialManager.Instance.EventEnd();
             corutine = null;
         }
+        if (ac != null)
+            ac.Invoke();
         yield return null;
     }
 }

@@ -18,6 +18,19 @@ namespace DataDeclaration
         Game,
         GameOver
     }
+
+    public enum AudioResType
+    {
+        etc,
+        Background,
+        sfx
+    }
+
+    public enum SettingUIState
+    {
+        Sound,
+        Control
+    }
     #endregion
 
     #region Struct
