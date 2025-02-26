@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "Slide",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "5f3d9ad3-d3ec-4f82-9f99-d5303c727c35",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
