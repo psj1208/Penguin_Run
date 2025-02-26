@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -62,27 +63,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (!isDead)
-        {
-            // 점프 입력 감지
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                isJumping = true;
-            }
 
-            // 슬라이딩 입력 감지
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                isSliding = true;
-                
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                isSliding = false;
-                animationHandler.Slide(false);
-                highCollider.SetActive(true);
-            }
-        }
 
         // 지면과의 충돌 감지하여 점프 횟수 초기화
         Debug.DrawRay(rb.position, Vector3.down * 2.0f, Color.green);
@@ -131,6 +112,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumping)
         {
+            animationHandler.SetJump(true);
             JumpMethod();
         }
     }
@@ -139,16 +121,14 @@ public class PlayerController : MonoBehaviour
     {
         if (jumpCount > 0)
         {
-            animationHandler.SetJump(true);
             AudioManager.PlayClip(JumpClip);
-            Vector2 velocity = rb.velocity * 0;
-            rb.velocity = velocity;
-            Vector2 vel = rb.velocity + Vector2.up * jumpForce;
-            rb.velocity = vel;
+            rb.velocity = Vector2.zero;
+            rb.velocity += Vector2.up * jumpForce;
             --jumpCount;
             isJumping = false;
         }
     }
+
 
     /// <summary>
     /// 플레이어 슬라이딩 처리
@@ -161,7 +141,13 @@ public class PlayerController : MonoBehaviour
             highCollider.SetActive(false);
             animationHandler.Slide(true);
         }
+        else
+        {
+            highCollider.SetActive(true);
+            animationHandler.Slide(false);
+        }
     }
+
 
     /// <summary>
     /// 트리거 충돌 발생 시 상호작용 가능한 오브젝트와의 상호작용 처리
@@ -186,4 +172,37 @@ public class PlayerController : MonoBehaviour
     {
         OnAddScore?.Invoke(this, amount);
     }
+
+    /// <summary>
+    /// Input System - Jump 액션 처리
+    /// </summary>
+    public void OnJump(InputValue value)
+    {
+        if (value.isPressed && jumpCount > 0)
+        {
+            isJumping = true;
+        }
+    }
+
+    /// <summary>
+    /// Input System - Slide 액션 처리
+    /// </summary>
+    public void OnSlide(InputValue value)
+    {
+        if (value.isPressed) // Shift 키를 누르고 있을 때
+        {
+            isSliding = true;
+            highCollider.SetActive(false);
+
+        }
+        else // Shift 키에서 손을 뗄 때
+        {
+            isSliding = false;
+
+            highCollider.SetActive(true);
+        }
+    }
+
+
+
 }
