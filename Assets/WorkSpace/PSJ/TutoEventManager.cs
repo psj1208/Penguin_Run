@@ -69,5 +69,12 @@ public class TutoEventManager : MonoBehaviour
             uiManager.TextHappen("이건 속도 증가 아이템입니다.", txtPos.Up);
             uiManager.TextHappen("얻으면 일정 시간 무적이 되고 속도가 빨라집니다.", txtPos.Up);
         });
+
+        actionList.Add(9, () =>
+        {
+            uiManager.TextHappen("다 통과했어요!", txtPos.Down);
+            uiManager.TextHappen("잘 하셨습니다.", txtPos.Up);
+            uiManager.TextHappen("이제 본 게임에서 플레이해보도록 합시다!", txtPos.Up);
+        });
     }
 }
