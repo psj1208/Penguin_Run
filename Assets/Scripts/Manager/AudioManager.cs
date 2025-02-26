@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip audioClip;
 
     public AudioMixer audioMixer;
+    public AudioMixerGroup master;
     public AudioMixerGroup backGround;
     public AudioMixerGroup sfx;
 
