@@ -12,7 +12,7 @@ public class AnimationHandler : MonoBehaviour
 
     private Animator animator;
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
     }
