@@ -35,6 +35,13 @@ public class StartSceneManager : MonoBehaviour
         startBtn.onClick.AddListener(OnClickStartButton);
         startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX,AudioResType.sfx); });
         settingBtn.onClick.AddListener(() => { SettingState(true); });
+        exitBtn.onClick.AddListener(() => {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        });
         settingExitButton.onClick.AddListener(() => { SettingState(false); });
         soundButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Sound); });
         controlButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Control); });
