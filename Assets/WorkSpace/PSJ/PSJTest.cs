@@ -9,7 +9,7 @@ public class PSJTest : MonoBehaviour
         if (collision.tag.Equals("Player"))
         {
             Debug.Log("이벤트 진입");
-            TutoEventManager.Instance.actionList[1].Invoke();
+            TutoEventManager.Instance.EventOne();
         }
     }
 }

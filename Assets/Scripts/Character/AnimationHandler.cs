@@ -11,7 +11,7 @@ public class AnimationHandler : MonoBehaviour
 
     private Animator animator;
 
-    private void Awake()
+    private void Start()
     {
         animator = GetComponentInChildren<Animator>();
     }

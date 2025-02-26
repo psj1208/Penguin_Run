@@ -16,14 +16,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deathY = -10f; // 사망 Y축 좌표
     public float DeathY => deathY;
 
-    // 참조 변수
+    // 컴포넌트 및 매니저 참조 변수
     private GameManager gameManager; // 게임 매니저 참조
     private StatHandler statHandler; // 상태 관리 핸들러
-    private AnimationHandler animationHandler; // 애니메이션 핸들러
     public StatHandler Stat => statHandler;
+    public AnimationHandler animationHandler; // 애니메이션 핸들러
     private Rigidbody2D rb; // Rigidbody2D 컴포넌트 참조
-    private GameObject highCollider; // highCollider 오브젝트 참조
-
 
     // 이벤트 선언: 체력 변화, 속도 변화, 점수 추가 시 호출
     public event Action<PlayerController, int> OnAddScore;
@@ -38,7 +36,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        highCollider = transform.Find("HighCollider")?.gameObject; // 동적으로 오브젝트 찾기
         if (rb == null)
         {
             Debug.Log("Not Founded Rigidbody");
@@ -47,8 +44,6 @@ public class PlayerController : MonoBehaviour
         isDead = false;
         isJumping = false;
         gameManager = GameManager.Instance;
-
-        animationHandler.Move();
     }
 
     /// <summary>
@@ -59,27 +54,27 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        animationHandler.Move();
+
         if (!isDead)
         {
             // 점프 입력 감지
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                animationHandler.SetJump(true);
+                animationHandler.Jump();
                 isJumping = true;
             }
 
             // 슬라이딩 입력 감지
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                isSliding = true;
                 animationHandler.Slide();
-                highCollider.SetActive(false);
+                isSliding = true;
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
+                animationHandler.Move();
                 isSliding = false;
-                animationHandler.Stand();
-                highCollider.SetActive(true);
             }
         }
 
@@ -147,7 +142,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isSliding)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Euler(0, 0, 90);
         }
         else
         {
@@ -178,7 +173,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            animationHandler.SetJump(false);
             jumpCount = 2;
         }
     }
