@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class PSJTest : MonoBehaviour
 {
-    // Start is called before the first frame update
-    CoinsManager coinsManager;
-    float time;
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        coinsManager = FindObjectOfType<CoinsManager>();
-        time = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (collision.tag.Equals("Player"))
+        {
+            Debug.Log("이벤트 진입");
+            TutoEventManager.Instance.EventOne();
+        }
     }
 }
