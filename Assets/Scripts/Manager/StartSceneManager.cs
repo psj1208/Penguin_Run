@@ -43,7 +43,6 @@ public class StartSceneManager : MonoBehaviour
         settingExitButton.onClick.AddListener(() => { SettingState(false); });
         soundButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Sound); });
         controlButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Control); });
-        fadeInImage.color = Color.clear;
     }
 
     private void Start()
