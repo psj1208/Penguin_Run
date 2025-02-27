@@ -22,8 +22,8 @@ public class StatHandler : MonoBehaviour
 
     private float decreaseHPRatio; // 체력 자연 감소 비율
 
-    [SerializeField] private float shakeDuration = 0.2f;   // 흔들림 지속 시간
-    [SerializeField] private float shakeMagnitude = 0.2f;    // 흔들림 강도
+    private float shakeDuration = 0.6f;   // 흔들림 지속 시간
+    private float shakeMagnitude = 0.3f;    // 흔들림 강도
 
     // 무적 상태 관련 변수
     private float damageInvTime;          // 무적 지속 시간
@@ -35,7 +35,7 @@ public class StatHandler : MonoBehaviour
     {
         // 초기값 설정
         decreaseHPRatio = 1f;      // 초당 체력 감소량
-        damageInvTime = 3f;    // 무적 지속 시간
+        damageInvTime = 4f;    // 충돌 후 무적 시간
         damageInvDurationTime = 0f;
         isInvincibility = false;
 
@@ -164,8 +164,8 @@ public class StatHandler : MonoBehaviour
 
         while (elapsed < shakeDuration)
         {
-            float offsetX = Random.Range(-1f, 1f) * shakeMagnitude;
-            float offsetY = Random.Range(-1f, 1f) * shakeMagnitude;
+            float offsetX = Random.Range(-4f, 4f) * shakeMagnitude * 2;
+            float offsetY = Random.Range(-1.0f, 1.0f) * shakeMagnitude;
             camTransform.localPosition = originalPos + new Vector3(offsetX, offsetY, 0f);
             elapsed += Time.deltaTime;
             yield return null;
