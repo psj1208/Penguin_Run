@@ -1847,6 +1847,7 @@ GameObject:
   - component: {fileID: 753552836}
   - component: {fileID: 753552835}
   - component: {fileID: 753552834}
+  - component: {fileID: 753552837}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -1965,10 +1966,10 @@ MonoBehaviour:
   musicVolume: 0.145
   soundEffectPitchVariance: 0.156
   soundEffectVolume: 0.156
-  audioMixer: {fileID: 0}
-  master: {fileID: 0}
-  backGround: {fileID: 0}
-  sfx: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  master: {fileID: 24300002, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  backGround: {fileID: -846336627106000191, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  sfx_: {fileID: 6181107294476040392, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
 --- !u!4 &753552836
 Transform:
   m_ObjectHideFlags: 0
@@ -1984,6 +1985,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &753552837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753552833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  masterSlider: {fileID: 1192796977064106251}
+  backGroundSlider: {fileID: 8548591745591257832}
+  sfxSlider: {fileID: 4804594972237309258}
 --- !u!1 &783220487
 GameObject:
   m_ObjectHideFlags: 0
@@ -9280,7 +9297,19 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 753552837}
+        m_TargetAssemblyTypeName: AudioMixerController, Assembly-CSharp
+        m_MethodName: MasterVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &1273164983744461243
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9613,7 +9642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SPARTA COOKIE
+  m_Text: PENGUIN RUN
 --- !u!222 &1784738592340990666
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10768,7 +10797,19 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 753552837}
+        m_TargetAssemblyTypeName: AudioMixerController, Assembly-CSharp
+        m_MethodName: SfxVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &4827314106196158794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12552,7 +12593,19 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 753552837}
+        m_TargetAssemblyTypeName: AudioMixerController, Assembly-CSharp
+        m_MethodName: BackGroundVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8562882941600364403
 GameObject:
   m_ObjectHideFlags: 0

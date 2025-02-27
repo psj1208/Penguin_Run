@@ -1047,13 +1047,14 @@ MonoBehaviour:
   startBtn: {fileID: 1529820838978565262}
   settingBtn: {fileID: 2154490525115073282}
   exitBtn: {fileID: 4774100950918782600}
-  fadeInImage: {fileID: 3356424950767111997}
+  fader: {fileID: 0}
   settingPanel: {fileID: 4753957019737289270}
   settingExitButton: {fileID: 1369588952396814589}
   soundButton: {fileID: 4844117166731076822}
   sound: {fileID: 2736296592620390850}
   controlButton: {fileID: 280761597296220114}
   control: {fileID: 7119777564688137676}
+  stageSelect: {fileID: 0}
 --- !u!1 &2202938168199905853
 GameObject:
   m_ObjectHideFlags: 0
