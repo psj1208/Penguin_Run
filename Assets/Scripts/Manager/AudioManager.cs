@@ -9,12 +9,13 @@ public class AudioManager : MonoBehaviour
     private static AudioManager instance;
     public static AudioManager Instance => instance;
 
+    private Dictionary<SceneType, AudioClip> bgmAudioClipDict;
+
     [SerializeField][Range(0f, 1f)] private float musicVolume = 0.145f;
     [SerializeField][Range(0f, 1f)] private float soundEffectPitchVariance = 0.156f;
     [SerializeField][Range(0f, 1f)] private float soundEffectVolume = 0.156f;
 
     private AudioSource audioSource;
-    private AudioClip audioClip;
 
     public AudioMixer audioMixer;
     public AudioMixerGroup master;
@@ -25,7 +26,6 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        
         //싱글톤
         if (instance == null)
         {
@@ -37,11 +37,15 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        bgmAudioClipDict = new Dictionary<SceneType, AudioClip>();
+        bgmAudioClipDict.Add(SceneType.Start, Resources.Load<AudioClip>("Sounds/LobbyBGM/game-8-bit-on-278083"));
+        bgmAudioClipDict.Add(SceneType.Stage, Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289"));
+        bgmAudioClipDict.Add(SceneType.None, null);
+
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = musicVolume;
         audioSource.loop = true;
 
-        audioClip = Resources.Load<AudioClip>("Sounds/LobbyBGM/game-8-bit-on-278083");
         prefabSoundSource = Resources.Load<SoundSource>("Prefabs/SoundSource");
     }
     /// <summary>
@@ -49,15 +53,15 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        BackGroundMusic(audioClip);
+        BackGroundMusic(SceneType.Start);
     }
     /// <summary>
     /// 배경음악 체인지 메서드
     /// </summary>
     /// <param name="clip"></param>
-    public void BackGroundMusic(AudioClip clip)
+    public void BackGroundMusic(SceneType type)
     {
-        audioSource.clip = clip;//클립 등록
+        audioSource.clip = bgmAudioClipDict[type];//클립 등록
         audioSource.outputAudioMixerGroup = backGround;//오디오 소스 output 등록
         audioSource.Stop();
         audioSource.Play();
