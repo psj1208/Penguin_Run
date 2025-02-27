@@ -29,7 +29,7 @@ public class UIFX : MonoBehaviour
     {
         Prepare();
     }
-
+    //풀링 시스템을 미리 준비.(많이 생성되는 프리팹이므로 풀링 시스템이 있는 것이 좋다.
     private void Prepare()
     {
         for (int i = 0; i < maxCoins; i++)
@@ -47,7 +47,7 @@ public class UIFX : MonoBehaviour
             heartQueue.Enqueue(heart);
         }
     }
-
+    //동전 이미지를 갖고 있는 프리팹을 Amount만큼 해당 Position으로 보냄.
     public void AnimateCoin(Vector3 collectedPostion, int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -69,7 +69,7 @@ public class UIFX : MonoBehaviour
             }
         }
     }
-
+    //하트 이미지를 갖고 있는 프리팹을 Amount만큼 해당 Position으로 보냄.
     public void AnimateHeart(Vector3 collectedPostion, int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -91,7 +91,7 @@ public class UIFX : MonoBehaviour
             }
         }
     }
-
+    //월드 좌표를 캔버스 상의 좌표로 변환
     private Vector2 WorldToCanvasInOverlay(Vector2 world)
     {
         Vector2 screen = Camera.main.WorldToScreenPoint(world);

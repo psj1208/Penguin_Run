@@ -8,24 +8,18 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
-    public static UIManager Instance => instance;
 
-    private UIState curUIState;
-    private float elapsedTime;
-    private float fadeTime;
-
-    private CanvasGroup fader;
-    public CanvasGroup Fader => fader;
     private GameUI gameUI;
     private GameOverUI gameOverUI;
     private MiniMap miniMap;
+    private CanvasGroup fader;
+
+    public static UIManager Instance => instance;
+    public CanvasGroup Fader => fader;
 
     private void Awake()
     {
         instance = this;
-
-        elapsedTime = 0f;
-        fadeTime = 1f;
 
         fader = GetComponentInChildren<CanvasGroup>();
         gameUI = GetComponentInChildren<GameUI>(true);
@@ -41,7 +35,6 @@ public class UIManager : MonoBehaviour
     /// <param name="uiState">변경하려고 하는 UI</param>
     public void ChangeUIState(UIState uiState)
     {
-        curUIState = uiState;
         gameUI.ActiveUI(uiState);
         gameOverUI.ActiveUI(uiState);
     }
@@ -60,7 +53,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">획득량</param>
-    /// <param name="pControl">플레이어</param>
     public void ScoreItemFX(Vector3 collectedPostion, int amount)
     {
         gameUI.UIFX.AnimateCoin(collectedPostion, amount);
@@ -71,7 +63,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">회복량</param>
-    /// <param name="pControl">플레이어</param>
     public void HPItemFX(Vector3 collectedPostion, int amount)
     {
         gameUI.UIFX.AnimateHeart(collectedPostion, amount);
@@ -87,20 +78,5 @@ public class UIManager : MonoBehaviour
         {
             miniMap.Init(st, end, player);
         }
-    }
-
-    public IEnumerator FadeOut()
-    {
-        while (elapsedTime < fadeTime)
-        {
-            elapsedTime += Time.deltaTime;
-            float alpha = elapsedTime / fadeTime;
-
-            fader.alpha = Mathf.Lerp(1, 0, elapsedTime / fadeTime);
-
-            yield return null;
-        }
-        fader.alpha = 0;
-        ChangeUIState(UIState.Game);
     }
 }

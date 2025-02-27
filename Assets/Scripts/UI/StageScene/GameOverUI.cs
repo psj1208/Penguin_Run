@@ -37,8 +37,8 @@ public class GameOverUI : MonoBehaviour
         {
             panel.localScale = Vector3.zero;
             panel.DOScale(1, 1).SetEase(Ease.OutBounce).SetUpdate(true);
-            AudioManager.Instance.BackGroundMusic(null);
-            AudioManager.PlayClip(gameOverSfx);
+            AudioManager.Instance.BackGroundMusic(SceneType.None);
+            AudioManager.PlayClip(gameOverSfx,AudioResType.sfx);
             resultScore = uiManager.GetResultScore();
             bestScore = PlayerPrefs.GetInt("BestScore", 0);
             if (resultScore > bestScore)
@@ -57,8 +57,8 @@ public class GameOverUI : MonoBehaviour
 
         panel.localScale = Vector3.zero;
         panel.DOScale(1, 1).SetEase(Ease.OutBounce).SetUpdate(true);
-        AudioManager.Instance.BackGroundMusic(null);
-        AudioManager.PlayClip(gameOverSfx);
+        AudioManager.Instance.BackGroundMusic(SceneType.None);
+        AudioManager.PlayClip(gameOverSfx,AudioResType.sfx);
         resultScore = uiManager.GetResultScore();
         bestScore = PlayerPrefs.GetInt("BestScore", 0);
         if (resultScore > bestScore)
@@ -86,7 +86,8 @@ public class GameOverUI : MonoBehaviour
 
     private void OnclickExitButton()
     {
-        Debug.Log("게임 종료");
-        Application.Quit();
+        Time.timeScale = 1.0f;
+        StartCoroutine(FadeHelper.Fade(UIManager.Instance.Fader, 0f, 1f, 0.5f));
+        SceneManager.LoadScene(0);
     }
 }

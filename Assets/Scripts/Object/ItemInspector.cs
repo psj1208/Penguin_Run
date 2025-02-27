@@ -13,6 +13,9 @@ public class ItemInspector : Editor
     SerializedProperty speedValue;
     SerializedProperty scoreValue;
     SerializedProperty duration;
+    SerializedProperty magneticPower;
+    SerializedProperty magneticDuration;
+    SerializedProperty magneticObject;
 
     private void OnEnable()
     {
@@ -21,8 +24,11 @@ public class ItemInspector : Editor
         speedValue = serializedObject.FindProperty("speedValue");
         scoreValue = serializedObject.FindProperty("scoreValue");
         duration = serializedObject.FindProperty("durationValue");
+        magneticPower = serializedObject.FindProperty("magneticPower");
+        magneticDuration = serializedObject.FindProperty("magneticDuration");
+        magneticObject = serializedObject.FindProperty("magnetic");
     }
-
+    //인스펙터에서 편히 보기 위함.
     public override void OnInspectorGUI()
     {
         serializedObject.Update(); // 현재 SerializedObject 업데이트
@@ -53,7 +59,13 @@ public class ItemInspector : Editor
         {
             EditorGUILayout.PropertyField(scoreValue, new GUIContent("점수 증가량"));
         }
-        serializedObject.ApplyModifiedProperties(); // 변경 사항 적용 (필수)
+        else if(selectedType == ItemType.Magnetic)
+        {
+            EditorGUILayout.PropertyField(magneticPower, new GUIContent("자력 강도"));
+            EditorGUILayout.PropertyField(magneticDuration, new GUIContent("자력 지속시간"));
+            EditorGUILayout.PropertyField(magneticObject, new GUIContent("자력 효과 프리팹"));
+        }
+        serializedObject.ApplyModifiedProperties(); // 변경 사항 적용
     }
 }
 #endif

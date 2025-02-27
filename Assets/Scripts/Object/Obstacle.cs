@@ -1,3 +1,4 @@
+using DataDeclaration;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,10 @@ public class Obstacle : InteractObject
     public override void OnInteraction(StatHandler sHandler)
     {
         //플레이어 데미지 입는 함수
+        if (!sHandler.IsInvincibility)
+        {
+            AudioManager.PlayClip(sfx, AudioResType.sfx);
+        }
         sHandler.ChangeHP(-damage);
-        AudioManager.PlayClip(sfx);
     }
 }

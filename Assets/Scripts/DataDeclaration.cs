@@ -9,7 +9,8 @@ namespace DataDeclaration
     {
         Heal,
         Speed,
-        Score
+        Score,
+        Magnetic
     }
 
     public enum UIState
@@ -21,16 +22,24 @@ namespace DataDeclaration
 
     public enum AudioResType
     {
+        etc,
         Background,
         sfx
     }
-    #endregion
 
-    #region Struct
-    #endregion
+    public enum SettingUIState
+    {
+        Sound,
+        Control
+    }
 
-    #region Delegate
-    public delegate void ChangeHP(int figure);
-    public delegate void ChangeSpeed(float figure);
+    public enum SceneType
+    {
+        None = -1,
+        Start,
+        Tutorial,
+        Stage1,
+        Stage2,
+    }
     #endregion
 }
