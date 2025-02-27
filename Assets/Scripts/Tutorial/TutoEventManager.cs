@@ -78,7 +78,7 @@ public class TutoEventManager : MonoBehaviour
             uiManager.TextHappen("이제 본 게임에서 플레이해보도록 합시다!", txtPos.Up);
             AchieveManager.Instance.AchieveRenew(2);
             Camera.main.GetComponent<FollowCamera>().enabled = false;
-            StartCoroutine(FadeHelper.Fade(UIManager.Instance.Fader, 0f, 1f, 2f, () => SceneManager.LoadScene(2)));
+            StartCoroutine(FadeHelper.Fade(UIManager.Instance.Fader, 0f, 1f, 2f, () => SceneManager.LoadScene(0)));
         });
     }
 }

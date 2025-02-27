@@ -32,6 +32,14 @@ namespace DataDeclaration
         Sound,
         Control
     }
+
+    public enum SceneType
+    {
+        None,
+        Start,
+        Tutorial,
+        Stage,
+    }
     #endregion
 
     #region Struct
