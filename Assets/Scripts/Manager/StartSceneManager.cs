@@ -8,140 +8,80 @@ using DG.Tweening;
 
 public class StartSceneManager : MonoBehaviour
 {
-    #region Variable
-    private AudioClip btnSFX;
-    bool isAnim = false;
+    private bool isAnim;
+    private AudioClip btnClickSFX;
 
-    [SerializeField] private Button startBtn;
-    [SerializeField] private Button settingBtn;
-    [SerializeField] private Button exitBtn;
-    [SerializeField] private CanvasGroup fader;
+    private StartMenuUI startMenuUI;
+    private StageSelectUI stageSelectUI;
+    private SettingUI settingUI;
+    private CanvasGroup fader;
 
-    [Header("세팅 관련 UI")]
-    [SerializeField] private GameObject settingPanel;
-    [SerializeField] private Button settingExitButton;
-    [SerializeField] private Button soundButton;
-    [SerializeField] private SettingBaseUI sound;
-    [SerializeField] private Button controlButton;
-    [SerializeField] private SettingBaseUI control;
-    [SerializeField] private StageSelect stageSelect;
-    #endregion
-
-    #region Property
-    public AudioClip BtnSFX => btnSFX;
     public CanvasGroup Fader => fader;
-    #endregion
 
-    #region Unity Method
+    public AudioClip BtnClickSFX => btnClickSFX;
+
     private void Awake()
     {
-        stageSelect = GetComponentInChildren<StageSelect>(true);
         Time.timeScale = 1.0f;
-        btnSFX = Resources.Load<AudioClip>("Sounds/Coin/coin01");
 
-        startBtn.onClick.AddListener(OnClickStartButton);
-        settingBtn.onClick.AddListener(OnClickSettingButton);
-        exitBtn.onClick.AddListener(OnClickExitButton);
+        isAnim = false;
+        btnClickSFX = Resources.Load<AudioClip>("Sounds/Coin/coin01");
 
-        settingExitButton.onClick.AddListener(OnClickSettingExitButton);
-        soundButton.onClick.AddListener(OnClickSoundSettingButton);
-        controlButton.onClick.AddListener(OnClickControlSettingButton);
+        startMenuUI = GetComponentInChildren<StartMenuUI>(true);
+        stageSelectUI = GetComponentInChildren<StageSelectUI>(true);
+        settingUI = GetComponentInChildren<SettingUI>(true);
+        fader = GetComponentInChildren<CanvasGroup>(true);
     }
 
     private void Start()
     {
-        settingPanel.SetActive(false);
-        stageSelect.gameObject.SetActive(false);
+        AudioManager.Instance.BackGroundMusic(SceneType.Start);
     }
-    #endregion
 
-    #region Public Method
-    public void SelectState(bool state)
+    /// <summary>
+    /// 스테이지 선택 UI On/Off 메서드
+    /// </summary>
+    /// <param name="activation">활성화 여부</param>
+    public void ToggleStageSelectUI(bool activation)
     {
-        GameObject stage = stageSelect.gameObject;
-        if (state == true && isAnim == false)
+        if (activation == true && isAnim == false)
         {
             isAnim = true;
-            stage.SetActive(true);
-            stage.GetComponent<RectTransform>().DOAnchorPosY(0, 1)
+            stageSelectUI.gameObject.SetActive(true);
+            stageSelectUI.gameObject.GetComponent<RectTransform>().DOAnchorPosY(0f, 1f)
                 .SetUpdate(true)
                 .OnComplete(() => isAnim = false);
         }
-        else if (state == false && isAnim == false)
+        else if (activation == false && isAnim == false)
         {
             isAnim = true;
-            stage.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
+            stageSelectUI.gameObject.GetComponent<RectTransform>().DOAnchorPosY(1200f, 1f, false)
                 .SetUpdate(true)
-                .OnComplete(() => { stage.SetActive(false); isAnim = false; });
+                .OnComplete(() => { stageSelectUI.gameObject.SetActive(false); isAnim = false; });
         }
     }
-    #endregion
 
-    #region Private Method
-    private void OnClickStartButton()
+    /// <summary>
+    /// 환경설정 UI On/Off 메서드
+    /// </summary>
+    /// <param name="activation">활성화 여부</param>
+    public void ToggleSettingUI(bool activation)
     {
-        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
-        SelectState(true);
-    }
-
-    private void OnClickSettingButton()
-    {
-        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
-        SettingState(true);
-    }
-
-    private void OnClickExitButton()
-    {
-        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-    }
-
-    private void OnClickSettingExitButton()
-    {
-        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
-        SettingState(false);
-    }
-
-    private void OnClickSoundSettingButton()
-    {
-        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
-        ChangeSettingUIState(SettingUIState.Sound);
-    }
-
-    private void OnClickControlSettingButton()
-    {
-        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
-        ChangeSettingUIState(SettingUIState.Control);
-    }
-
-    private void SettingState(bool state)
-    {
-        if (state == true && isAnim == false)
+        if (activation == true && isAnim == false)
         {
             AchieveManager.Instance.AchieveRenew(1);
             isAnim = true;
-            settingPanel.SetActive(true);
-            settingPanel.GetComponent<RectTransform>().DOAnchorPosY(0, 1)
+            settingUI.gameObject.SetActive(true);
+            settingUI.gameObject.GetComponent<RectTransform>().DOAnchorPosY(0f, 1f)
                 .SetUpdate(true)
                 .OnComplete(() => isAnim = false);
         }
-        else if (state == false && isAnim == false)
+        else if (activation == false && isAnim == false)
         {
             isAnim = true;
-            settingPanel.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
+            settingUI.gameObject.GetComponent<RectTransform>().DOAnchorPosY(1200f, 1f, false)
                 .SetUpdate(true)
-                .OnComplete(() => { settingPanel.SetActive(false); isAnim = false; });
+                .OnComplete(() => { settingUI.gameObject.SetActive(false); isAnim = false; });
         }
     }
-
-    private void ChangeSettingUIState(SettingUIState uistate)
-    {
-        sound.SetActive(uistate);
-        control.SetActive(uistate);
-    }
-    #endregion
 }

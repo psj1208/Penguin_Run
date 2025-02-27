@@ -86,10 +86,8 @@ public class GameOverUI : MonoBehaviour
 
     private void OnclickExitButton()
     {
-        Debug.Log("게임 종료");
         Time.timeScale = 1.0f;
-        StartCoroutine(FadeHelper.Fade(UIManager.Instance.Fader, 1f, 0f, 0.5f));
-        AudioManager.Instance.BackGroundMusic(SceneType.Start);
+        StartCoroutine(FadeHelper.Fade(UIManager.Instance.Fader, 0f, 1f, 0.5f));
         SceneManager.LoadScene(0);
     }
 }

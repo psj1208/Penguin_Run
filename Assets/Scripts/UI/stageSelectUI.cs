@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StageSelect : MonoBehaviour
+public class StageSelectUI : MonoBehaviour
 {
-    private StartSceneManager sManager;
+    private StartSceneManager manager;
 
     [SerializeField] private Button Tuto;
     [SerializeField] private Button stage1;
@@ -17,23 +17,23 @@ public class StageSelect : MonoBehaviour
 
     private void Awake()
     {
+        manager = GetComponentInParent<StartSceneManager>();
+
         Tuto.onClick.AddListener(() => OnClickStageButton(1));
         stage1.onClick.AddListener(() => OnClickStageButton(2));
         stage2.onClick.AddListener(() => OnClickStageButton(3));
-
-        sManager = GetComponentInParent<StartSceneManager>();
         ExitButton.onClick.AddListener(OnClickEixtButton);
     }
 
     private void OnClickStageButton(int level)
     {
-        AudioManager.PlayClip(sManager.BtnSFX, AudioResType.sfx);
-        StartCoroutine(FadeHelper.Fade(sManager.Fader, 0f, 1f, 1f, () => SceneManager.LoadScene(level)));
+        AudioManager.PlayClip(manager.BtnClickSFX, AudioResType.sfx);
+        StartCoroutine(FadeHelper.Fade(manager.Fader, 0f, 1f, 1f, () => SceneManager.LoadScene(level)));
     }
 
     private void OnClickEixtButton()
     {
-        AudioManager.PlayClip(sManager.BtnSFX, AudioResType.sfx);
-        sManager.SelectState(false);
+        AudioManager.PlayClip(manager.BtnClickSFX, AudioResType.sfx);
+        manager.ToggleStageSelectUI(false);
     }
 }
