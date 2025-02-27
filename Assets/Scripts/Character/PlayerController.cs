@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private bool isDead; // 플레이어가 죽었는지 여부
     [SerializeField] private bool isJumping; // 점프 상태 여부
     [SerializeField] private bool isSliding; // 슬라이딩 상태 여부
-    [SerializeField] private bool isSide;
 
     // 점프 관련 변수
     [SerializeField] private int jumpForce; // 점프 힘
@@ -64,8 +63,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-
-
         // 지면과의 충돌 감지하여 점프 횟수 초기화
         Debug.DrawRay(rb.position, Vector3.down * 2.0f, Color.green);
         if (Physics2D.Raycast(rb.position, Vector3.down, 2.0f, LayerMask.GetMask("Ground")))

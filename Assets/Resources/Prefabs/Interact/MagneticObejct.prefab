@@ -54,7 +54,7 @@ MonoBehaviour:
   speedValue: 0
   durationValue: 0
   scoreValue: 0
-  magneticPower: 30
+  magneticPower: 40
   magneticDuration: 5
   magnetic: {fileID: 6447855632420480129, guid: 0d86a4ad35ef6834a8b968db3c62e710, type: 3}
 --- !u!58 &2151877163039652114

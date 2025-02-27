@@ -52,8 +52,11 @@ MonoBehaviour:
   itemType: 1
   hpValue: 0
   speedValue: 8
-  durationValue: 4
+  durationValue: 5
   scoreValue: 0
+  magneticPower: 0
+  magneticDuration: 0
+  magnetic: {fileID: 0}
 --- !u!58 &3699314961729248421
 CircleCollider2D:
   m_ObjectHideFlags: 0
