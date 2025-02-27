@@ -7,28 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    #region Variable
     private static UIManager instance;
-    private UIState curUIState;
-    private float fadeTime;
 
     private GameUI gameUI;
     private GameOverUI gameOverUI;
     private MiniMap miniMap;
-
     private CanvasGroup fader;
-    #endregion
 
-    #region Property
     public static UIManager Instance => instance;
     public CanvasGroup Fader => fader;
-    #endregion
 
     private void Awake()
     {
         instance = this;
-
-        fadeTime = 1f;
 
         fader = GetComponentInChildren<CanvasGroup>();
         gameUI = GetComponentInChildren<GameUI>(true);
@@ -44,7 +35,6 @@ public class UIManager : MonoBehaviour
     /// <param name="uiState">변경하려고 하는 UI</param>
     public void ChangeUIState(UIState uiState)
     {
-        curUIState = uiState;
         gameUI.ActiveUI(uiState);
         gameOverUI.ActiveUI(uiState);
     }
@@ -63,7 +53,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">획득량</param>
-    /// <param name="pControl">플레이어</param>
     public void ScoreItemFX(Vector3 collectedPostion, int amount)
     {
         gameUI.UIFX.AnimateCoin(collectedPostion, amount);
@@ -74,7 +63,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="collectedPostion">아이템 position</param>
     /// <param name="amount">회복량</param>
-    /// <param name="pControl">플레이어</param>
     public void HPItemFX(Vector3 collectedPostion, int amount)
     {
         gameUI.UIFX.AnimateHeart(collectedPostion, amount);
@@ -90,10 +78,5 @@ public class UIManager : MonoBehaviour
         {
             miniMap.Init(st, end, player);
         }
-    }
-
-    public void FadeOut()
-    {
-        StartCoroutine(FadeHelper.Fade(fader, 1f, 0f, fadeTime, () => ChangeUIState(UIState.Game)));
     }
 }

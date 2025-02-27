@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         uiManager = UIManager.Instance;
         audioManager = AudioManager.Instance;
         audioManager.BackGroundMusic((SceneType)SceneManager.GetActiveScene().buildIndex);
-        uiManager.FadeOut();
+        StartCoroutine(FadeHelper.Fade(uiManager.Fader, 1f, 0f, 1f, () => uiManager.ChangeUIState(UIState.Game)));
         StartCoroutine(StartGame());
     }
 
