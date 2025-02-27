@@ -19,13 +19,13 @@ public class TutoEventManager : MonoBehaviour
         uiManager = GetComponent<TutoUiManager>();
         GenerateDictionary();
     }
-
+    //이벤트의 대화와 대화의 주체의 위치,넘기려면 필요한 키. 그 뒤에 실행될 액션을 담고있음.
     void GenerateDictionary()
     {
         actionList.Add(1, () =>
         {
             uiManager.TextHappen("이 게임은 어떻게 진행하나요?.", txtPos.Down);
-            uiManager.TextHappen("먼저 앞에 있는 장애물을 뛰어넘어봅시다.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpMethod);
+            uiManager.TextHappen("먼저 앞에 있는 장애물을 뛰어넘어봅시다.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpCounting);
         });
 
         actionList.Add(2, () =>
@@ -36,12 +36,12 @@ public class TutoEventManager : MonoBehaviour
         actionList.Add(3, () =>
         {
             uiManager.TextHappen("이번 장애물은 크기가 크네요", txtPos.Down);
-            uiManager.TextHappen("이단 점프를 해봅시다.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpMethod);
+            uiManager.TextHappen("이단 점프를 해봅시다.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpCounting);
         });
 
         actionList.Add(4, () =>
         {
-            uiManager.TextHappen("한 번 더 점프하세요.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpMethod);
+            uiManager.TextHappen("한 번 더 점프하세요.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpCounting);
         });
 
         actionList.Add(5, () =>
@@ -76,8 +76,9 @@ public class TutoEventManager : MonoBehaviour
             uiManager.TextHappen("다 통과했어요!", txtPos.Down);
             uiManager.TextHappen("잘 하셨습니다.", txtPos.Up);
             uiManager.TextHappen("이제 본 게임에서 플레이해보도록 합시다!", txtPos.Up);
+            AchieveManager.Instance.AchieveRenew(2);
             Camera.main.GetComponent<FollowCamera>().enabled = false;
-            StartCoroutine(FadeHelper.Fade(UIManager.Instance.Fader, 0f, 1f, 2f, () => SceneManager.LoadScene(2)));
+            StartCoroutine(FadeHelper.Fade(UIManager.Instance.Fader, 0f, 1f, 2f, () => SceneManager.LoadScene(0)));
         });
     }
 }

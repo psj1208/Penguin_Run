@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 3699314961729248421}
   - component: {fileID: 1031298067149239346}
   - component: {fileID: 9003438281501846600}
-  m_Layer: 0
+  - component: {fileID: -6870827683175780640}
+  m_Layer: 6
   m_Name: SpeedObject
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -53,6 +54,9 @@ MonoBehaviour:
   speedValue: 8
   durationValue: 5
   scoreValue: 0
+  magneticPower: 0
+  magneticDuration: 0
+  magnetic: {fileID: 0}
 --- !u!58 &3699314961729248421
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4943,6 +4947,33 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!50 &-6870827683175780640
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4499013945112912399}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6697804681382266314
 GameObject:
   m_ObjectHideFlags: 0
@@ -4954,7 +4985,7 @@ GameObject:
   - component: {fileID: 3060868345301227791}
   - component: {fileID: 4526296248342504241}
   - component: {fileID: 2827184541535414805}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

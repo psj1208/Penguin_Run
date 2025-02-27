@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HelathUI : MonoBehaviour
+public class HealthUI : MonoBehaviour
 {
     [SerializeField] private RectTransform eff;
     [SerializeField] private GameObject healthBar;
 
-    // Update is called once per frame
     void Update()
     {
         SetEffectPos();
