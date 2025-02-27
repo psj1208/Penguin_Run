@@ -9,7 +9,8 @@ namespace DataDeclaration
     {
         Heal,
         Speed,
-        Score
+        Score,
+        Magnetic
     }
 
     public enum UIState

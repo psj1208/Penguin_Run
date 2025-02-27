@@ -25,6 +25,7 @@ public class StatHandler : MonoBehaviour
     private float invincibilityTime;          // 무적 지속 시간
     private float invincibilityDurationTime;  // 무적 경과 시간
     [SerializeField] private bool isInvincibility; // 무적 여부
+    public bool IsInvincibility => isInvincibility;
 
     private void Awake()
     {
