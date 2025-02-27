@@ -104859,13 +104859,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4204e18c9baed4fb65dbf4839abfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicVolume: 0.145
-  soundEffectPitchVariance: 0.156
-  soundEffectVolume: 0.156
-  audioMixer: {fileID: 0}
   master: {fileID: 0}
   backGround: {fileID: 0}
-  sfx_: {fileID: 0}
+  sfx: {fileID: 0}
 --- !u!4 &1397342121
 Transform:
   m_ObjectHideFlags: 0
@@ -107573,8 +107569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c28e32ffdfa5624294b3de37fed6097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPos: {fileID: 0}
-  endPos: {fileID: 0}
+  startPos: {fileID: 762680027}
+  endPos: {fileID: 281700161}
 --- !u!4 &1633676554
 Transform:
   m_ObjectHideFlags: 0
