@@ -2059,10 +2059,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4204e18c9baed4fb65dbf4839abfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicVolume: 0
+  soundEffectPitchVariance: 0
+  soundEffectVolume: 0
   audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   master: {fileID: 24300002, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   backGround: {fileID: -846336627106000191, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
-  sfx: {fileID: 6181107294476040392, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  sfx_: {fileID: 0}
 --- !u!4 &753552836
 Transform:
   m_ObjectHideFlags: 0
@@ -11708,18 +11711,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 59fcc930b62089f4b8567f144f7c7855, type: 3}
-    m_FontSize: 75
+    m_FontSize: 65
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 7
-    m_MaxSize: 155
+    m_MinSize: 0
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Setting
+  m_Text: SETTING
 --- !u!114 &6369647974876233981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12988,7 +12991,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Exit
+  m_Text: EXIT
 --- !u!1 &9085784820096254083
 GameObject:
   m_ObjectHideFlags: 0

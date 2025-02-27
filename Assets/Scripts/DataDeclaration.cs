@@ -35,10 +35,11 @@ namespace DataDeclaration
 
     public enum SceneType
     {
-        None,
+        None = -1,
         Start,
         Tutorial,
-        Stage,
+        Stage1,
+        Stage2,
     }
     #endregion
 

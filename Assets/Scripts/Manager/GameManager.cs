@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
     {
         uiManager = UIManager.Instance;
         audioManager = AudioManager.Instance;
-        audioManager.BackGroundMusic(SceneType.Stage);
+        audioManager.BackGroundMusic((SceneType)SceneManager.GetActiveScene().buildIndex);
         uiManager.FadeOut();
         StartCoroutine(StartGame());
     }

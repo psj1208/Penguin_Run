@@ -39,7 +39,8 @@ public class AudioManager : MonoBehaviour
 
         bgmAudioClipDict = new Dictionary<SceneType, AudioClip>();
         bgmAudioClipDict.Add(SceneType.Start, Resources.Load<AudioClip>("Sounds/LobbyBGM/game-8-bit-on-278083"));
-        bgmAudioClipDict.Add(SceneType.Stage, Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289"));
+        bgmAudioClipDict.Add(SceneType.Stage1, Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289"));
+        bgmAudioClipDict.Add(SceneType.Stage2, Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289"));
         bgmAudioClipDict.Add(SceneType.None, null);
 
         audioSource = GetComponent<AudioSource>();

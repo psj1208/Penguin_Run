@@ -19,16 +19,16 @@ public class StageSelectUI : MonoBehaviour
     {
         manager = GetComponentInParent<StartSceneManager>();
 
-        Tuto.onClick.AddListener(() => OnClickStageButton(1));
-        stage1.onClick.AddListener(() => OnClickStageButton(2));
-        stage2.onClick.AddListener(() => OnClickStageButton(3));
+        Tuto.onClick.AddListener(() => OnClickStageButton((int)SceneType.Tutorial));
+        stage1.onClick.AddListener(() => OnClickStageButton((int)SceneType.Stage1));
+        stage2.onClick.AddListener(() => OnClickStageButton((int)SceneType.Stage2));
         ExitButton.onClick.AddListener(OnClickEixtButton);
     }
 
-    private void OnClickStageButton(int level)
+    private void OnClickStageButton(int sceneIndex)
     {
         AudioManager.PlayClip(manager.BtnClickSFX, AudioResType.sfx);
-        StartCoroutine(FadeHelper.Fade(manager.Fader, 0f, 1f, 1f, () => SceneManager.LoadScene(level)));
+        StartCoroutine(FadeHelper.Fade(manager.Fader, 0f, 1f, 1f, () => SceneManager.LoadScene(sceneIndex)));
     }
 
     private void OnClickEixtButton()
