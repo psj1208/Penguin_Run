@@ -38,10 +38,11 @@ public class AudioManager : MonoBehaviour
         }
 
         bgmAudioClipDict = new Dictionary<SceneType, AudioClip>();
-        bgmAudioClipDict.Add(SceneType.Start, Resources.Load<AudioClip>("Sounds/LobbyBGM/game-8-bit-on-278083"));
-        bgmAudioClipDict.Add(SceneType.Stage1, Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289"));
-        bgmAudioClipDict.Add(SceneType.Stage2, Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289"));
         bgmAudioClipDict.Add(SceneType.None, null);
+        bgmAudioClipDict.Add(SceneType.Start, Resources.Load<AudioClip>("Sounds/GameSceneBGM/game-music-player-console-8bit-background-intro-theme-297305"));
+        bgmAudioClipDict.Add(SceneType.Tutorial, Resources.Load<AudioClip>("Sounds/LobbyBGM/game-8-bit-on-278083"));
+        bgmAudioClipDict.Add(SceneType.Stage1, Resources.Load<AudioClip>("Sounds/LobbyBGM/the-console-of-my-dreams-301289"));
+        bgmAudioClipDict.Add(SceneType.Stage2, Resources.Load<AudioClip>("Sounds/GameSceneBGM/i-love-my-8-bit-game-console-301272"));
 
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = musicVolume;

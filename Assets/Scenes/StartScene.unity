@@ -1944,6 +1944,7 @@ GameObject:
   - component: {fileID: 753552836}
   - component: {fileID: 753552835}
   - component: {fileID: 753552834}
+  - component: {fileID: 753552837}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -2059,9 +2060,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4204e18c9baed4fb65dbf4839abfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicVolume: 0
-  soundEffectPitchVariance: 0
-  soundEffectVolume: 0
+  musicVolume: 0.315
+  soundEffectPitchVariance: 0.315
+  soundEffectVolume: 0.332
   audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   master: {fileID: 24300002, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   backGround: {fileID: -846336627106000191, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
@@ -2081,6 +2082,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &753552837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753552833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  masterSlider: {fileID: 1192796977064106251}
+  backGroundSlider: {fileID: 8548591745591257832}
+  sfxSlider: {fileID: 4804594972237309258}
 --- !u!1 &783220487
 GameObject:
   m_ObjectHideFlags: 0
