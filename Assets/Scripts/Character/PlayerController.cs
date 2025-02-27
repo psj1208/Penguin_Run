@@ -55,12 +55,6 @@ public class PlayerController : MonoBehaviour
         animationHandler.Move();
     }
 
-    /// <summary>
-    /// 체력이 0 이하이면 게임 오버 처리
-    /// 스페이스바 입력 시 점프 활성화
-    /// 왼쪽 Shift 입력 시 슬라이딩 활성화
-    /// 일정 높이 이하로 떨어지면 게임 오버 처리
-    /// </summary>
     private void Update()
     {
         // 지면과의 충돌 감지하여 점프 횟수 초기화
@@ -78,23 +72,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 전진 이동, 점프, 슬라이딩, 바닥 감지 등의 물리 처리
-    /// </summary>
+    // 전진 이동, 점프, 슬라이딩, 바닥 감지 등의 물리 처리
     private void FixedUpdate()
     {
-        if (isDead)
-            return;
-
+        if (isDead) return;
         Move();
         Jump();
         Sliding();
     }
 
-    /// <summary>
-    /// 플레이어 이동 처리
-    /// 현재 속도를 statHandler.Speed 값으로 설정
-    /// </summary>
+    // 이동
     public void Move()
     {
         Vector2 velocity = rb.velocity;
@@ -102,20 +89,17 @@ public class PlayerController : MonoBehaviour
         rb.velocity = velocity;
     }
 
-    /// <summary>
-    /// 플레이어 점프 처리
-    /// 남은 점프 횟수가 있을 경우 점프를 수행하고 점프 횟수를 감소
-    /// </summary>
+    // 점프
     public void Jump()
     {
         if (isJumping)
         {
             animationHandler.SetJump(true);
-            JumpMethod();
+            JumpCounting();
         }
     }
 
-    public void JumpMethod()
+    public void JumpCounting()
     {
         if (jumpCount > 0)
         {
@@ -127,11 +111,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// 플레이어 슬라이딩 처리
-    /// 슬라이딩 중이면 90도로 회전, 그렇지 않으면 원래 상태 유지
-    /// </summary>
+    // 슬라이딩
     public void Sliding()
     {
         if (isSliding)
