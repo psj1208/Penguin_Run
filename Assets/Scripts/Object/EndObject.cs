@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EndObject : MonoBehaviour
 {
+    //플레이어 오브젝트가 도착 시에 카메라의 추적을 멈추고 게임 종료 화면을 킴.
     bool isActive = true;
     private void OnTriggerEnter2D(Collider2D collision)
     {

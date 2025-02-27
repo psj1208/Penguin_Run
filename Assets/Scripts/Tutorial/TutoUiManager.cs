@@ -71,9 +71,10 @@ public class TutoUiManager : MonoBehaviour
         }
         Debug.Log(coroutinesWaiting.Count);
     }
-
+    //튜토리얼씬의 대화창 구현
     private IEnumerator MakeText(string txt,txtPos tp, KeyCode key,Action ac)
     {
+        //텍스트 적용 후 UI 보이게하기.
         if (Time.timeScale > 0)
             TutorialManager.Instance.EventHappen();
         GameObject selectPanel = null;
@@ -97,17 +98,17 @@ public class TutoUiManager : MonoBehaviour
             yield return null;
 
         yield return new WaitUntil(() => Input.GetKeyDown(key)); //엔터 키 입력 대기
-        if (coroutinesWaiting.Count > 0) //큐 카운팅 후 재귀 호출 혹은 종료.
+        if (coroutinesWaiting.Count > 0) //큐 카운팅 후 재귀 호출.(대기열에 남아있을 시 큐에 담긴 다음 정보를 가져와 코루틴을 재기 호출)
         {
             (string nextTxt, txtPos nextTp, KeyCode nextkey, Action nextac) = coroutinesWaiting.Dequeue();
             corutine = StartCoroutine(MakeText(nextTxt, nextTp, nextkey, nextac));
         }
-        else
+        else //큐 카운팅 후 남은게 없을 시 종료.
         {
             TutorialManager.Instance.EventEnd();
             corutine = null;
         }
-        if (ac != null)
+        if (ac != null) //후에 실행되는 액션이 있을 시 실행되게 적용.
             ac.Invoke();
         yield return null;
     }

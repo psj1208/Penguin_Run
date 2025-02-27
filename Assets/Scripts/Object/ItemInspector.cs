@@ -28,7 +28,7 @@ public class ItemInspector : Editor
         magneticDuration = serializedObject.FindProperty("magneticDuration");
         magneticObject = serializedObject.FindProperty("magnetic");
     }
-
+    //인스펙터에서 편히 보기 위함.
     public override void OnInspectorGUI()
     {
         serializedObject.Update(); // 현재 SerializedObject 업데이트
@@ -65,7 +65,7 @@ public class ItemInspector : Editor
             EditorGUILayout.PropertyField(magneticDuration, new GUIContent("자력 지속시간"));
             EditorGUILayout.PropertyField(magneticObject, new GUIContent("자력 효과 프리팹"));
         }
-        serializedObject.ApplyModifiedProperties(); // 변경 사항 적용 (필수)
+        serializedObject.ApplyModifiedProperties(); // 변경 사항 적용
     }
 }
 #endif

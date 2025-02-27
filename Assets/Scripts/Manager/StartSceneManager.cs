@@ -8,6 +8,7 @@ using DG.Tweening;
 
 public class StartSceneManager : MonoBehaviour
 {
+    //현재 애니메이션이 진행 중인지 아닌지
     private bool isAnim;
     private AudioClip btnClickSFX;
 

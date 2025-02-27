@@ -27,11 +27,12 @@ public class Item : InteractObject
     {
         particle = GetComponent<ParticleSystem>();
     }
-
+    //아이템 타입에 따른 다른 메서드 호출.
     public override void OnInteraction(StatHandler statHandler)
     {
         if (statHandler == null || isActive == false)
             return;
+        //파티클까지 자석 아이템이 끌어들이므로 방지 코드.
         gameObject.layer = default;
         ParticleAndDestroy();
         switch (itemType)
@@ -56,7 +57,7 @@ public class Item : InteractObject
         }
         AudioManager.PlayClip(sfx,AudioResType.sfx);
     }
-    
+    //흭득 시 파티클 재생 후 재흭득 방지 및 스프라이트 숨기기.(파괴된 것처럼 연출)
     void ParticleAndDestroy()
     {
         particle.Play();
