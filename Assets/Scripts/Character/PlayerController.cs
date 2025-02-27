@@ -6,12 +6,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // 플레이어 상태 변수들
     private bool isDead; // 플레이어가 죽었는지 여부
     [SerializeField] private bool isJumping; // 점프 상태 여부
     [SerializeField] private bool isSliding; // 슬라이딩 상태 여부
 
-    // 점프 관련 변수
     [SerializeField] private int jumpForce; // 점프 힘
     [SerializeField] private int jumpCount = 2; // 남은 점프 가능 횟수
 
@@ -23,13 +21,13 @@ public class PlayerController : MonoBehaviour
     // 참조 변수
     private GameManager gameManager; // 게임 매니저 참조
     private StatHandler statHandler; // 상태 관리 핸들러
-    private AnimationHandler animationHandler; // 애니메이션 핸들러
-    public StatHandler Stat => statHandler;
+    private AnimationHandler animationHandler; // 애니메이션 핸들러 참조
+    public StatHandler Stat => statHandler; // 스탯 핸들러 참조
     private Rigidbody2D rb; // Rigidbody2D 컴포넌트 참조
     private GameObject highCollider; // highCollider 오브젝트 참조
 
 
-    // 이벤트 선언: 체력 변화, 속도 변화, 점수 추가 시 호출
+    // 점수 추가 이벤트
     public event Action<PlayerController, int> OnAddScore;
 
     private void Awake()
@@ -81,6 +79,38 @@ public class PlayerController : MonoBehaviour
         Sliding();
     }
 
+    /// <summary>
+    /// Input System - Jump 액션 처리
+    /// </summary>
+    /// <param name="value">입력 값</param>
+    public void OnJump(InputValue value)
+    {
+        if (value.isPressed && jumpCount > 0)
+        {
+            isJumping = true;
+        }
+    }
+
+    /// <summary>
+    /// Input System - Slide 액션 처리
+    /// </summary>
+    /// <param name="value">입력 값</param>
+    public void OnSlide(InputValue value)
+    {
+        if (value.isPressed) // Shift 키를 누르고 있을 때
+        {
+            isSliding = true;
+            highCollider.SetActive(false);
+
+        }
+        else // Shift 키에서 손을 뗄 때
+        {
+            isSliding = false;
+
+            highCollider.SetActive(true);
+        }
+    }
+
     // 이동
     public void Move()
     {
@@ -99,6 +129,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // 튜토리얼 용으로 별도로 분류
     public void JumpCounting()
     {
         if (jumpCount > 0)
@@ -128,7 +159,7 @@ public class PlayerController : MonoBehaviour
 
 
     /// <summary>
-    /// 트리거 충돌 발생 시 상호작용 가능한 오브젝트와의 상호작용 처리
+    /// 트리거 충돌 시 상호작용 가능한 오브젝트와의 상호작용 처리
     /// </summary>
     /// <param name="collision">충돌한 콜라이더</param>
     private void OnTriggerEnter2D(Collider2D collision)
@@ -151,33 +182,4 @@ public class PlayerController : MonoBehaviour
         OnAddScore?.Invoke(this, amount);
     }
 
-    /// <summary>
-    /// Input System - Jump 액션 처리
-    /// </summary>
-    public void OnJump(InputValue value)
-    {
-        if (value.isPressed && jumpCount > 0)
-        {
-            isJumping = true;
-        }
-    }
-
-    /// <summary>
-    /// Input System - Slide 액션 처리
-    /// </summary>
-    public void OnSlide(InputValue value)
-    {
-        if (value.isPressed) // Shift 키를 누르고 있을 때
-        {
-            isSliding = true;
-            highCollider.SetActive(false);
-
-        }
-        else // Shift 키에서 손을 뗄 때
-        {
-            isSliding = false;
-
-            highCollider.SetActive(true);
-        }
-    }
 }
