@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,12 +9,13 @@ public class PlayerController : MonoBehaviour
     private bool isDead; // 플레이어가 죽었는지 여부
     [SerializeField] private bool isJumping; // 점프 상태 여부
     [SerializeField] private bool isSliding; // 슬라이딩 상태 여부
+    [SerializeField] private bool isSide;
 
     // 점프 관련 변수
     [SerializeField] private int jumpForce; // 점프 힘
     [SerializeField] private int jumpCount = 2; // 남은 점프 가능 횟수
 
-    [SerializeField] private float deathY = -10f; // 사망 Y축 좌표
+    [SerializeField] private float deathY = -8f; // 사망 Y축 좌표
     public float DeathY => deathY;
 
     public AudioClip JumpClip;
@@ -61,30 +63,17 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (!isDead)
-        {
-            // 점프 입력 감지
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                
-                isJumping = true;
-            }
 
-            // 슬라이딩 입력 감지
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                isSliding = true;
-                
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                isSliding = false;
-                animationHandler.Stand();
-                highCollider.SetActive(true);
-            }
+
+        // 지면과의 충돌 감지하여 점프 횟수 초기화
+        Debug.DrawRay(rb.position, Vector3.down * 2.0f, Color.green);
+        if (Physics2D.Raycast(rb.position, Vector3.down, 2.0f, LayerMask.GetMask("Ground")))
+        {
+            animationHandler.SetJump(false);
+            jumpCount = 2;
         }
 
-        // 플레이어가 사망 영역(높이 아래로 떨어짐)에 도달하면 게임 오버 처리
+         // 플레이어가 사망 영역(높이 아래로 떨어짐)에 도달하면 게임 오버 처리
         if (transform.position.y < deathY)
         {
             gameManager.GameOver();
@@ -123,7 +112,6 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumping)
         {
-            
             animationHandler.SetJump(true);
             JumpMethod();
         }
@@ -134,14 +122,13 @@ public class PlayerController : MonoBehaviour
         if (jumpCount > 0)
         {
             AudioManager.PlayClip(JumpClip);
-            Vector2 velocity = rb.velocity * 0;
-            rb.velocity = velocity;
-            Vector2 vel = rb.velocity + Vector2.up * jumpForce;
-            rb.velocity = vel;
+            rb.velocity = Vector2.zero;
+            rb.velocity += Vector2.up * jumpForce;
             --jumpCount;
             isJumping = false;
         }
     }
+
 
     /// <summary>
     /// 플레이어 슬라이딩 처리
@@ -152,9 +139,15 @@ public class PlayerController : MonoBehaviour
         if (isSliding)
         {
             highCollider.SetActive(false);
-            animationHandler.Slide();
+            animationHandler.Slide(true);
+        }
+        else
+        {
+            highCollider.SetActive(true);
+            animationHandler.Slide(false);
         }
     }
+
 
     /// <summary>
     /// 트리거 충돌 발생 시 상호작용 가능한 오브젝트와의 상호작용 처리
@@ -172,19 +165,6 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// 지면과의 충돌 감지하여 점프 횟수 초기화
-    /// </summary>
-    /// <param name="collision">충돌한 오브젝트 정보</param>
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            animationHandler.SetJump(false);
-            jumpCount = 2;
-        }
-    }
-
-    /// <summary>
     /// 점수 추가 이벤트 호출
     /// </summary>
     /// <param name="amount">추가할 점수</param>
@@ -192,4 +172,37 @@ public class PlayerController : MonoBehaviour
     {
         OnAddScore?.Invoke(this, amount);
     }
+
+    /// <summary>
+    /// Input System - Jump 액션 처리
+    /// </summary>
+    public void OnJump(InputValue value)
+    {
+        if (value.isPressed && jumpCount > 0)
+        {
+            isJumping = true;
+        }
+    }
+
+    /// <summary>
+    /// Input System - Slide 액션 처리
+    /// </summary>
+    public void OnSlide(InputValue value)
+    {
+        if (value.isPressed) // Shift 키를 누르고 있을 때
+        {
+            isSliding = true;
+            highCollider.SetActive(false);
+
+        }
+        else // Shift 키에서 손을 뗄 때
+        {
+            isSliding = false;
+
+            highCollider.SetActive(true);
+        }
+    }
+
+
+
 }

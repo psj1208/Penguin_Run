@@ -8,14 +8,14 @@ using DG.Tweening;
 
 public class StartSceneManager : MonoBehaviour
 {
-    private float elapsedTime;
-    private float fadeTime;
+    #region Variable
     private AudioClip btnSFX;
+    bool isAnim = false;
 
     [SerializeField] private Button startBtn;
     [SerializeField] private Button settingBtn;
     [SerializeField] private Button exitBtn;
-    [SerializeField] private Image fadeInImage;
+    [SerializeField] private CanvasGroup fader;
 
     [Header("세팅 관련 UI")]
     [SerializeField] private GameObject settingPanel;
@@ -24,55 +24,101 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField] private SettingBaseUI sound;
     [SerializeField] private Button controlButton;
     [SerializeField] private SettingBaseUI control;
-    bool isAnim = false;
+    [SerializeField] private StageSelect stageSelect;
+    #endregion
 
+    #region Property
+    public AudioClip BtnSFX => btnSFX;
+    public CanvasGroup Fader => fader;
+    #endregion
+
+    #region Unity Method
     private void Awake()
     {
-        elapsedTime = 0f;
-        fadeTime = 1f;
+        stageSelect = GetComponentInChildren<StageSelect>(true);
+        Time.timeScale = 1.0f;
         btnSFX = Resources.Load<AudioClip>("Sounds/Coin/coin01");
 
         startBtn.onClick.AddListener(OnClickStartButton);
-        startBtn.onClick.AddListener(() => { AudioManager.PlayClip(btnSFX,AudioResType.sfx); });
-        settingBtn.onClick.AddListener(() => { SettingState(true); });
-        exitBtn.onClick.AddListener(() => {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-        });
-        settingExitButton.onClick.AddListener(() => { SettingState(false); });
-        soundButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Sound); });
-        controlButton.onClick.AddListener(() => { ChangeSettingUIState(SettingUIState.Control); });
-        fadeInImage.color = Color.clear;
+        settingBtn.onClick.AddListener(OnClickSettingButton);
+        exitBtn.onClick.AddListener(OnClickExitButton);
+
+        settingExitButton.onClick.AddListener(OnClickSettingExitButton);
+        soundButton.onClick.AddListener(OnClickSoundSettingButton);
+        controlButton.onClick.AddListener(OnClickControlSettingButton);
     }
 
     private void Start()
     {
         settingPanel.SetActive(false);
+        stageSelect.gameObject.SetActive(false);
     }
+    #endregion
+
+    #region Public Method
+    public void SelectState(bool state)
+    {
+        GameObject stage = stageSelect.gameObject;
+        if (state == true && isAnim == false)
+        {
+            isAnim = true;
+            stage.SetActive(true);
+            stage.GetComponent<RectTransform>().DOAnchorPosY(0, 1)
+                .SetUpdate(true)
+                .OnComplete(() => isAnim = false);
+        }
+        else if (state == false && isAnim == false)
+        {
+            isAnim = true;
+            stage.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
+                .SetUpdate(true)
+                .OnComplete(() => { stage.SetActive(false); isAnim = false; });
+        }
+    }
+    #endregion
+
+    #region Private Method
     private void OnClickStartButton()
     {
-        StartCoroutine(FadeIn());
+        AudioManager.PlayClip(btnSFX);
+        SelectState(true);
     }
 
-    private IEnumerator FadeIn()
+    private void OnClickSettingButton()
     {
-        while (elapsedTime < fadeTime)
-        {
-            elapsedTime += Time.deltaTime;
-            float alpha = elapsedTime / fadeTime;
-
-            fadeInImage.color = Color.Lerp(Color.clear, Color.black, elapsedTime / fadeTime);
-
-            yield return null;
-        }
-        fadeInImage.color = Color.black;
-        SceneManager.LoadScene(1);
+        AudioManager.PlayClip(btnSFX);
+        SettingState(true);
     }
 
-    public void SettingState(bool state)
+    private void OnClickExitButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+    }
+
+    private void OnClickSettingExitButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+        SettingState(false);
+    }
+
+    private void OnClickSoundSettingButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+        ChangeSettingUIState(SettingUIState.Sound);
+    }
+
+    private void OnClickControlSettingButton()
+    {
+        AudioManager.PlayClip(btnSFX);
+        ChangeSettingUIState(SettingUIState.Control);
+    }
+
+    private void SettingState(bool state)
     {
         if (state == true && isAnim == false)
         {
@@ -82,7 +128,7 @@ public class StartSceneManager : MonoBehaviour
                 .SetUpdate(true)
                 .OnComplete(() => isAnim = false);
         }
-        else if(state == false && isAnim == false)
+        else if (state == false && isAnim == false)
         {
             isAnim = true;
             settingPanel.GetComponent<RectTransform>().DOAnchorPosY(1200, 1f, false)
@@ -90,9 +136,11 @@ public class StartSceneManager : MonoBehaviour
                 .OnComplete(() => { settingPanel.SetActive(false); isAnim = false; });
         }
     }
-    public void ChangeSettingUIState(SettingUIState uistate)
+
+    private void ChangeSettingUIState(SettingUIState uistate)
     {
         sound.SetActive(uistate);
         control.SetActive(uistate);
     }
+    #endregion
 }
