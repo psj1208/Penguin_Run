@@ -42,12 +42,4 @@ namespace DataDeclaration
         Stage2,
     }
     #endregion
-
-    #region Struct
-    #endregion
-
-    #region Delegate
-    public delegate void ChangeHP(int figure);
-    public delegate void ChangeSpeed(float figure);
-    #endregion
 }
