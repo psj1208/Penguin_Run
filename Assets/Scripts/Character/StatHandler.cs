@@ -59,6 +59,7 @@ public class StatHandler : MonoBehaviour
             {
                 isInvincibility = false;
                 invincibilityDurationTime = 0f;
+                animationHandler.Invincibility(false);
             }
         }
     }
@@ -99,9 +100,10 @@ public class StatHandler : MonoBehaviour
     {
         if (!isInvincibility)
         {
-            isInvincibility = true;
-            hp += figure; // figure가 음수이므로 실제로는 체력이 감소함
             animationHandler.Damage(); // 피격 애니메이션 재생
+            Debug.Log("피격");
+            hp += figure; // figure가 음수이므로 실제로는 체력이 감소함
+            isInvincibility = true;
         }
     }
 
@@ -128,10 +130,10 @@ public class StatHandler : MonoBehaviour
     {
         if (amount > 0)
         {
-            animationHandler.Invincibility(); // 무적 애니메이션 재생
+            speed += amount; // 속도 증가
             Debug.Log("부스터");
             isInvincibility = true; // 부스터 중에는 무적 상태
-            speed += amount; // 속도 증가
+            animationHandler.Invincibility(true); // 무적 애니메이션 재생
             Invoke("ResetSpeed", duration); // 지정된 시간이 지나면 속도 초기화
         }
     }
