@@ -34,8 +34,8 @@ public class StatHandler : MonoBehaviour
     private void Awake()
     {
         // 초기값 설정
-        decreaseHPRatio = 1f;      // 초당 체력 감소량
-        damageInvTime = 4f;    // 충돌 후 무적 시간
+        decreaseHPRatio = 1f; // 초당 체력 감소량
+        damageInvTime = 4f; // 충돌 무적 시간
         damageInvDurationTime = 0f;
         isInvincibility = false;
 
@@ -49,14 +49,14 @@ public class StatHandler : MonoBehaviour
         // 체력 자연 감소
         hp -= decreaseHPRatio * Time.deltaTime;
 
-        // 체력이 0 이하가 되면 게임 오버 처리
+        // 체력이 0 이하일 시 게임 오버
         if (hp <= 0)
         {
             GameManager.Instance.GameOver();
             return;
         }
 
-        // 무적 상태 시간 확인
+        // 무적 지속 시간 확인
         if (isInvincibility)
         {
             damageInvDurationTime += Time.deltaTime;
@@ -69,7 +69,7 @@ public class StatHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// 체력을 변경하는 함수
+    /// 체력 관리
     /// 양수 값이면 회복, 음수 값이면 데미지 처리
     /// </summary>
     /// <param name="figure">변경할 체력 값</param>
@@ -86,7 +86,7 @@ public class StatHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// 체력을 회복하는 함수
+    /// 체력 회복
     /// </summary>
     /// <param name="figure">회복할 체력량</param>
     private void Heal(float figure)
@@ -96,8 +96,8 @@ public class StatHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// 체력 감소(데미지 처리) 함수
-    /// 무적 상태가 아닐 경우만 적용됨
+    /// 피격
+    /// 무적 상태가 아닐 경우만 적용
     /// </summary>
     /// <param name="figure">감소할 체력량 (음수 값)</param>
     private void Damage(float figure)
@@ -105,31 +105,15 @@ public class StatHandler : MonoBehaviour
         if (!isInvincibility)
         {
             animationHandler.Damage(); // 피격 애니메이션 재생
-            Invoke("ResetState", damageInvTime); // 지정된 시간이 지나면 속도 초기화
-            // 카메라 흔들림 효과 실행
-            StartCoroutine(ShakeCamera());
-            Debug.Log("피격");
-            hp += figure; // figure가 음수이므로 실제로는 체력이 감소함
-            isInvincibility = true;
+            StartCoroutine(ShakeCamera()); // 카메라 흔들림 실행
+            hp += figure; // figure는 음수이므로 체력 감소
+            isInvincibility = true; // 무적 활성화
+            Invoke("ResetState", damageInvTime); // 지정된 시간이 지나면 상태 초기화
         }
     }
 
     /// <summary>
-    /// 속도를 변경하는 함수
-    /// 양수 값이면 부스터 효과 적용
-    /// </summary>
-    /// <param name="amount">속도 변경 값</param>
-    /// <param name="duration">지속 시간 (초)</param>
-    public void ChangeSpeed(int amount, int duration)
-    {
-        if (amount > 0)
-        {
-            Booster(amount, duration);
-        }
-    }
-
-    /// <summary>
-    /// 부스터 효과 적용 (일정 시간 동안 속도 증가)
+    /// 부스터 (일정 시간 동안 속도 증가 및 무적)
     /// </summary>
     /// <param name="amount">추가할 속도 값</param>
     /// <param name="duration">지속 시간 (초)</param>
@@ -138,24 +122,22 @@ public class StatHandler : MonoBehaviour
         if (amount > 0)
         {
             speed += amount; // 속도 증가
-            Debug.Log("부스터");
             isInvincibility = true; // 부스터 중에는 무적 상태
             animationHandler.Invincibility(true); // 무적 애니메이션 재생
             Invoke("ResetState", duration); // 지정된 시간이 지나면 속도 초기화
         }
     }
 
-    /// <summary>
-    /// 속도를 기본값(8)으로 초기화하는 함수
-    /// </summary>
+    // 상태 리셋
     public void ResetState()
     {
         speed = 8f;
-        animationHandler.Invincibility(false);
         isInvincibility = false;
+        animationHandler.Invincibility(false);
         Debug.Log("무적 해제");
     }
 
+    // 카메라 흔들림 코루틴
     private IEnumerator ShakeCamera()
     {
         Transform camTransform = Camera.main.transform;

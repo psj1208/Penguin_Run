@@ -41,7 +41,7 @@ public class Item : InteractObject
                 statHandler.ChangeHP(hpValue);
                 break;
             case ItemType.Speed:
-                statHandler.ChangeSpeed(speedValue, durationValue);
+                statHandler.Booster(speedValue, durationValue);
                 break;
             case ItemType.Score:
                 UIManager.Instance.ScoreItemFX(this.transform.position, scoreValue);

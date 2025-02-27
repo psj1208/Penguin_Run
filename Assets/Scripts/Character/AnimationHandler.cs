@@ -26,8 +26,7 @@ public class AnimationHandler : MonoBehaviour
 
     /// <summary>
     /// 점프 애니메이션
-    /// true면 점프 애니메이션을 활성화하고 이동 애니메이션을 비활성화
-    /// false면 점프 애니메이션을 비활성화하고 이동 애니메이션을 활성화
+    /// true와 false의 경우를 나누어 각각 활성화 비활성화
     /// </summary>
     /// <param name="ju">점프 여부</param>
     public void SetJump(bool ju)
@@ -46,7 +45,7 @@ public class AnimationHandler : MonoBehaviour
 
     /// <summary>
     /// 슬라이딩 애니메이션
-    /// true이면 슬라이딩 애니메이션을 활성화하고 false이면 비활성화
+    /// true면 슬라이딩 활성화 false면 비활성화
     /// </summary>
     /// <param name="sl">슬라이딩 여부</param>
     public void Slide(bool sl)
@@ -61,8 +60,8 @@ public class AnimationHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// 무적 상태 애니메이션
-    /// true면 무적 애니메이션 활성화, false면 일반 상태
+    /// 무적 애니메이션
+    /// true면 무적 애니메이션 활성화 false면 비활성화
     /// </summary>
     /// <param name="inv">무적 상태 여부</param>
     public void Invincibility(bool inv)

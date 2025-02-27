@@ -25,7 +25,7 @@ public class TutoEventManager : MonoBehaviour
         actionList.Add(1, () =>
         {
             uiManager.TextHappen("이 게임은 어떻게 진행하나요?.", txtPos.Down);
-            uiManager.TextHappen("먼저 앞에 있는 장애물을 뛰어넘어봅시다.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpMethod);
+            uiManager.TextHappen("먼저 앞에 있는 장애물을 뛰어넘어봅시다.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpCounting);
         });
 
         actionList.Add(2, () =>
@@ -36,12 +36,12 @@ public class TutoEventManager : MonoBehaviour
         actionList.Add(3, () =>
         {
             uiManager.TextHappen("이번 장애물은 크기가 크네요", txtPos.Down);
-            uiManager.TextHappen("이단 점프를 해봅시다.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpMethod);
+            uiManager.TextHappen("이단 점프를 해봅시다.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpCounting);
         });
 
         actionList.Add(4, () =>
         {
-            uiManager.TextHappen("한 번 더 점프하세요.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpMethod);
+            uiManager.TextHappen("한 번 더 점프하세요.\n(점프 키 입력)", txtPos.Up, KeyCode.Space, GameManager.Instance.Player.JumpCounting);
         });
 
         actionList.Add(5, () =>
