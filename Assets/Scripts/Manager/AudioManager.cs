@@ -17,7 +17,6 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource audioSource;
 
-    public AudioMixer audioMixer;
     public AudioMixerGroup master;
     public AudioMixerGroup backGround;
     public AudioMixerGroup sfx_;
@@ -26,7 +25,6 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        //싱글톤
         if (instance == null)
         {
             instance = this;
@@ -69,31 +67,21 @@ public class AudioManager : MonoBehaviour
     /// <summary>
     /// 오브젝트 사운드 클립 재생 메서드
     /// </summary>
-    /// <param name="clip"></param>
-    public static void PlayClip(AudioClip clip,AudioResType type = AudioResType.etc)
+    /// <param name="clip">사운드 클립</param>
+    /// <param name="type">사운드 믹스 그룹타입</param>
+    public static void PlayClip(AudioClip clip,AudioResType type)
     {
-        //매개 변수 받을 때 enum하나 만들어서. 클립이 무슨 타입의 사운드인지 구분하고 AudioSource output을 이제 지정해주고 프리팹 생성.
-        /*작동방식
-        PlayClip 호출 > 오브젝트안에 틀어가있는 사운드소스 싱클톤화 후 변수지정 >
-        그변수의 지정돼있는 사운드소스 컴포넌트 정보를 변수의 지정 >
-        지정되있는 사운드소스 메서드에게 매개변수 정보를 보내면서 호출 >
-        오브젝트 안에 클립 사운드 정보 , 음량설정1, 음량설정2를 보내고  Play메서드에서 음악 재생
-        */
-        SoundSource prefab = Instantiate(instance.prefabSoundSource);
-        SoundSource soundSource = prefab.GetComponent<SoundSource>();
-        AudioSource audioSource = soundSource.GetComponent<AudioSource>();
+        SoundSource prefab = Instantiate(instance.prefabSoundSource);//프리펩을 복제
+        SoundSource soundSource = prefab.GetComponent<SoundSource>();//복제된 프리펩의 사운드 소스 컴포넌트 설정을 가져온다
+        AudioSource audioSource = soundSource.GetComponent<AudioSource>();//오디오 소스 컴포넌트도 가져온다
         
-       
-
         if(type == AudioResType.sfx)
         {
-            audioSource.outputAudioMixerGroup = instance.sfx_;//오디오 소스 output 등록
-            soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
-        }
+            audioSource.outputAudioMixerGroup = instance.sfx_;
+            //가져온 오디오소스 컴포넌트에서 output 쪽에 그룹을 오디오 매니져 sfx_ 변수에 등록된 사운드믹스 그룹을 넣는다
 
-        /*프리팹의 사운드 재생
-        프리팹에 등록되있는 clip를 사운드 메니져 스트립트의 soundEffectVolume값 soundEffectPitchVariance값으로 설정뒤 재생 
-        */
-        //soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
+            soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
+            //가져온 사운드 소스 컴포넌트 클립 볼륨값을 오디오 매니져의 볼륨값으로 재설정뒤 Play메서드에게 보내서 재생
+        }
     }
 }

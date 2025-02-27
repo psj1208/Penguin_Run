@@ -1944,7 +1944,6 @@ GameObject:
   - component: {fileID: 753552836}
   - component: {fileID: 753552835}
   - component: {fileID: 753552834}
-  - component: {fileID: 753552837}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -2082,22 +2081,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &753552837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753552833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
-  masterSlider: {fileID: 1192796977064106251}
-  backGroundSlider: {fileID: 8548591745591257832}
-  sfxSlider: {fileID: 4804594972237309258}
 --- !u!1 &783220487
 GameObject:
   m_ObjectHideFlags: 0
@@ -8724,6 +8707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4212589886373607595}
   - component: {fileID: 4804594972237309258}
+  - component: {fileID: 4804594972237309259}
   m_Layer: 5
   m_Name: VolumeControl
   m_TagString: Untagged
@@ -9395,7 +9379,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 753552837}
+      - m_Target: {fileID: 8112079032319542617}
         m_TargetAssemblyTypeName: AudioMixerController, Assembly-CSharp
         m_MethodName: MasterVolume
         m_Mode: 1
@@ -10277,6 +10261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 484270632913548051}
   - component: {fileID: 8548591745591257832}
+  - component: {fileID: 8548591745591257833}
   m_Layer: 5
   m_Name: VolumeControl
   m_TagString: Untagged
@@ -10895,7 +10880,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 753552837}
+      - m_Target: {fileID: 4804594972237309259}
         m_TargetAssemblyTypeName: AudioMixerController, Assembly-CSharp
         m_MethodName: SfxVolume
         m_Mode: 1
@@ -10907,6 +10892,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4804594972237309259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9226119946099200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  masterSlider: {fileID: 0}
+  backGroundSlider: {fileID: 0}
+  sfxSlider: {fileID: 4804594972237309258}
 --- !u!224 &4827314106196158794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12197,6 +12198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8112079032319542616}
   - component: {fileID: 1192796977064106251}
+  - component: {fileID: 8112079032319542617}
   m_Layer: 5
   m_Name: VolumeControl
   m_TagString: Untagged
@@ -12519,6 +12521,22 @@ RectTransform:
   m_AnchoredPosition: {x: 400, y: -50}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8112079032319542617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7426079025203247617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  masterSlider: {fileID: 1192796977064106251}
+  backGroundSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!1 &8199740360419019939
 GameObject:
   m_ObjectHideFlags: 0
@@ -12691,7 +12709,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 753552837}
+      - m_Target: {fileID: 8548591745591257833}
         m_TargetAssemblyTypeName: AudioMixerController, Assembly-CSharp
         m_MethodName: BackGroundVolume
         m_Mode: 1
@@ -12703,6 +12721,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8548591745591257833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359856788434634539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
+  masterSlider: {fileID: 0}
+  backGroundSlider: {fileID: 8548591745591257832}
+  sfxSlider: {fileID: 0}
 --- !u!1 &8562882941600364403
 GameObject:
   m_ObjectHideFlags: 0
