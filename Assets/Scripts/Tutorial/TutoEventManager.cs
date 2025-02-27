@@ -19,7 +19,7 @@ public class TutoEventManager : MonoBehaviour
         uiManager = GetComponent<TutoUiManager>();
         GenerateDictionary();
     }
-
+    //이벤트의 대화와 대화의 주체의 위치,넘기려면 필요한 키. 그 뒤에 실행될 액션을 담고있음.
     void GenerateDictionary()
     {
         actionList.Add(1, () =>

@@ -71,7 +71,7 @@ public class TutoUiManager : MonoBehaviour
         }
         Debug.Log(coroutinesWaiting.Count);
     }
-
+    //튜토리얼씬의 대화창 구현
     private IEnumerator MakeText(string txt,txtPos tp, KeyCode key,Action ac)
     {
         if (Time.timeScale > 0)

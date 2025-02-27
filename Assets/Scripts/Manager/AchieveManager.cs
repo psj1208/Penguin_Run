@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AchieveManager : MonoBehaviour
 {
+    //정보 저장용 클래스.
     public class Achieve
     {
         public string title;
@@ -65,14 +66,14 @@ public class AchieveManager : MonoBehaviour
         AchieveList = new Dictionary<int, Achieve>();
         GenerateList();
     }
-
+    //도전 과제 목록
     void GenerateList()
     {
         AchieveList.Add(1, new Achieve("게임 기초 조작!", "설정 버튼을 누르세요."));
         AchieveList.Add(2, new Achieve("튜토리얼!", "튜토리얼을 클리어하세요."));
         AchieveList.Add(3, new Achieve("스테이지 클리어!", "아무 스테이지를 클리어하세요."));
     }
-
+    //해당 ID의 도전 과제의 진행 상황을 1 올리고 클리어 시 알람.
     public void AchieveRenew(int id)
     {
         if (!AchieveList.ContainsKey(id))
@@ -90,7 +91,7 @@ public class AchieveManager : MonoBehaviour
             panel.SetDestxt(AchieveList[id].description);
         }
     }
-
+    //해당 ID의 도전 과제의 진행 상황 초기화.
     public void AchieveRenewZero(int id)
     {
         if (!AchieveList.ContainsKey(id))

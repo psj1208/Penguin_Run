@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Magnetic : MonoBehaviour
 {
+    //자석 아이템의 효과.
     [SerializeField] private float pullSpeed = 5;
     [SerializeField] private float duration;
     bool isTurnOn = false;
-
+    //프리팹 생성 후 호출해야 하는 함수.
     public void Init(float pull,float dur)
     {
         isTurnOn = true;
@@ -15,7 +16,7 @@ public class Magnetic : MonoBehaviour
         duration = dur;
         transform.localPosition = Vector2.zero;
     }
-
+    //오버랩써클을 만들어 Item 레이어를 감지 후 끌어당김.
     private void Update()
     {
         if (isTurnOn)
