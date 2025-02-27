@@ -12,6 +12,9 @@ public class Item : InteractObject
     [SerializeField] private int speedValue = 0;
     [SerializeField] private int durationValue = 0;
     [SerializeField] private int scoreValue = 0;
+    [SerializeField] private int magneticPower;
+    [SerializeField] private int magneticDuration;
+    [SerializeField] private GameObject magnetic;
     ParticleSystem particle;
     bool isActive = true;
 
@@ -29,6 +32,7 @@ public class Item : InteractObject
     {
         if (statHandler == null || isActive == false)
             return;
+        gameObject.layer = default;
         ParticleAndDestroy();
         switch (itemType)
         {
@@ -42,6 +46,10 @@ public class Item : InteractObject
             case ItemType.Score:
                 UIManager.Instance.ScoreItemFX(this.transform.position, scoreValue);
                 GameManager.Instance.Player.AddScore(scoreValue);
+                break;
+            case ItemType.Magnetic:
+                GameObject prefab = Instantiate(magnetic, statHandler.transform);
+                prefab.GetComponent<Magnetic>().Init(magneticPower,magneticDuration);
                 break;
             default:
                 break;
