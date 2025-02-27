@@ -2061,7 +2061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   master: {fileID: 24300002, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   backGround: {fileID: -846336627106000191, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
-  sfx: {fileID: 0}
+  sfx: {fileID: 6181107294476040392, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
 --- !u!4 &753552836
 Transform:
   m_ObjectHideFlags: 0
