@@ -1,3 +1,4 @@
+using DataDeclaration;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -121,7 +122,7 @@ public class PlayerController : MonoBehaviour
     {
         if (jumpCount > 0)
         {
-            AudioManager.PlayClip(JumpClip);
+            AudioManager.PlayClip(JumpClip, AudioResType.sfx);
             rb.velocity = Vector2.zero;
             rb.velocity += Vector2.up * jumpForce;
             --jumpCount;
@@ -202,7 +203,4 @@ public class PlayerController : MonoBehaviour
             highCollider.SetActive(true);
         }
     }
-
-
-
 }

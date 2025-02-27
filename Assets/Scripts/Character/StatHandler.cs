@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StatHandler : MonoBehaviour
 {
@@ -21,9 +22,12 @@ public class StatHandler : MonoBehaviour
 
     private float decreaseHPRatio; // 체력 자연 감소 비율
 
+    [SerializeField] private float shakeDuration = 0.2f;   // 흔들림 지속 시간
+    [SerializeField] private float shakeMagnitude = 0.2f;    // 흔들림 강도
+
     // 무적 상태 관련 변수
-    private float invincibilityTime;          // 무적 지속 시간
-    private float invincibilityDurationTime;  // 무적 경과 시간
+    private float damageInvTime;          // 무적 지속 시간
+    private float damageInvDurationTime;  // 무적 경과 시간
     [SerializeField] private bool isInvincibility; // 무적 여부
     public bool IsInvincibility => isInvincibility;
 
@@ -31,8 +35,8 @@ public class StatHandler : MonoBehaviour
     {
         // 초기값 설정
         decreaseHPRatio = 1f;      // 초당 체력 감소량
-        invincibilityTime = 2f;    // 무적 지속 시간
-        invincibilityDurationTime = 0f;
+        damageInvTime = 3f;    // 무적 지속 시간
+        damageInvDurationTime = 0f;
         isInvincibility = false;
 
         // 컴포넌트 가져오기
@@ -55,12 +59,11 @@ public class StatHandler : MonoBehaviour
         // 무적 상태 시간 확인
         if (isInvincibility)
         {
-            invincibilityDurationTime += Time.deltaTime;
-            if (invincibilityDurationTime >= invincibilityTime)
+            damageInvDurationTime += Time.deltaTime;
+            if (damageInvDurationTime >= damageInvTime)
             {
                 isInvincibility = false;
-                invincibilityDurationTime = 0f;
-                animationHandler.Invincibility(false);
+                damageInvDurationTime = 0f;
             }
         }
     }
@@ -102,6 +105,9 @@ public class StatHandler : MonoBehaviour
         if (!isInvincibility)
         {
             animationHandler.Damage(); // 피격 애니메이션 재생
+            Invoke("ResetState", damageInvTime); // 지정된 시간이 지나면 속도 초기화
+            // 카메라 흔들림 효과 실행
+            StartCoroutine(ShakeCamera());
             Debug.Log("피격");
             hp += figure; // figure가 음수이므로 실제로는 체력이 감소함
             isInvincibility = true;
@@ -135,15 +141,36 @@ public class StatHandler : MonoBehaviour
             Debug.Log("부스터");
             isInvincibility = true; // 부스터 중에는 무적 상태
             animationHandler.Invincibility(true); // 무적 애니메이션 재생
-            Invoke("ResetSpeed", duration); // 지정된 시간이 지나면 속도 초기화
+            Invoke("ResetState", duration); // 지정된 시간이 지나면 속도 초기화
         }
     }
 
     /// <summary>
     /// 속도를 기본값(8)으로 초기화하는 함수
     /// </summary>
-    public void ResetSpeed()
+    public void ResetState()
     {
         speed = 8f;
+        animationHandler.Invincibility(false);
+        isInvincibility = false;
+        Debug.Log("무적 해제");
+    }
+
+    private IEnumerator ShakeCamera()
+    {
+        Transform camTransform = Camera.main.transform;
+        Vector3 originalPos = camTransform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < shakeDuration)
+        {
+            float offsetX = Random.Range(-1f, 1f) * shakeMagnitude;
+            float offsetY = Random.Range(-1f, 1f) * shakeMagnitude;
+            camTransform.localPosition = originalPos + new Vector3(offsetX, offsetY, 0f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        camTransform.localPosition = originalPos;
     }
 }
