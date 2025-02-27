@@ -25356,10 +25356,9 @@ MonoBehaviour:
   musicVolume: 0.145
   soundEffectPitchVariance: 0.156
   soundEffectVolume: 0.156
-  audioMixer: {fileID: 0}
   master: {fileID: 0}
   backGround: {fileID: 0}
-  sfx: {fileID: 0}
+  sfx_: {fileID: 0}
 --- !u!4 &1397342121
 Transform:
   m_ObjectHideFlags: 0
