@@ -10884,10 +10884,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9226119946099200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 25e7a783f335aa245b1a4b586a838857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   masterSlider: {fileID: 0}
   backGroundSlider: {fileID: 0}
   sfxSlider: {fileID: 4804594972237309258}
@@ -12516,10 +12515,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7426079025203247617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 25e7a783f335aa245b1a4b586a838857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   masterSlider: {fileID: 1192796977064106251}
   backGroundSlider: {fileID: 0}
   sfxSlider: {fileID: 0}
@@ -12716,10 +12714,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3359856788434634539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 25e7a783f335aa245b1a4b586a838857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   masterSlider: {fileID: 0}
   backGroundSlider: {fileID: 8548591745591257832}
   sfxSlider: {fileID: 0}
