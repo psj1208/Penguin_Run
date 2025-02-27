@@ -10,6 +10,7 @@ public class EndObject : MonoBehaviour
     {
         if (collision.tag.Equals("Player") && isActive == true)
         {
+            AchieveManager.Instance.AchieveRenew(3);
             Time.timeScale = 0;
             isActive = false;
             Camera.main.GetComponent<FollowCamera>().enabled = false;

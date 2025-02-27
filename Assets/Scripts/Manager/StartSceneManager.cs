@@ -122,6 +122,7 @@ public class StartSceneManager : MonoBehaviour
     {
         if (state == true && isAnim == false)
         {
+            AchieveManager.Instance.AchieveRenew(1);
             isAnim = true;
             settingPanel.SetActive(true);
             settingPanel.GetComponent<RectTransform>().DOAnchorPosY(0, 1)
