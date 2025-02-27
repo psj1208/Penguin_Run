@@ -2059,12 +2059,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4204e18c9baed4fb65dbf4839abfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicVolume: 0.315
-  soundEffectPitchVariance: 0.315
-  soundEffectVolume: 0.332
   master: {fileID: 24300002, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
   backGround: {fileID: -846336627106000191, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
-  sfx_: {fileID: 0}
+  sfx: {fileID: 0}
 --- !u!4 &753552836
 Transform:
   m_ObjectHideFlags: 0
@@ -10092,6 +10089,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e7a783f335aa245b1a4b586a838857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterSlider: {fileID: 1192796977064106251}
+  backGroundSlider: {fileID: 8548591745591257832}
+  sfxSlider: {fileID: 4804594972237309258}
 --- !u!222 &2787632899296159466
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10436,7 +10436,6 @@ GameObject:
   - component: {fileID: 7425566409676266250}
   - component: {fileID: 7177707842013459122}
   - component: {fileID: 2736296591328606032}
-  - component: {fileID: 7425566409676266251}
   m_Layer: 5
   m_Name: SoundPanel
   m_TagString: Untagged
@@ -12175,22 +12174,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7425566409676266251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193001038760956963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6cbf8d2580ac442a9bb52fb421e2b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 2551117857ccfd549a8802228cac75d6, type: 2}
-  masterSlider: {fileID: 1192796977064106251}
-  backGroundSlider: {fileID: 8548591745591257832}
-  sfxSlider: {fileID: 4804594972237309258}
 --- !u!1 &7426079025203247617
 GameObject:
   m_ObjectHideFlags: 0
