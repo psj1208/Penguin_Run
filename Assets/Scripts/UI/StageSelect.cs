@@ -1,3 +1,4 @@
+using DataDeclaration;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SearchService;
@@ -26,7 +27,7 @@ public class StageSelect : MonoBehaviour
 
     private void OnClickStageButton(int level)
     {
-        AudioManager.PlayClip(sManager.BtnSFX);
+        AudioManager.PlayClip(sManager.BtnSFX, AudioResType.sfx);
         StartCoroutine(FadeHelper.Fade(sManager.Fader, 0f, 1f, 1f, () => SceneManager.LoadScene(level)));
     }
 }

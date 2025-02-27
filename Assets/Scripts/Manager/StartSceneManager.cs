@@ -80,19 +80,19 @@ public class StartSceneManager : MonoBehaviour
     #region Private Method
     private void OnClickStartButton()
     {
-        AudioManager.PlayClip(btnSFX);
+        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
         SelectState(true);
     }
 
     private void OnClickSettingButton()
     {
-        AudioManager.PlayClip(btnSFX);
+        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
         SettingState(true);
     }
 
     private void OnClickExitButton()
     {
-        AudioManager.PlayClip(btnSFX);
+        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -102,19 +102,19 @@ public class StartSceneManager : MonoBehaviour
 
     private void OnClickSettingExitButton()
     {
-        AudioManager.PlayClip(btnSFX);
+        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
         SettingState(false);
     }
 
     private void OnClickSoundSettingButton()
     {
-        AudioManager.PlayClip(btnSFX);
+        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
         ChangeSettingUIState(SettingUIState.Sound);
     }
 
     private void OnClickControlSettingButton()
     {
-        AudioManager.PlayClip(btnSFX);
+        AudioManager.PlayClip(btnSFX, AudioResType.sfx);
         ChangeSettingUIState(SettingUIState.Control);
     }
 
