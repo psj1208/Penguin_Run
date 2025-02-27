@@ -11,12 +11,9 @@ public class AudioMixerController : MonoBehaviour
     [SerializeField] private Slider backGroundSlider;
     [SerializeField] private Slider sfxSlider;
 
-
-    private void Awake()
-    {
-
-    }
-
+    /// <summary>
+    /// 슬라이드 바 의 value 기준으로 음량조절
+    /// </summary>
     public void MasterVolume()
     {
         audioMixer.SetFloat("Master", Mathf.Log10(masterSlider.value) * 20);
