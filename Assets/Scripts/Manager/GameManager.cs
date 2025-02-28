@@ -15,13 +15,20 @@ public class GameManager : MonoBehaviour
 
     public Transform startPos;
     public Transform endPos;
+    private bool isClear;
 
     public static GameManager Instance => instance;
     public PlayerController Player => player;
+    public bool IsClear
+    {
+        get => isClear;
+        set => isClear = value;
+    }
 
     private void Awake()
     {
         instance = this;
+        isClear = false;
         CreatePlayer();
     }
 

@@ -18,6 +18,7 @@ public class GameOverUI : MonoBehaviour
     private AudioClip gameOverSfx;
 
     [SerializeField] private RectTransform panel;
+    [SerializeField] private TextMeshProUGUI endGameTxt;
     [SerializeField] private TextMeshProUGUI bestScoreTxt;
     [SerializeField] private TextMeshProUGUI resultScoreTxt;
     [SerializeField] private Button RestartBtn;
@@ -48,6 +49,8 @@ public class GameOverUI : MonoBehaviour
             }
             bestScoreTxt.text = $"Best Score: {bestScore.ToString()}";
             resultScoreTxt.text = $"Result Score: {resultScore.ToString()}";
+
+            GameManager.Instance.IsClear = false;
         }
     }
 
@@ -55,6 +58,7 @@ public class GameOverUI : MonoBehaviour
     {
         uiManager = UIManager.Instance;
 
+        endGameTxt.text = GameManager.Instance.IsClear ? "Clear" : "Game Over";
         panel.localScale = Vector3.zero;
         panel.DOScale(1, 1).SetEase(Ease.OutBounce).SetUpdate(true);
         AudioManager.Instance.BackGroundMusic(SceneType.None);
@@ -68,6 +72,8 @@ public class GameOverUI : MonoBehaviour
         }
         bestScoreTxt.text = $"Best Score: {bestScore.ToString()}";
         resultScoreTxt.text = $"Result Score: {resultScore.ToString()}";
+
+        GameManager.Instance.IsClear = false;
     }
 
     /// <summary>

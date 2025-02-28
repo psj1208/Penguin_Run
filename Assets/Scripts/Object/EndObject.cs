@@ -15,6 +15,7 @@ public class EndObject : MonoBehaviour
             Time.timeScale = 0;
             isActive = false;
             Camera.main.GetComponent<FollowCamera>().enabled = false;
+            GameManager.Instance.IsClear = true;
             UIManager.Instance.ChangeUIState(UIState.GameOver);
         }
     }
